@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core">
+      
+<h:body>
+
+	 <ui:composition template="/_template.xhtml">
+	    <ui:define name="pageName">
+	    	<h1>inputText types</h1>
+	    </ui:define>
+
+		<ui:define name="content">
+			<p>
+				Notes:
+				<ul>
+					<li>The form won't be submitted until spaces breaking the URL are deleted from url input.(Chrome and Opera)</li>
+				</ul>
+			</p>
+			<h:form>
+				<h:panelGrid cols="2" >
+					<label>text:</label>
+			    	<hx:inputText id="textIT" value="#{inputTextBean.firstNumber}" type="text" cols="15"/>
+			    	
+			    	<label>search (Chrome):</label>
+			    	<hx:inputText id="searchIT" value="#{inputTextBean.keyword}" type="search" cols="15"/>
+			    	
+			    	<label>url (Chrome and Opera):</label>
+			    	<hx:inputText id="emailIT" value="#{inputTextBean.url}" type="url" oninvalid="alert('Invalid URL');" cols="15"/>
+			    	
+			    	<label>tel (Need to try it on Iphone's browser or other mobile browser):</label>
+			    	<hx:inputText id="telIT" value="#{inputTextBean.tel}" type="tel" cols="15" />
+			    	
+			    	<label>textarea:</label>
+			    	<hx:inputText id="textareaIT" value="#{inputTextBean.longText}" type="textarea" cols="15" rows="3"/>
+			    	
+			    	<label>textarea determined from rows property:</label>
+			    	<hx:inputText id="anotherTextareaIT" value="#{inputTextBean.longText}" cols="15" rows="3"/>
+			    	
+			    	<label>password:</label>
+			    	<hx:inputText id="passwordIT" value="#{inputTextBean.topSecret}" type="password" cols="15"/>
+			    	
+			    	<h:outputText />
+			    	<h:commandButton action="none"/>
+			    	
+				</h:panelGrid>
+			</h:form>
+	    </ui:define>		
+			
+	</ui:composition>
+
+</h:body>
+</html>

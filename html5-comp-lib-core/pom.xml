@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>html5-comp-lib-project</artifactId>
+        <groupId>org.apache.myfaces.html5-comp-lib</groupId>
+        <version>0.0.3-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.apache.myfaces.html5-comp-lib</groupId>
+    <artifactId>html5-comp-lib-core</artifactId>
+    <name>Html5 Renderkit for Apache MyFaces</name>
+    <version>0.0.3-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.html5-comp-lib</groupId>
+            <artifactId>myfaces-shared-html5</artifactId>
+            <version>0.0.3-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>myfaces-builder-annotations</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.3.1</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.vm</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.myfaces.buildtools</groupId>
+                <artifactId>myfaces-builder-plugin</artifactId>
+                <version>1.0.6</version>
+                <executions>
+                    <!-- first, build metadata. components and stuff will 
+                        be generated from this. -->
+                    <execution>
+                        <id>build-html5-metadata</id>
+                        <goals>
+                            <goal>build-metadata</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>META-INF/myfaces-html5-metadata.xml</outputFile>
+                        </configuration>
+                    </execution>
+
+                    <!-- generate faces-config.xml -->
+                    <execution>
+                        <id>make-html5-faces-config</id>
+                        <configuration>
+                            <templateFile>faces-config20.vm</templateFile>
+                            <xmlFile>META-INF/faces-config.xml</xmlFile>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- generate components -->
+                    <execution>
+                        <id>make-html5-components</id>
+                        <goals>
+                            <goal>make-components</goal>
+                        </goals>
+                        <configuration>
+                            <jsfVersion>20</jsfVersion>
+                            <templateComponentName>componentClass20.vm</templateComponentName>
+                            <!-- TODO: remove this?? -->
+                            <mainSourceDirectory2>${project.build.directory}/html5_sources</mainSourceDirectory2>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                        </configuration>
+                    </execution>
+
+                    <!-- generate validators -->
+                    <execution>
+                        <id>make-html5-validators</id>
+                        <goals>
+                            <goal>make-validators</goal>
+                        </goals>
+                        <configuration>
+                            <jsfVersion>12</jsfVersion>
+                            <templateValidatorName>validatorClass12.vm</templateValidatorName>
+                            <!-- TODO: remove this?? -->
+                            <mainSourceDirectory2>${project.build.directory}/html5_sources</mainSourceDirectory2>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                        </configuration>
+                    </execution>
+
+                    <!-- generate JSP classes -->
+                    <execution>
+                        <id>make-html5-tags</id>
+                        <configuration>
+                            <jsfVersion>12</jsfVersion>
+                            <templateTagName>tagClass12.vm</templateTagName>
+                            <!-- TODO: remove this?? -->
+                            <mainSourceDirectory2>${project.build.directory}/html5_sources</mainSourceDirectory2>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                        </configuration>
+                        <goals>
+                            <goal>make-tags</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- generate <hx> JSP tld file -->
+                    <execution>
+                        <id>make-html5-hx-tld</id>
+                        <configuration>
+                            <xmlFile>META-INF/html5-hx.tld</xmlFile>
+                            <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
+                            <templateFile>jsp-tld.vm</templateFile>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                            <params>
+                                <shortname>hx</shortname>
+                                <uri>http://myfaces.apache.org/html5/html</uri>
+                                <displayname>HTML5 Html Comp Lib.</displayname>
+                                <description>HTML5 Html component
+                                    library for MyFaces.</description>
+                            </params>
+                            <modelIds>
+                                <modelId>html5-comp-lib-core</modelId>
+                            </modelIds>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- generate <hx> Facelets taglib.xml -->
+                    <execution>
+                        <id>make-html5-hx-taglib</id>
+                        <configuration>
+                            <xmlFile>META-INF/html5-hx.taglib.xml</xmlFile>
+                            <xmlBaseFile>src/main/resources/META-INF/facelets-taglib-base.xml</xmlBaseFile>
+                            <templateFile>facelets-taglib20.vm</templateFile>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                            <params>
+                                <shortname>hx</shortname>
+                                <uri>http://myfaces.apache.org/html5/html</uri>
+                            </params>
+                            <modelIds>
+                                <modelId>html5-comp-lib-core</modelId>
+                            </modelIds>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- generate <fx> JSP tld file -->
+                    <execution>
+                        <id>make-html5-fx-tld</id>
+                        <configuration>
+                            <xmlFile>META-INF/html5-fx.tld</xmlFile>
+                            <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
+                            <templateFile>jsp-tld.vm</templateFile>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                            <params>
+                                <shortname>fx</shortname>
+                                <uri>http://myfaces.apache.org/html5/core</uri>
+                                <displayname>HTML5 Core Comp Lib.</displayname>
+                                <description>HTML5 core component
+                                    library for MyFaces.</description>
+                            </params>
+                            <modelIds>
+                                <modelId>html5-comp-lib-core</modelId>
+                            </modelIds>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- generate <fx> Facelets taglib.xml -->
+                    <execution>
+                        <id>make-html5-fx-taglib</id>
+                        <configuration>
+                            <xmlFile>META-INF/html5-fx.taglib.xml</xmlFile>
+                            <xmlBaseFile>src/main/resources/META-INF/facelets-taglib-base.xml</xmlBaseFile>
+                            <templateFile>facelets-taglib20_fx.vm</templateFile>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                            <params>
+                                <shortname>fx</shortname>
+                                <uri>http://myfaces.apache.org/html5/core</uri>
+                            </params>
+                            <modelIds>
+                                <modelId>html5-comp-lib-core</modelId>
+                            </modelIds>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>generate-hx-tagdoc-content</id>
+                        <configuration>
+                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                            <params>
+                                <shortname>hx</shortname>
+                                <uri>http://myfaces.apache.org/html5/html</uri>
+                            </params>
+                            <modelIds>
+                                <modelId>html5-comp-lib-core</modelId>
+                            </modelIds>
+                        </configuration>
+                        <goals>
+                            <goal>tagdoc-content</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

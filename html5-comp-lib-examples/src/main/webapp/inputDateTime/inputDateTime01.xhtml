@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core">
+      
+<h:body>
+
+	 <ui:composition template="/_template.xhtml">
+	    <ui:define name="pageName">
+	    	<h1>Simple inputText</h1>
+	    </ui:define>
+
+		<ui:define name="content">
+			<p>
+				Notes:
+				<ul>
+					<li>Works in Opera.</li>
+				</ul>
+			</p>
+			<h:form id="demoForm">
+				<h:panelGrid cols="3">
+					<label>Simple DateTime type:</label><br/>
+			    	<hx:inputDateTime id="simpleDateTimeIDT" value="#{dateTimeBean.someDateTime}" type="datetime"/>
+			    	<h:message for="simpleDateTimeIDT" />
+			    	
+			    	<label>DateTime type with steps:</label><br/>
+			    	<hx:inputDateTime id="dateTimeWithStepsIDT" value="#{dateTimeBean.someDateTime}" type="datetime" step="3000"/>
+			    	<h:message for="dateTimeWithStepsIDT" />
+			    	
+			    	<label>DateTime type with min and max:</label><br/>
+			    	<hx:inputDateTime id="dateTimeWithMinMaxIDT" value="#{dateTimeBean.someDateTime}" type="datetime" step="3000">
+			    		<fx:validateDateTimeRange minimum="2010-01-01T08:00:00Z" maximum="2010-12-31T23:59:59Z"/>
+			    	</hx:inputDateTime>
+			    	<h:message for="dateTimeWithMinMaxIDT" />
+			    	
+			    	<label>Date type with min max and steps:</label><br/>
+			    	<hx:inputDateTime id="dateIDT" value="#{dateTimeBean.someDateTime}" type="date" step="4">
+			    		<fx:validateDateTimeRange minimum="2010-01-01" maximum="2010-12-31"/>
+			    	</hx:inputDateTime>
+			    	<h:message for="dateIDT" />
+			    	
+			    	<label>Time type with min max and steps:</label><br/>
+			    	<hx:inputDateTime id="timeIDT" value="#{dateTimeBean.someDateTime}" type="time" step="300">
+			    		<fx:validateDateTimeRange minimum="08:00:00" maximum="11:00:00" />
+			    	</hx:inputDateTime>
+			    	<h:message for="timeIDT" />
+			    	
+			    	<label>Month type with min max and steps:</label><br/>
+			    	<hx:inputDateTime id="monthIDT" value="#{dateTimeBean.someDateTime}" type="month" step="2">
+			    		<fx:validateDateTimeRange minimum="2010-01" maximum="2010-12"/>
+			    	</hx:inputDateTime>
+			    	<h:message for="monthIDT" />
+			    	
+			    	<label>Week type with min max and steps:</label><br/>
+			    	<hx:inputDateTime id="weekIDT" value="#{dateTimeBean.someDateTime}" type="week" step="3">
+			    		<fx:validateDateTimeRange minimum="2010-W01" maximum="2010-W26"/>
+			    	</hx:inputDateTime>
+			    	<h:message for="weekIDT" />
+			    	
+			    	
+			    	<label>Date type with min, max, steps and notInRangeMessage set:</label><br/>
+			    	<hx:inputDateTime id="dateWithMsgIDT" value="#{dateTimeBean.secondDateTime}" type="date" step="4">
+			    		<fx:validateDateTimeRange minimum="2010-01-01" maximum="2010-12-31" notInRangeMessage="Heads up! The input is not in range!"/>
+			    	</hx:inputDateTime>
+			    	<h:message for="dateWithMsgIDT" />
+			    	
+			    	<h:outputText />
+			    	<h:outputText />
+			    	<h:commandButton action="none"/>
+			    	
+				</h:panelGrid>
+			</h:form>
+	    </ui:define>		
+			
+	</ui:composition>
+
+</h:body>
+</html>

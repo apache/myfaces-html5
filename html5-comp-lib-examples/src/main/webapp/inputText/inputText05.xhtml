@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core">
+      
+<h:body>
+
+	 <ui:composition template="/_template.xhtml">
+	    <ui:define name="pageName">
+	    	<h1>Complex example</h1>
+	    </ui:define>
+
+		<ui:define name="content">
+			<p>
+				Notes:
+				<ul>
+					<li>Examples in this page work in Chrome and Opera.</li>
+					<li>Placeholders will be visible on Chrome. Opera doesn't support those.</li>
+					<li>Opera displays an error message on validation errors, where Chrome simply marks the invalid input.</li>
+				</ul>
+			</p>
+			<h:form id="myForm">
+				<h:panelGrid cols="2" >
+					<label>Name:</label>
+			    	<hx:inputText id="nameIT" value="#{registerBean.name}" required="true" placeholder="Enter your name" cols="45" />
+			    	
+			    	<label>Username:</label>
+			    	<hx:inputText id="usernameIT" value="#{registerBean.username}" required="true" placeholder="Enter your username"
+			    		title="Username must consist of alphanumeric chars and underscore char; and it must be between 6 and 16 chars." cols="45" >
+			    		<f:validateRegex pattern="^[a-zA-Z0-9_]{6,16}" />
+			    	</hx:inputText>
+			    	
+			    	<label>Password:</label>
+			    	<hx:inputText id="passwordIT" value="#{registerBean.password}" required="true" type="password" cols="45"  placeholder="Enter your password"
+			    		title="Password must be a 6 digit number.">
+			    		<f:validateRegex pattern="^[0-9]{6}" />
+			    	</hx:inputText>
+			    	
+			    	<label>Website(optional):</label>
+			    	<hx:inputText id="websiteIT" value="#{registerBean.webSite}" type="url" placeholder="Enter your website url" cols="45"  />
+			    	
+			    	<label>Comment(optional):</label>
+			    	<hx:inputText id="commentIT" value="#{registerBean.comment}" type="textarea" placeholder="Free text" cols="45" rows="3"/>
+		    	
+		    		<label>Favorite Movie(optional) (uses case sensitive suggestions):</label>
+		    		<h:panelGroup>
+				    	
+				    	<hx:inputText id="favoriteMovieNameIT" value="#{registerBean.favoriteMovieName}" type="text" cols="45" 
+				    		datalist="myForm:movieSuggestionsDataList">
+				    		<f:ajax event="input" render="movieSuggestionsDataList"/>
+				    	</hx:inputText>
+				    	
+				    	<hx:dataList id="movieSuggestionsDataList">
+				    		<f:selectItems value="#{registerBean.movieSuggestionItems}" />
+				    	</hx:dataList>
+			    	
+			    	</h:panelGroup>
+			    	
+			    	<label>Eye color(optional):</label>
+			    	<hx:inputText id="eyeColorIT" value="#{registerBean.eyeColor}" suggestions="Brown,Green,Blue,Red" cols="45"  />
+		    	
+		    		<h:outputText />
+			    	<h:commandButton action="none"/>
+		    	</h:panelGrid>
+			</h:form>
+				
+	    </ui:define>		
+			
+	</ui:composition>
+
+</h:body>
+</html>

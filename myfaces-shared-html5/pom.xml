@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>html5-comp-lib-project</artifactId>
+        <groupId>org.apache.myfaces.html5-comp-lib</groupId>
+        <version>0.0.3-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.apache.myfaces.html5-comp-lib</groupId>
+    <artifactId>myfaces-shared-html5</artifactId>
+    <version>0.0.3-SNAPSHOT</version>
+    <name>MyFaces Shared for Html5 RenderKit</name>
+
+    <build>
+
+        <resources>
+            <resource>
+                <!-- because adding an additional resourceRoot not possible 
+                    with antrun yet -->
+                <directory>target/refactored-shared-sources/main/resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dependency-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.myfaces.shared</groupId>
+                                    <artifactId>myfaces-shared-core</artifactId>
+                                    <version>${shared-core-version}</version>
+                                    <type>jar</type>
+                                    <classifier>sources</classifier>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}/unpacked-shared-sources</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>refactor-shared-sources</id>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <tasks>
+                                <property name="refactor.src.dir"
+                                    value="${project.build.directory}/unpacked-shared-sources" />
+                                <property name="refactor.output.dir"
+                                    value="${project.build.directory}/refactored-shared-sources/main/java" />
+                                <property name="refactor.package.new"
+                                    value="shared_html5" />
+                                <ant dir="${project.basedir}"
+                                    antfile="build.xml" inheritRefs="true"
+                                    inheritAll="true">
+                                    <target name="refactor-java-sources" />
+                                </ant>
+                            </tasks>
+                            <sourceRoot>${project.build.directory}/refactored-shared-sources/main/java</sourceRoot>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>refactor-resources</id>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <tasks>
+                                <property name="refactor.src.dir"
+                                    value="${project.build.directory}/unpacked-shared-sources" />
+                                <property name="refactor.output.dir"
+                                    value="${project.build.directory}/refactored-shared-sources/main/resources" />
+                                <property name="refactor.package.new"
+                                    value="shared_html5" />
+                                <ant dir="${project.basedir}"
+                                    antfile="build.xml" inheritRefs="true"
+                                    inheritAll="true">
+                                    <target name="refactor-resources" />
+                                </ant>
+                            </tasks>
+                            <resourceRoot>${project.build.directory}/refactored-shared-sources/main/resources</resourceRoot> <!-- not yet supported -->
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.myfaces.shared</groupId>
+            <artifactId>myfaces-shared-core</artifactId>
+            <version>${shared-core-version}</version>
+        </dependency>
+
+
+        <!-- ok  -->
+        <dependency>
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>myfaces-builder-annotations</artifactId>
+            <version>1.0.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ok  -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ok  -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

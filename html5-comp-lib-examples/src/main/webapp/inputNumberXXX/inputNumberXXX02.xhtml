@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core">
+      
+<h:body>
+
+	 <ui:composition template="/_template.xhtml">
+	    <ui:define name="pageName">
+	    	<h1>Simple inputNumberSpinner</h1>
+	    </ui:define>
+
+		<ui:define name="content">
+			<p>
+				Notes:
+				<ul>
+					<li>Works in Chrome and Opera.</li>
+					<li>Opera also supports output element, so the value selected is shown.</li>
+				</ul>
+			</p>
+			<h:form id="demoForm">
+				<h:panelGrid cols="3">
+					<label>Simple inputNumberSpinner:</label><br/>
+			    	<hx:inputNumberSpinner id="simpleINS" value="#{inputNumberBean.first}" />
+			    	<output onforminput="value = document.getElementById('demoForm:simpleINS').valueAsNumber" /><br/>
+			    	
+			    	<label>inputNumberSpinner with step:</label><br/>
+			    	<hx:inputNumberSpinner id="withStepINS" value="#{inputNumberBean.second}" step="#{20+10}"/>
+			    	<output onforminput="value = document.getElementById('demoForm:withStepINS').valueAsNumber" /><br/>
+			    	
+			    	<label>inputNumberSpinner with step and min-max:</label><br/>
+			    	<hx:inputNumberSpinner id="withStepAndMinMaxINS" value="#{inputNumberBean.third}" step="20">
+			    		<f:validateLongRange minimum="30" maximum="90" />
+			    	</hx:inputNumberSpinner>
+			    	<output onforminput="value = document.getElementById('demoForm:withStepAndMinMaxINS').valueAsNumber" /><br/>
+			    	
+			    	<label>inputNumberSpinner with segmentCount:</label><br/>
+			    	<hx:inputNumberSpinner id="withSegmentCountINS" value="#{inputNumberBean.fourth}" segmentCount="5">
+			    		<f:validateLongRange minimum="30" maximum="90" />
+			    	</hx:inputNumberSpinner>
+			    	<output onforminput="value = document.getElementById('demoForm:withSegmentCountINS').valueAsNumber" /><br/>
+			    	
+					<br/>
+			    	<h:commandButton action="none"/><br/><br/>
+				</h:panelGrid>
+			</h:form>
+	    </ui:define>		
+			
+	</ui:composition>
+
+</h:body>
+</html>

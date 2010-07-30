@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to you under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core">
+      
+<h:body>
+
+	 <ui:composition template="/_template.xhtml">
+	    <ui:define name="pageName">
+	    	<h1>Simple inputColor</h1>
+	    </ui:define>
+
+		<ui:define name="content">
+			<p>
+				Notes:
+				<ul>
+					<li>No browser support for this component yet!</li>
+					<li>Browser will send a valid color value defined in the Html5 spec. e.g: #FFAAFF, #001122. 
+						So the value is validated according to the spec in the server-side.</li>
+				</ul>
+			</p>
+			<h:form id="demoForm">
+				<h:panelGrid cols="2">
+					<label>Simple color input:</label><br/>
+			    	<hx:inputColor value="#{inputColorBean.color}" required="true" />
+			    	
+					<br/>
+			    	<h:commandButton action="none"/><br/>
+				</h:panelGrid>
+			</h:form>
+	    </ui:define>		
+			
+	</ui:composition>
+
+</h:body>
+</html>
