@@ -23,9 +23,16 @@ import java.io.IOException;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+import javax.faces.convert.NumberConverter;
+import javax.faces.validator.DoubleRangeValidator;
+import javax.faces.validator.LengthValidator;
+import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.RegexValidator;
 import javax.faces.validator.Validator;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.html5.component.api.validation.ClientSidePatternProvider;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 
 /**
@@ -38,28 +45,144 @@ public class InputPatternRendererUtil
 {
 
     /**
-     * Iterates over the validators of the given UIInput and renders the pattern attr if found one.
+     * Iterates over the validators and converter of the given UIInput and renders the pattern attr if found one.
      * <p>
-     * If there are multiple RegexValidator instances attached to components, only the pattern of the first one will be
-     * used.
+     * If there are multiple validator instances attached to component, only the pattern of the first one will be used.
      * 
-     * @return true if the RegexValidator is found an the pattern markup is written. false otherwise.
+     * @return true if a pattern is found or calculated and the pattern markup is written. false otherwise.
      * @throws IOException
      */
     public static boolean renderPattern(FacesContext facesContext, UIInput component) throws IOException
     {
-        Validator[] validators = component.getValidators();
+        String pattern = null;
+
+        pattern = _getPatternFromValidators(component.getValidators());
+
+        if (pattern == null)
+            pattern = _getPatternFromConverter(component.getConverter());
+
+        if (pattern != null)
+        {
+            ResponseWriter writer = facesContext.getResponseWriter();
+            writer.writeAttribute(HTML5.PATTERN_ATTR, pattern, null);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    private static String _getPatternFromConverter(Converter converter)
+    {
+        String pattern = null;
+
+        if (converter instanceof ClientSidePatternProvider)
+            pattern = ((ClientSidePatternProvider) converter).getPattern();
+
+        if (StringUtils.isBlank(pattern))
+            pattern = _getPatternFromStandardConverter(pattern, converter);
+
+        return pattern;
+    }
+
+    private static String _getPatternFromStandardConverter(String pattern, Converter converter)
+    {
+        if (converter instanceof NumberConverter) // special case
+        {
+            pattern = _getPatternFromNumberConverter((NumberConverter) converter);
+        }
+        //TODO: what about DateTimeConverter
+        return pattern;
+    }
+
+    private static String _getPatternFromNumberConverter(NumberConverter converter)
+    {
+        //TODO: read the spec and create the pattern!
+        return null;
+    }
+
+    private static String _getPatternFromValidators(Validator[] validators)
+    {
+        String pattern = null;
+
         for (Validator validator : validators)
         {
-            if (validator instanceof RegexValidator)
+            if (validator instanceof ClientSidePatternProvider)
             {
-                RegexValidator regexValidator = (RegexValidator) validator;
-                String pattern = regexValidator.getPattern();
-                ResponseWriter writer = facesContext.getResponseWriter();
-                writer.writeAttribute(HTML5.PATTERN_ATTR, pattern, null);
-                return true;
+                pattern = ((ClientSidePatternProvider) validator).getPattern();
             }
+
+            if (StringUtils.isBlank(pattern))
+                pattern = _getPatternFromStandardValidator(pattern, validator);
+
+            if (!StringUtils.isBlank(pattern))
+                break;
         }
-        return false;
+
+        return pattern;
+    }
+
+    private static String _getPatternFromStandardValidator(String pattern, Validator validator)
+    {
+        if (validator instanceof RegexValidator) // special case
+        {
+            pattern = _getPatternFromRegexValidator((RegexValidator) validator);
+        }
+        else if (validator instanceof LengthValidator) // special case
+        {
+            pattern = _getPatternFromLengthValidator((LengthValidator) validator);
+        }
+        else if (validator instanceof LongRangeValidator) // special case
+        {
+            pattern = _getPatternFromLongRangeValidator((LongRangeValidator) validator);
+        }
+        else if (validator instanceof DoubleRangeValidator) // special case
+        {
+            pattern = _getPatternFromDoubleRangeValidator((DoubleRangeValidator) validator);
+        }
+        //TODO: what about bean validation? f:validateBean
+        
+        //f:validateRequired is not about pattern, so skip it
+        return pattern;
+    }
+
+    private static String _getPatternFromDoubleRangeValidator(DoubleRangeValidator validator)
+    {
+        // XXX: no real solution!
+        return null;
+    }
+
+    private static String _getPatternFromLongRangeValidator(LongRangeValidator validator)
+    {
+        // XXX: no real solution!
+        return null;
+    }
+
+    private static String _getPatternFromLengthValidator(LengthValidator validator)
+    {
+        // XXX: fix this ugly code
+        int minimum = validator.getMinimum();
+        int maximum = validator.getMaximum();
+
+        boolean hasMinimum = minimum != Integer.MIN_VALUE;
+        boolean hasMaximum = maximum != Integer.MAX_VALUE;
+
+        if (hasMinimum && hasMaximum)
+            return "(?:.{" + minimum + "," + maximum + "})";
+
+        if (hasMinimum)
+            return "(?:.{" + minimum + ",})";
+
+        if (hasMaximum)
+            return "(?:.{," + maximum + "})";
+
+        return null;
+    }
+
+    private static String _getPatternFromRegexValidator(RegexValidator regexValidator)
+    {
+        return regexValidator.getPattern();
     }
 }

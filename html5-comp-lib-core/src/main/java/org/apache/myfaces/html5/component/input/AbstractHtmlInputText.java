@@ -48,8 +48,7 @@ public abstract class AbstractHtmlInputText extends org.apache.myfaces.html5.com
      * HTML type of the input.
      * <br/>
      * Possible values are "text"(default), "search", "url", "tel", "textarea" and "password". 
-     * If this is set to "textarea", "pattern" property should not be set, and even if it is set, it is ignored.
-     * @see AbstractHtmlInputText#getPattern()
+     * If this is set to "textarea", pattern is ignored.
      * @see AbstractHtmlInputText#getSuggestions()
      * @see AbstractHtmlInputText#getList()
      * @see AbstractHtmlInputText#getCols()

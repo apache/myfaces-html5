@@ -50,6 +50,11 @@
 			    	<hx:inputText id="textIT" value="#{inputTextBean.someParam}" title="A part number is a digit followed by three uppercase letters.">
 			    		<f:validateRegex pattern="[0-9][A-Z]{3}" />
 			    	</hx:inputText>
+			    	
+			    	<label>Support for standard validators:</label>
+                    <hx:inputText id="anotherTextIT" value="#{inputTextBean.secondParam}" required="true" title="A prefix is must be minimum 3 characters, maximum 5 characters.">
+                        <f:validateLength minimum="3" maximum="5" />
+                    </hx:inputText>
 		    	
 		    		<h:outputText />
 			    	<h:commandButton action="none"/>
@@ -59,7 +64,7 @@
 			<h:form id="myOtherForm">
 				<h:panelGrid cols="2" >
 			    	<label>Custom validation error handling:</label>
-			    	<hx:inputText id="otherTextIT" value="#{inputTextBean.someParam}" oninvalid="handleValidationError(event, this);" 
+			    	<hx:inputText id="otherTextIT" value="#{inputTextBean.thirdParam}" oninvalid="handleValidationError(event, this);" 
 			    		title="A part number is a digit followed by three uppercase letters.">
 			    		<f:validateRegex pattern="[0-9][A-Z]{3}" />
 			    	</hx:inputText>

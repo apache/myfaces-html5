@@ -24,7 +24,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name="inputTextBean")
+@ManagedBean(name = "inputTextBean")
 public class InputTextBean
 {
 
@@ -43,6 +43,8 @@ public class InputTextBean
     private String movieName;
 
     private String someParam;
+    private String secondParam;
+    private String thirdParam;
 
     public List<SelectItem> getSuggestionItems()
     {
@@ -182,6 +184,26 @@ public class InputTextBean
     public void setKeyword(String keyword)
     {
         this.keyword = keyword;
+    }
+
+    public String getSecondParam()
+    {
+        return secondParam;
+    }
+
+    public void setSecondParam(String secondParam)
+    {
+        this.secondParam = secondParam;
+    }
+
+    public String getThirdParam()
+    {
+        return thirdParam;
+    }
+
+    public void setThirdParam(String thirdParam)
+    {
+        this.thirdParam = thirdParam;
     }
 
     public int getResult()
