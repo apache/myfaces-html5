@@ -93,13 +93,13 @@ public class InputPatternRendererUtil
         {
             pattern = _getPatternFromNumberConverter((NumberConverter) converter);
         }
-        //TODO: what about DateTimeConverter
+        // TODO: what about DateTimeConverter
         return pattern;
     }
 
     private static String _getPatternFromNumberConverter(NumberConverter converter)
     {
-        //TODO: read the spec and create the pattern!
+        // TODO: read the spec and create the pattern!
         return null;
     }
 
@@ -142,9 +142,9 @@ public class InputPatternRendererUtil
         {
             pattern = _getPatternFromDoubleRangeValidator((DoubleRangeValidator) validator);
         }
-        //TODO: what about bean validation? f:validateBean
-        
-        //f:validateRequired is not about pattern, so skip it
+        // TODO: what about bean validation? f:validateBean
+
+        // f:validateRequired is not about pattern, so skip it
         return pattern;
     }
 
