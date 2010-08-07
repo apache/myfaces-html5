@@ -35,7 +35,7 @@
     <!-- Necessary to run with jetty:run -->
     <context-param>
         <param-name>org.apache.myfaces.annotation.SCAN_PACKAGES</param-name>
-        <param-value>org.apache.myfaces.html5.examples.showcase.beans</param-value>
+        <param-value>org.apache.myfaces.html5.examples.showcase</param-value>
     </context-param>
 
 	<servlet>

@@ -55,6 +55,12 @@
                     <hx:inputText id="anotherTextIT" value="#{inputTextBean.secondParam}" required="true" title="A prefix is must be minimum 3 characters, maximum 5 characters.">
                         <f:validateLength minimum="3" maximum="5" />
                     </hx:inputText>
+                    
+                    <label>Support for custom validators:</label>
+                    <hx:inputText id="someAnotherTextIT" value="#{inputTextBean.fourthParam}" required="true" 
+                        title="A part number is a digit followed by three uppercase letters.">
+                        <f:validator validatorId="partNumberValidator" />
+                    </hx:inputText>
 		    	
 		    		<h:outputText />
 			    	<h:commandButton action="none"/>

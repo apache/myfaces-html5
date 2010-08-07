@@ -45,6 +45,7 @@ public class InputTextBean
     private String someParam;
     private String secondParam;
     private String thirdParam;
+    private String fourthParam;
 
     public List<SelectItem> getSuggestionItems()
     {
@@ -204,6 +205,16 @@ public class InputTextBean
     public void setThirdParam(String thirdParam)
     {
         this.thirdParam = thirdParam;
+    }
+
+    public String getFourthParam()
+    {
+        return fourthParam;
+    }
+
+    public void setFourthParam(String fourthParam)
+    {
+        this.fourthParam = fourthParam;
     }
 
     public int getResult()
