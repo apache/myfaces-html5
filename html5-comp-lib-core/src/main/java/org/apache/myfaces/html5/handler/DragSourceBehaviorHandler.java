@@ -38,6 +38,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFFacelet
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFFaceletTag;
 import org.apache.myfaces.html5.behavior.DragSourceBehavior;
 import org.apache.myfaces.html5.component.api.Draggable;
+import org.apache.myfaces.html5.event.DropEvent;
 import org.apache.myfaces.html5.renderkit.util.ClientBehaviorEvents;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 
@@ -54,19 +55,34 @@ public class DragSourceBehaviorHandler extends javax.faces.view.facelets.Behavio
     private static final Logger log = Logger.getLogger(DragSourceBehaviorHandler.class.getName());
 
     /**
-     * @see DragSourceBehavior#getAction()
+     * Action of for drag operation. Can be one of below:
+     * <ul>
+     * <li>copy: A copy of the source item may be made at the new location.</li>
+     * <li>move: An item may be moved to a new location.</li>
+     * <li>link: A link may be established to the source at the new location.</li>
+     * <li>none: The item may not be dropped.</li>
+     * </ul>
+     * <br/>
+     * 
+     * If nothing is specified, the action will be defined by the browser and can be adjusted using the modifier keys.
+     * If dropTarget does not accept the action of this dragSource, then the DnD will fail.
+     * 
      */
     @JSFFaceletAttribute(name = "action", className = "javax.el.ValueExpression", deferredValueType = "java.lang.String")
     private final TagAttribute _action;
 
     /**
-     * @see DragSourceBehavior#getDropTargetTypes()
+     * The types of the dropTargets that drags from this dragSource can be applied. Can be comma separated set or
+     * String[] or Collection<String>. <br/>
+     * If defined, drags from this dragSource will work into only the dropTargets that have one of the same type. The
+     * drag will be accepted if 'types' of hx:dropTarget has one of the types defined here.
      */
     @JSFFaceletAttribute(name = "dropTargetTypes", className = "javax.el.ValueExpression", deferredValueType = "java.lang.Object")
     private final TagAttribute _dropTargetTypes;
 
     /**
-     * @see DragSourceBehavior#getParam()
+     * Data to send to server when a successful drag&drop happens from this source. <br/>
+     * The param can be received using the {@link DropEvent#getParam()} method at dropListener of the fx:dropTarget.
      */
     @JSFFaceletAttribute(name = "param", className = "javax.el.ValueExpression", deferredValueType = "java.lang.String")
     private final TagAttribute _param;
@@ -139,8 +155,8 @@ public class DragSourceBehaviorHandler extends javax.faces.view.facelets.Behavio
                 }
                 else
                 {
-                    dragSourceBehavior.setValueExpression("action", _action.getValueExpression(faceletContext,
-                            String.class));
+                    dragSourceBehavior.setValueExpression("action",
+                            _action.getValueExpression(faceletContext, String.class));
                 }
 
             }
@@ -152,8 +168,8 @@ public class DragSourceBehaviorHandler extends javax.faces.view.facelets.Behavio
                 }
                 else
                 {
-                    dragSourceBehavior.setValueExpression("dropTargetTypes", _dropTargetTypes.getValueExpression(
-                            faceletContext, Object.class));
+                    dragSourceBehavior.setValueExpression("dropTargetTypes",
+                            _dropTargetTypes.getValueExpression(faceletContext, Object.class));
                 }
             }
             if (_param != null)
@@ -164,8 +180,8 @@ public class DragSourceBehaviorHandler extends javax.faces.view.facelets.Behavio
                 }
                 else
                 {
-                    dragSourceBehavior.setValueExpression("param", _param.getValueExpression(faceletContext,
-                            String.class));
+                    dragSourceBehavior.setValueExpression("param",
+                            _param.getValueExpression(faceletContext, String.class));
                 }
 
             }

@@ -27,11 +27,9 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.html5.event.DropEvent;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFBehavior;
 
-//TODO: use the myfaces annotation and fix the template!
-//@JSFBehavior(name = "fx:dragSource", id = "org.apache.myfaces.html5.DragSource")
-//@FacesBehavior(value="org.apache.myfaces.html5.DragSourceBehavior")
+
 /**
  * Adds the Html5 drag functionality to its parent. <br/>
  * This behavior should be attached to "dragstart" event of the parent.
@@ -44,6 +42,7 @@ import org.apache.myfaces.html5.event.DropEvent;
         @ResourceDependency(name = "jsf.js", library = "javax.faces", target = "head"),
         @ResourceDependency(name = "html5.js", library = "myfaces.apache.org", target = "head")
 })
+@JSFBehavior(name = "fx:dragSource", id = "org.apache.myfaces.html5.DragSource")
 public class DragSourceBehavior extends javax.faces.component.behavior.ClientBehaviorBase implements ValueExpressionHolder
 {
 
@@ -63,17 +62,7 @@ public class DragSourceBehavior extends javax.faces.component.behavior.ClientBeh
     }
 
     /**
-     * Action of for drag operation. Can be one of below:
-     * <ul>
-     * <li>copy: A copy of the source item may be made at the new location.</li>
-     * <li>move: An item may be moved to a new location.</li>
-     * <li>link: A link may be established to the source at the new location.</li>
-     * <li>none: The item may not be dropped.</li>
-     * </ul>
-     * <br/>
-     * 
-     * If nothing is specified, the action will be defined by the browser and can be adjusted using the modifier keys.
-     * If dropTarget does not accept the action of this dragSource, then the DnD will fail.
+     * @see DragSourceBehavior#_action
      */
     public String getAction()
     {
@@ -86,10 +75,7 @@ public class DragSourceBehavior extends javax.faces.component.behavior.ClientBeh
     }
 
     /**
-     * The types of the dropTargets that drags from this dragSource can be applied. Can be comma separated set or
-     * String[] or Collection<String>. <br/>
-     * If defined, drags from this dragSource will work into only the dropTargets that have one of the same type. The
-     * drag will be accepted if 'types' of hx:dropTarget has one of the types defined here.
+     * @see DragSourceBehavior#_dropTargetTypes
      */
     public Object getDropTargetTypes()
     {
@@ -102,9 +88,7 @@ public class DragSourceBehavior extends javax.faces.component.behavior.ClientBeh
     }
 
     /**
-     * Data to send to server when a successful drag&drop happens from this source. <br/>
-     * The param can be received using the {@link DropEvent#getParam()} method at dropListener of the fx:dropTarget.
-     * 
+     * @see DragSourceBehavior#_param
      */
     public String getParam()
     {
