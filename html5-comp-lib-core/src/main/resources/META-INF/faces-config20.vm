@@ -57,6 +57,15 @@ $baseContent
   </validator>
 #end
 #end
+#set ($behaviorList = ${model.getBehaviors()})
+#foreach( $behavior in $behaviorList )
+#if ($modelIds.contains($behavior.modelId))
+  <behavior>
+    <behavior-id>$behavior.behaviorId</behavior-id>
+    <behavior-class>$behavior.className</behavior-class>
+  </behavior>
+#end
+#end
 #set ($renderKitList = ${model.getRenderKits()})
 #foreach( $renderKit in $renderKitList )
   <render-kit>
@@ -75,27 +84,14 @@ $baseContent
 
 <!-- TODO: use the myfaces-builder-plugin here -->
       <client-behavior-renderer>
-      	<client-behavior-renderer-type>org.apache.myfaces.html5.DragSourceBehavior</client-behavior-renderer-type>
-      	<client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.DragSourceBehaviorRenderer</client-behavior-renderer-class>
+        <client-behavior-renderer-type>org.apache.myfaces.html5.DragSourceBehavior</client-behavior-renderer-type>
+        <client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.DragSourceBehaviorRenderer</client-behavior-renderer-class>
       </client-behavior-renderer>
       <client-behavior-renderer>
-      	<client-behavior-renderer-type>org.apache.myfaces.html5.DropTargetBehavior</client-behavior-renderer-type>
-      	<client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.DropTargetBehaviorRenderer</client-behavior-renderer-class>
+        <client-behavior-renderer-type>org.apache.myfaces.html5.DropTargetBehavior</client-behavior-renderer-type>
+        <client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.DropTargetBehaviorRenderer</client-behavior-renderer-class>
       </client-behavior-renderer>
 
   </render-kit>
 #end
-
-
-<!-- TODO: use the myfaces-builder-plugin here -->
-	<behavior>
-		<behavior-id>org.apache.myfaces.html5.DragSourceBehavior</behavior-id>
-		<behavior-class>org.apache.myfaces.html5.behavior.DragSourceBehavior</behavior-class>
-	</behavior>
-	<behavior>
-		<behavior-id>org.apache.myfaces.html5.DropTargetBehavior</behavior-id>
-		<behavior-class>org.apache.myfaces.html5.behavior.DropTargetBehavior</behavior-class>
-	</behavior>
-
-
 </faces-config>

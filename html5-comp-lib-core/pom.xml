@@ -169,6 +169,7 @@
                     <execution>
                         <id>make-html5-hx-tld</id>
                         <configuration>
+                            <outputDirectory>${project.build.directory}/tlddoc-facelets</outputDirectory>
                             <xmlFile>META-INF/html5-hx.tld</xmlFile>
                             <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
                             <templateFile>jsp-tld.vm</templateFile>
@@ -214,6 +215,7 @@
                     <execution>
                         <id>make-html5-fx-tld</id>
                         <configuration>
+                            <outputDirectory>${project.build.directory}/tlddoc-facelets</outputDirectory>
                             <xmlFile>META-INF/html5-fx.tld</xmlFile>
                             <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
                             <templateFile>jsp-tld.vm</templateFile>
@@ -240,7 +242,7 @@
                         <configuration>
                             <xmlFile>META-INF/html5-fx.taglib.xml</xmlFile>
                             <xmlBaseFile>src/main/resources/META-INF/facelets-taglib-base.xml</xmlBaseFile>
-                            <templateFile>facelets-taglib20_fx.vm</templateFile>
+                            <templateFile>facelets-taglib20.vm</templateFile>
                             <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                             <params>
                                 <shortname>fx</shortname>
@@ -275,6 +277,127 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build>   
+
+    <profiles>
+            <profile>
+      <!--
+        - Whenever the full website is generated, the command
+        -   mvn -Pgenerate-site -Pgenerate-tlddoc site
+        - should be used. This will create the "tlddoc" directory containing
+        - nicely-formatted versions of the docs in the jsp taglib file, ie
+        - docs on all the available tags and their properties.
+        -->
+      <id>generate-site</id>
+      <build>
+        <plugins>
+          <plugin>
+            <!-- Generate content for custom tagdoc report -->
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>myfaces-builder-plugin</artifactId>
+            <version>1.0.6</version>
+            <executions>
+              <execution>
+                <id>site-tagdoc-content</id>
+                <configuration>
+                    <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                  <modelIds>
+                    <modelId>html5-comp-lib-core</modelId>
+                  </modelIds>
+                  <taglibs>
+                    <hx>http://myfaces.apache.org/html5/html</hx>
+                    <fx>http://myfaces.apache.org/html5/core</fx>
+                  </taglibs>
+                </configuration>
+                <goals><goal>tagdoc-content</goal></goals>
+              </execution>
+              <execution>
+                <id>site-web-config</id>
+                <configuration>
+                    <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                    <outputDirectory>${project.build.directory}/generated-site/xdoc</outputDirectory>
+                    <xmlFile>webconfig.xml</xmlFile>
+                    <modelIds>
+                        <modelId>html5-comp-lib-core</modelId>
+                    </modelIds>
+                </configuration>
+                <goals>
+                    <goal>make-config</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <!-- Unfortunately we can't execute the same report twice, so
+                 we have to generate this files outside report generation. -->
+            <groupId>net.sourceforge.maven-taglib</groupId>
+            <artifactId>maven-taglib-plugin</artifactId>
+            <version>2.4</version>
+            <executions>
+               <execution>
+                    <id>tlddoc-facelets</id>
+                    <phase>site</phase>
+                    <goals>
+                      <goal>taglibdoc</goal>
+                    </goals>
+                    <inherited>false</inherited>
+                    <configuration>
+                      <title>${project.name} Tag library documentation for Facelets</title>
+                      <srcDir>${basedir}/target/tlddoc-facelets</srcDir>
+                      <tldDocDir>${basedir}/target/site/tlddoc-facelets</tldDocDir>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>tlddoc-jsp</id>
+                    <phase>site</phase>
+                    <goals>
+                      <goal>taglibdoc</goal>
+                    </goals>
+                    <inherited>false</inherited>
+                    <configuration>
+                      <taglib.src.dir>${basedir}/target/tlddoc-facelets</taglib.src.dir>
+                      <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>            
+                    </configuration>
+                </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>net.sourceforge.maven-taglib</groupId>
+            <artifactId>maven-taglib-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+              <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
+              <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
+            </configuration>
+          </plugin>
+          <plugin>
+            <!-- trigger tagdoc-index report -->
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>myfaces-builder-plugin</artifactId>
+            <version>1.0.6</version>
+            <reportSets>
+              <reportSet>
+              <configuration>
+                <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                <modelIds>
+                  <modelId>html5-comp-lib-core</modelId>
+                </modelIds>
+                <taglibs>
+                  <hx>http://myfaces.apache.org/html5/html</hx>
+                  <fx>http://myfaces.apache.org/html5/core</fx>
+                </taglibs>
+              </configuration>
+              <reports><report>tagdoc-index</report></reports>
+              </reportSet>
+            </reportSets>
+          </plugin>
+        </plugins>
+      </reporting>
+    </profile>
+    </profiles>
 
 </project>
