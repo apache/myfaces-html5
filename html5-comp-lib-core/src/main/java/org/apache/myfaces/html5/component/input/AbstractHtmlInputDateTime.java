@@ -42,8 +42,10 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
 public abstract class AbstractHtmlInputDateTime extends org.apache.myfaces.html5.component.input.Html5BaseInputText
 {
     
+    /**
+     * Type of the input. Can be one of "datetime", "date", "time", "month", "week", "datetime-local". Defaults to "datetime". 
+     */
     @JSFProperty(deferredValueType = "java.lang.String", defaultValue="datetime")
-    //TODO: doc
     public abstract String getType();
     
     /**

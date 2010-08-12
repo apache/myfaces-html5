@@ -20,6 +20,8 @@ package org.apache.myfaces.html5.component.input;
 
 import java.util.logging.Logger;
 
+import javax.faces.model.SelectItem;
+
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 
@@ -37,6 +39,9 @@ public abstract class AbstractHtmlDataList extends javax.faces.component.UICompo
     private static final Logger log = Logger.getLogger(AbstractHtmlDataList.class.getName());
 
     //TODO: docme
+    /**
+     * Suggestion values to use. Can be one of comma seperated strings, array of {@link SelectItem} or collection of {@link SelectItem}. 
+     */
     @JSFProperty(deferredValueType = "java.lang.Object")
     // since this property accepts both comma separated string and List<SelectItem>
     public abstract Object getSuggestions();
