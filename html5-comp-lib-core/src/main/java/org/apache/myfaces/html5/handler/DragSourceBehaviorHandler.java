@@ -49,7 +49,7 @@ import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
  * @author Ali Ok
  * 
  */
-@JSFFaceletTag(name = "fx:dragSource")
+@JSFFaceletTag(name = "fx:dragSource", behaviorClass="org.apache.myfaces.html5.behavior.DragSourceBehavior")
 public class DragSourceBehaviorHandler extends javax.faces.view.facelets.BehaviorHandler
 {
     private static final Logger log = Logger.getLogger(DragSourceBehaviorHandler.class.getName());

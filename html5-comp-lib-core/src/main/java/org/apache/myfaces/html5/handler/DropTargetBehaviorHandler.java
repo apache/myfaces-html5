@@ -44,7 +44,7 @@ import org.apache.myfaces.html5.renderkit.behavior.DropTargetBehaviorRenderer;
 import org.apache.myfaces.html5.renderkit.util.ClientBehaviorEvents;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 
-@JSFFaceletTag(name = "fx:dropTarget")
+@JSFFaceletTag(name = "fx:dropTarget", behaviorClass="org.apache.myfaces.html5.behavior.DropTargetBehavior")
 // TODO: doc me
 public class DropTargetBehaviorHandler extends javax.faces.view.facelets.BehaviorHandler
 {

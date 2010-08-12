@@ -42,7 +42,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFBehavio
         @ResourceDependency(name = "jsf.js", library = "javax.faces", target = "head"),
         @ResourceDependency(name = "html5.js", library = "myfaces.apache.org", target = "head")
 })
-@JSFBehavior(name = "fx:dragSource", id = "org.apache.myfaces.html5.DragSource")
+@JSFBehavior(name = "fx:dragSource", id = "org.apache.myfaces.html5.DragSourceBehavior")
 public class DragSourceBehavior extends javax.faces.component.behavior.ClientBehaviorBase implements ValueExpressionHolder
 {
 
