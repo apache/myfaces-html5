@@ -55,9 +55,9 @@ public abstract class AbstractHtmlInputText extends org.apache.myfaces.html5.com
      * @see AbstractHtmlInputText#getRows() 
      * @return
      */
-    //default value not set with annotation because of some exceptional things
-    //default value is set manually in renderer
     @JSFProperty(deferredValueType = "java.lang.String")    
+    //default value is not set with annotation because of some exceptional things
+    //default value is set manually in renderer
     public abstract String getType();
     
     
