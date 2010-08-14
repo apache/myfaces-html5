@@ -178,8 +178,7 @@
                                 <shortname>hx</shortname>
                                 <uri>http://myfaces.apache.org/html5/html</uri>
                                 <displayname>HTML5 Html Comp Lib.</displayname>
-                                <description>HTML5 Html component
-                                    library for MyFaces.</description>
+                                <description>HTML5 Html component library for MyFaces.</description>
                             </params>
                             <modelIds>
                                 <modelId>html5-comp-lib-core</modelId>
@@ -224,8 +223,7 @@
                                 <shortname>fx</shortname>
                                 <uri>http://myfaces.apache.org/html5/core</uri>
                                 <displayname>HTML5 Core Comp Lib.</displayname>
-                                <description>HTML5 core component
-                                    library for MyFaces.</description>
+                                <description>HTML5 core component library for MyFaces.</description>
                             </params>
                             <modelIds>
                                 <modelId>html5-comp-lib-core</modelId>
@@ -256,62 +254,115 @@
                             <goal>make-config</goal>
                         </goals>
                     </execution>
-
-                    <execution>
-                        <id>generate-hx-tagdoc-content</id>
-                        <configuration>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
-                            <params>
-                                <shortname>hx</shortname>
-                                <uri>http://myfaces.apache.org/html5/html</uri>
-                            </params>
-                            <modelIds>
-                                <modelId>html5-comp-lib-core</modelId>
-                            </modelIds>
-                        </configuration>
-                        <goals>
-                            <goal>tagdoc-content</goal>
-                        </goals>
-                    </execution>
-
                 </executions>
             </plugin>
         </plugins>
     </build>   
 
     <profiles>
-            <profile>
-      <!--
-        - Whenever the facelets doc will be generated, need to use the command
-        -   mvn -Pgenerate-site install
-        -->
-      <id>generate-site</id>
-      <build>
-        <plugins>
-          <plugin>
-            <!-- Facelets doc generation is on install phashe for now!. -->
-            <groupId>net.sourceforge.maven-taglib</groupId>
-            <artifactId>maven-taglib-plugin</artifactId>
-            <version>2.4</version>
-            <executions>
-               <execution>
-                    <id>tlddoc-facelets</id>
-                    <phase>install</phase>
-                    <goals>
-                      <goal>taglibdoc</goal>
-                    </goals>
-                    <inherited>false</inherited>
-                    <configuration>
-                      <title>${project.name} Tag library documentation for Facelets</title>
-                      <srcDir>${basedir}/target/tlddoc-facelets</srcDir>
-                      <tldDocDir>${basedir}/target/site/tlddoc-facelets</tldDocDir>
-                    </configuration>
-                </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
+        <profile>
+            <!--
+            - Whenever the facelets doc will be generated, need to use the command
+            -   mvn -Pgenerate-site site
+            -->
+            <id>generate-site</id>
+            <build>
+                <plugins>
+                    <!-- 
+                        -Executions on this plugin is necessary to generate facelets tag doc. 
+                        -Running the install and site with generate-site profile fails since these executions is run already on install phase!
+                        -So, for facelets documentation, only need to run site goal!
+                    -->
+                    <plugin>
+                        <groupId>org.apache.myfaces.buildtools</groupId>
+                        <artifactId>myfaces-builder-plugin</artifactId>
+                        <version>1.0.6</version>
+                        <executions>
+                            <!-- first, build metadata. facelets tag documentation will be generated from this. -->
+                            <execution>
+                                <id>build-html5-metadata-forsite</id>
+                                <phase>site</phase>
+                                <goals>
+                                    <goal>build-metadata</goal>
+                                </goals>
+                                <configuration>
+                                    <outputFile>META-INF/myfaces-html5-metadata.xml</outputFile>
+                                </configuration>
+                            </execution>
+                            <!-- generate <hx> JSP tld file -->
+                            <execution>
+                                <id>make-html5-hx-tld-forsite</id>
+                                <phase>site</phase>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/tlddoc-facelets</outputDirectory>
+                                    <xmlFile>META-INF/html5-hx.tld</xmlFile>
+                                    <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
+                                    <templateFile>jsp-tld.vm</templateFile>
+                                    <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                                    <params>
+                                        <shortname>hx</shortname>
+                                        <uri>http://myfaces.apache.org/html5/html</uri>
+                                        <displayname>HTML5 Html Comp Lib.</displayname>
+                                        <description>HTML5 Html component library for MyFaces.</description>
+                                    </params>
+                                    <modelIds>
+                                        <modelId>html5-comp-lib-core</modelId>
+                                    </modelIds>
+                                </configuration>
+                                <goals>
+                                    <goal>make-config</goal>
+                                </goals>
+                            </execution>
+                            <!-- generate <fx> JSP tld file -->
+                            <execution>
+                                <id>make-html5-fx-tld-forsite</id>
+                                <phase>site</phase>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/tlddoc-facelets</outputDirectory>
+                                    <xmlFile>META-INF/html5-fx.tld</xmlFile>
+                                    <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
+                                    <templateFile>jsp-tld.vm</templateFile>
+                                    <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                                    <params>
+                                        <shortname>fx</shortname>
+                                        <uri>http://myfaces.apache.org/html5/core</uri>
+                                        <displayname>HTML5 Core Comp Lib.</displayname>
+                                        <description>HTML5 core component library for MyFaces.</description>
+                                    </params>
+                                    <modelIds>
+                                        <modelId>html5-comp-lib-core</modelId>
+                                    </modelIds>
+                                </configuration>
+                                <goals>
+                                    <goal>make-config</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Facelets doc generation! -->
+                    <plugin>
+                        <groupId>net.sourceforge.maven-taglib</groupId>
+                        <artifactId>maven-taglib-plugin</artifactId>
+                        <version>2.4</version>
+                        <executions>
+                            <execution>
+                                <id>tlddoc-facelets</id>
+                                <phase>site</phase>
+                                <goals>
+                                    <goal>taglibdoc</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <title>${project.name} Tag library documentation for Facelets</title>
+                                    <srcDir>${basedir}/target/tlddoc-facelets</srcDir>
+                                    <tldDocDir>${basedir}/target/site/tlddoc-facelets</tldDocDir>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 </project>

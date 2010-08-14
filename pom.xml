@@ -154,51 +154,51 @@
     </build>
     
     <profiles>
-            <profile>
-      <!--
-        - Whenever the facelets doc will be generated, need to use the command
-        -   mvn -Pgenerate-site install
-        -->
-      <id>generate-site</id>
-      <build>
-        <plugins>
-          <plugin>
-              <artifactId>maven-site-plugin</artifactId>
-              <version>2.0-beta-6</version>
-            </plugin>
-        </plugins>
-      </build>
-        <reporting>
+        <profile>
+            <!--
+            - Whenever the site will be generated, need to use the command
+            -   mvn -Pgenerate-site site
+            -->
+            <id>generate-site</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- this plugin will generate the project site. -->
+                        <artifactId>maven-site-plugin</artifactId>
+                        <version>2.0-beta-6</version>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
             <plugins>
-              <plugin>
+                <plugin>
+                    <!-- disable the plugin for this site project -->
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>2.2</version>
+                    <reportSets>
+                        <reportSet />
+                    </reportSets>
+                </plugin>
+                <plugin>
                 <!-- disable the plugin for this site project -->
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.2</version>
-                <reportSets>
-                  <reportSet />
-                </reportSets>
-              </plugin>
-              <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>1.2</version>
+                    <reportSets>
+                        <reportSet />
+                    </reportSets>
+                </plugin>
+                <plugin>
                 <!-- disable the plugin for this site project -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>1.2</version>
-                <reportSets>
-                  <reportSet />
-                </reportSets>
-              </plugin>
-              <plugin>
-                <!-- disable the plugin for this site project -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>
-                <version>2.0-beta-1</version>
-                <reportSets>
-                  <reportSet />
-                </reportSets>
-              </plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jdepend-maven-plugin</artifactId>
+                    <version>2.0-beta-1</version>
+                    <reportSets>
+                        <reportSet />
+                    </reportSets>
+                </plugin>
             </plugins>
-            
-          </reporting>
+        </reporting>
     </profile>
     </profiles>
     
