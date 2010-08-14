@@ -17,4 +17,70 @@
  Building 
  ------
  
-TBD
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Checking out the source
+
+ To check out the sources, you need to run the following command
+
++----------------------------------------------+ 
+ $ svn checkout http://svn.apache.org/repos/asf/myfaces/gsoc/html5-comp-lib/trunk html5-comp-lib-project
++----------------------------------------------+
+
+ The project consists of 3 submodules
+ 
+ * html5-comp-lib-core : The component library
+ 
+ * html5-comp-lib-examples : The example component showcase application
+ 
+ * myfaces-shared-html5 : The shared code amongst MyFaces Core, MyFaces Tomahawk and this project.
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Building The Project
+
+  To build the project, you need to run the command below in the project main folder:
+  
++----------------------------------------------+
+  mvn install
++----------------------------------------------+
+
+  Since the dependencies are downloaded by Maven, building the whole project (core, shared and showcase) will take around 3 minutes 
+  for the first time, (if the dependencies are not installed previously on your machine) depending on your internet connection. 
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Running Showcase Application
+
+  You need to go to html5-comp-lib-examples folder and run a jetty:run to run the showcase application:
+
++----------------------------------------------+
+  cd html5-comp-lib-examples
+  mvn jetty:run
++----------------------------------------------+
+  
+  The showcase application will be running at <http://localhost:8080/html5-comp-lib-examples/index.jsf>
+  
+  Again, since the dependencies are downloaded by Maven, running the showcase application will take about 2 minutes for the first time.
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Generating Project Site
+
+  In the project main folder, run the command
+
++----------------------------------------------+
+  mvn -Pgenerate-site site
++----------------------------------------------+
+  
+  to generate the project site. The index of the generated site will be under < PROJECT_FOLDER >/target/site/index.html 
+  
+  For the first time, it may take up to 1 minute to generate the project site.

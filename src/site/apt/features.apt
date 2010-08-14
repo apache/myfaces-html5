@@ -17,4 +17,302 @@
  Features 
  ------
  
-TBD
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+New JSF Components
+
+ During the limited 3 month GSoC period, 10+ components are developed:
+ 
+ * Html5 input:
+ 
+   * hx:inputText 
+
+   * hx:inputColor 
+
+   * hx:inputDateTime 
+
+   * hx:inputEmail 
+
+   * hx:inputNumberSlider 
+
+   * hx:inputNumberSpinner 
+
+   * hx:dataList (not a real input component, related to input components)
+   
+   * fx:validateDateTimeRange 
+
+ * Html5 behavior:
+   
+   * fx:dragSource
+    
+   * fx:dropTarget 
+
+ * Html5 media:
+
+   * hx:audio 
+
+   * hx:video  
+
+   * fx:mediaSource 
+
+   * fx:mediaSources 
+
+ * Misc:   
+
+   * hx:div 
+
+ Documentation of components delivered with this project can be found <<{{{../../html5-comp-lib-core/target/site/tlddoc-facelets/index.html}here}}>>. 
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Independent of JSF Implementation
+ 
+  Even if the project name Html5 support for MyFacecs 2, the components work with Mojarra too. Components and other things are not dependent on MyFaces Core.
+  Instead of extending or being dependent on MyFaces core, the project elements use MyFaces shared which should be provided on run-time. Unlike MyFaces Core and 
+  Tomahawk, binaries of this project do not contain the MyFaces shared.  
+ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+Support for new input types
+
+ With Html5, some new input types are defined. All of these types are supported.
+ 
+ * number, range, color, email, URL. tel
+ 
+ 
+ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Driving Client-Side Validation with JSF validators and converters
+
+ Html5 inputs have implicit validations like pattern, min, max etc. The information required for validation is rendered by input renderers
+ automatically if there is any applicable attached converters/validators for the component.
+ 
+ You can see the running example <<{{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/inputText/inputText04.jsf}here}}>>.    
+ 
++----------------------------------------------+
+<hx:inputText id="textIT" value="#{inputTextBean.someParam}" 
+    title="A part number is a digit followed by three uppercase letters.">
+    <f:validateRegex pattern="[0-9][A-Z]{3}" />
+</hx:inputText>
++----------------------------------------------+
+
+ will render
+
++----------------------------------------------+
+<input id="..." name="..." type="text" size="..." title="..."  
+    pattern="[0-9][A-Z]{3}" />
++----------------------------------------------+ 
+
+ and that is all the necessary information for client-side validation.
+
+
+ Custom validators and converters are supported too. The only thing they need to do is implementing <<ClientSidePatternProvider>> interface and implementing the 
+ pattern. For driving the properties other than pattern, <ClientSideNumberRangeProvider> and etc. will be used (work in progress).  
+
++----------------------------------------------+ 
+@FacesValidator(value="partNumberValidator")
+public class PartNumberValidator implements Validator, ClientSidePatternProvider
+{
+    public String getPattern()
+    {
+        return "[0-9][A-Z]{3}";
+    }
+    ...
++----------------------------------------------+
+
++----------------------------------------------+
+<hx:inputText ...>
+    <f:validator validatorId="partNumberValidator" />
+</hx:inputText>
++----------------------------------------------+
+
+
+ Work in progress: Using the same validation error message on both server and client sides. ie:
+
++----------------------------------------------+
+<hx:inputText validatorMessage="Invalid part number." ...>
+    <f:validateRegex pattern="[0-9][A-Z]{3}" />
+</hx:inputText>
++----------------------------------------------+
+
+ will render
+
++----------------------------------------------+
+<input pattern="[0-9][A-Z]{3}" 
+    oninvalid="setCustomValidity('Invalid part number.')"/>
++----------------------------------------------+
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Drag and Drop
+
+ <fx:dragSource> and <fx:dropTarget> are JSF behaviors, which provide Html5 drag and drop support.
+ Main features of DnD are:
+ 
+ * Partial Page Rendering and triggering a listener on drop 
+   ( 
+   {{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/dnd/dnd01.jsf}running example}}
+   ):
+ 
++----------------------------------------------+
+...
+<fx:dropTarget rerender="someOutputText" dropListener="#{dndBean.processDropBehavior}" />
+...
++----------------------------------------------+
+ 
+ * Allowing/restricting specific types
+   ( 
+   {{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/dnd/dnd02.jsf}running example}}
+   ):    
+   
++----------------------------------------------+
+<hx:div id="draggable1">
+    <fx:dragSource dropTargetTypes="A" .../>
+    ...
+</hx:div>
+
+<hx:div id="draggable1">
+    <fx:dragSource dropTargetTypes="X" .../> <!-- won't drop -->
+    ...
+</hx:div>
+
+<hx:div id="drop_zone">
+    <fx:dropTarget types="A,B,C" .../>
+    ...
+</hx:div>
++----------------------------------------------+
+
+
+ * Sending parameter on drop
+   ( 
+   {{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/dnd/dnd01.jsf}running example}}
+   ):    
+   
++----------------------------------------------+
+<hx:div id="draggable1">
+    <fx:dragSource param="#{currentItem.id}" .../>
+    ...
+</hx:div>
+
+<hx:div id="drop_zone">
+    <fx:dropTarget dropListener="#{dndBean.processDropBehavior}" .../>
+    ...
+</hx:div>
+
+public class DndBean ...{
+    ...
+    public void processDropBehavior(DropEvent event) ...{
+        String parameterFromDragSorce = event.getParam();
+        ...
+    }
+}
++----------------------------------------------+
+
+
+ * Sending data with specified content-type on drop
+   ( 
+   {{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/dnd/dnd03.jsf}running example}}
+   ):    
+   
++----------------------------------------------+
+
+<!-- try dragging and dropping any text --->
+<fx:dropTarget acceptMimeTypes="text/x-myfaces-html5-dnd-source, text/plain" 
+    dropListener="#{dndBean.processDropBehavior}" .../>
+
+public class DndBean ...{
+    ...
+    public void processDropBehavior(DropEvent event) ...{
+        String droppedText = event.getDropDataMap().get('text/plain');
+        ...
+    }
+}
++----------------------------------------------+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Other Input Features
+
+ * Client-side validation is shown already at the top of this page.
+ 
+ []
+ 
+ * Placeholders
+   ( 
+   {{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/inputText/inputText05.jsf}running example}}
+   ): 
+   
+   Ability to show some watermark on the input, while it is empty.
+ 
+ []
+ 
+ * Suggestions
+   ( 
+   {{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/inputText/inputText03.jsf}running example}}
+   ):
+
+   There are a lot of ways to provide suggestions
+   
+   * Providing collection or array of of javax.faces.model.SelectItem
+   
++----------------------------------------------+
+<hx:inputText ... suggestions="#{inputTextBean.suggestionItems}" />
+
+<hx:inputText ... >
+    <f:selectItems value="#{inputTextBean.suggestionItems}" />
+</hx:inputText>
++----------------------------------------------+
+
+   * Providing comma seperated suggestion values:
+   
++----------------------------------------------+
+<hx:inputText ... suggestions="Red, Blue, Green, Yellow" />
+
+<hx:inputText ... suggestions="#{someBean.colors}" />
++----------------------------------------------+
+
+   * Using of hx:dataList:  
+   
++----------------------------------------------+    
+<hx:inputText ... datalist="myForm:dynamicDataList">
+    <f:ajax event="input" render="dynamicDataList"/>
+</hx:inputText>
+
+<hx:dataList id="dynamicDataList">
+    <f:selectItems value="#{inputTextBean.suggestionItems}" />
+</hx:dataList>
++----------------------------------------------+
+ 
+   With hx:dataList, we can use the same suggestion values for more than one component.
+ 
+ * New events
+   ( 
+   {{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/dnd/dnd03.jsf}running example}}
+   ): 
+
+    * oninput
+    
+    * oninvalid
+    
+    * onforminput
+    
+    * ... 
+  
+  
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Html5 Video-Audio support
+
+  Html5 video, audio and media sources are supported in a convenient way. See the Facelets Tag Doc for more.
+

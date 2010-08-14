@@ -53,11 +53,11 @@
             <item name="Overview"       href="/index.html"/>
             <item name="Building"       href="/building.html"/>
             <item name="Features"       href="/features.html"/>
+            <item name="Showcase"       href="http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/index.jsf"/>
         </menu>
 
         <menu name="Documentation" inherit="top">
             <item name="Getting Started"        href="/gettingstarted.html"/>
-            <item name="Tutorial"               href="/tutorial.html"/>
             <item name="Facelets Tag Docs"      href="../../html5-comp-lib-core/target/site/tlddoc-facelets/index.html"/>
         </menu>
 

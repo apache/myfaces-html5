@@ -17,4 +17,18 @@
  Getting Started 
  ------
  
-TBD
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using in your project:
+
+ No maven repo is available at the moment. So, you need to download the binaries and put them into your WEB-INF/lib folder.
+ No extra dependencies than a JSF implementation is required. All you have to do is putting <html5-comp-lib-core-0.x.x-SNAPSHOT.jar> and
+ <myfaces-shared-html5-0.x.x-SNAPSHOT.jar> into your WEB-INF/lib, just like any other web project artifact.
+
+ You can download the binaries from {{{http://people.apache.org/~aliok/GSoC/tagged/jars/binaries.zip}here}}. But these binaries may not be up-to-date.
+ 
+ You can download the sample application WAR from {{{http://people.apache.org/~aliok/GSoC/tagged/jars/examples.zip}here}}. Dependencies are already included 
+ in the WAR file, so this might be a good starting point. 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

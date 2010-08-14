@@ -17,14 +17,21 @@
  Overview 
  ------
  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Summary
 
-  TBD
-
-Introduction
-
-   TBD
+  This project delivers a new set of JSF components to integrate browsers with Java Server Faces server-side rendering technology.
   
-Requirements
-
-  * TBD
+  Initial project proposal and schedule can be found {{{http://wiki.apache.org/myfaces/GSoC2010_HTML5}here}}.
+  
+  A presentation can be found <<{{{http://people.apache.org/~aliok/GSoC/tagged/slide/MyFaces2-Html5-Comp-Lib-Tagged.ppt}here}}>>.
+  
+  An online running example application is deployed at <<{{{http://html5-comp-lib-showcase-snapshot.latest.aliok-com-tr-test.appspot.com/index.jsf}this}}>> location.
+  
+  The project web site can be found <<{{{http://people.apache.org/~aliok/GSoC/tagged/html5-comp-lib-project/target/site/index.html}here}}>>.
+  
+To Google Summer of Code Admins
+  
+  Since Google requires to submit the code only developed during Google Summer Of Code period, I've tagged the code developed during GSoC period to 
+  <<{{{http://svn.apache.org/repos/asf/myfaces/gsoc/html5-comp-lib/tags/gsoc_final}this}}>> location. 
