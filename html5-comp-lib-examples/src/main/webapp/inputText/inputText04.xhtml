@@ -47,7 +47,7 @@
 			<h:form id="myForm">
 				<h:panelGrid cols="2" >
 					<label>Simple pattern usage:</label>
-			    	<hx:inputText id="textIT" value="#{inputTextBean.someParam}" title="A part number is a digit followed by three uppercase letters.">
+			    	<hx:inputText id="textIT" value="#{inputTextBean.someParam}" required="true" title="A part number is a digit followed by three uppercase letters.">
 			    		<f:validateRegex pattern="[0-9][A-Z]{3}" />
 			    	</hx:inputText>
 			    	
@@ -57,8 +57,7 @@
                     </hx:inputText>
                     
                     <label>Support for custom validators:</label>
-                    <hx:inputText id="someAnotherTextIT" value="#{inputTextBean.fourthParam}" required="true" 
-                        title="A part number is a digit followed by three uppercase letters.">
+                    <hx:inputText id="someAnotherTextIT" value="#{inputTextBean.fourthParam}" required="true" title="A part number is a digit followed by three uppercase letters.">
                         <f:validator validatorId="partNumberValidator" />
                     </hx:inputText>
 		    	
