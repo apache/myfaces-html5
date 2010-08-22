@@ -17,6 +17,46 @@
  * specific language governing permissions and limitations
  * under the License.
 -->
+
+##macro writeAttribute ==============
+#macro( writeAttribute $property )
+        <attribute>
+            <name>$property.name</name>
+            <required>$property.isRequired()</required>
+#if ($property.longDescription)
+            <description><![CDATA[$property.longDescription]]></description>
+#else
+            <description><![CDATA[]]></description>
+#end
+#set ($type = $utils.getClassFromFullClass($property.className))
+#if ($type == "MethodExpression")
+            <method-signature>${property.deferredMethodSignature}</method-signature>
+#elseif ($type == "ValueExpression")
+#if($property.deferredValueType)
+            <type>$property.deferredValueType</type>
+#end
+#else
+#if ($property.className)         
+            <type>$property.className</type>
+#else
+            <type>java.lang.String</type>
+#end
+#end
+        </attribute>
+#end
+##macro writeAttribute end ==========
+
+
+##macro writeAttributes =============
+#macro( writeAttributes $propertyList )
+#foreach( $property in $propertyList )
+#if (!$property.isTagExcluded())
+#writeAttribute($property)
+#end
+#end
+#end
+##macro writeAttributes end =========
+
 <facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
@@ -37,6 +77,8 @@ $baseContent
 #if (!$component.isConfigExcluded() && !$component.isComposite())
 ## Check if we don't have a facelet tag taking precedence over this description
 #if (! ${model.findFaceletTagByName($component.name)})
+#if ($modelIds.contains($component.modelId) 
+    && ($component.name) && $utils.getTagPrefix($component.name) == $shortname)
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <component>
@@ -50,7 +92,9 @@ $baseContent
             <handler-class>$component.tagHandler</handler-class>
 #end
         </component>
+#writeAttributes($component.propertyList)
     </tag>
+#end
 #end
 #end
 #end
@@ -63,13 +107,16 @@ $baseContent
     && ($component.name))
 #if ($component.converterId)
 ## Check if we don't have a facelet tag taking precedence over this description
-#if (! ${model.findFaceletTagByName($component.name)}) 
+#if (! ${model.findFaceletTagByName($component.name)})
+#if ($utils.getTagPrefix($component.name) == $shortname) 
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <converter>
             <converter-id>$component.converterId</converter-id>
         </converter>
+#writeAttributes($component.propertyList)
     </tag>
+#end
 #end
 #end
 #end
@@ -83,12 +130,15 @@ $baseContent
 #if ($component.validatorId)
 ## Check if we don't have a facelet tag taking precedence over this description
 #if (! ${model.findFaceletTagByName($component.name)})
+#if ($utils.getTagPrefix($component.name) == $shortname)
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <validator>
             <validator-id>$component.validatorId</validator-id>
         </validator>      
+#writeAttributes($component.propertyList)
     </tag>
+#end
 #end
 #end
 #end
@@ -101,13 +151,16 @@ $baseContent
     && ($behavior.name))
 #if ($behavior.behaviorId)
 ## Check if we don't have a facelet tag taking precedence over this description
-#if (! ${model.findFaceletTagByName($behavior.name)}) 
+#if (! ${model.findFaceletTagByName($behavior.name)})
+#if ($utils.getTagPrefix($behavior.name) == $shortname) 
     <tag>
         <tag-name>$utils.getTagName($behavior.name)</tag-name>
         <behavior>
             <behavior-id>$behavior.behaviorId</behavior-id>
         </behavior>
+#writeAttributes($behavior.propertyList)
     </tag>
+#end
 #end
 #end
 #end
@@ -120,10 +173,13 @@ $baseContent
 #if ($tag.tagHandler)
 ## Check if we don't have a facelet tag taking precedence over this description
 #if (! ${model.findFaceletTagByName($tag.name)})
+#if ($utils.getTagPrefix($tag.name) == $shortname)
    <tag>
       <tag-name>$utils.getTagName($tag.name)</tag-name>
       <handler-class>$tag.tagHandler</handler-class>
+#writeAttributes($tag.propertyList)
    </tag>
+#end
 #end
 #end
 #end
@@ -162,6 +218,7 @@ $baseContent
 #else
     <handler-class>$faceletTag.className</handler-class>
 #end
+#writeAttributes($faceletTag.attributeList)
    </tag>
 #end
 #end
