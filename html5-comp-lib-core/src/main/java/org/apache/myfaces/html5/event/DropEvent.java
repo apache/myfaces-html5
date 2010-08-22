@@ -27,7 +27,15 @@ import javax.faces.event.FacesListener;
 
 import org.apache.myfaces.html5.behavior.DropTargetBehavior;
 
-//TODO: doc me
+/**
+ * This event is fired when a successful drop is done.
+ * <br/>
+ * 
+ * Holds the parameter and content-type <=> value map sent with the event.
+ * 
+ * @author Ali Ok
+ *
+ */
 public class DropEvent extends BehaviorEvent
 {
     private static final long serialVersionUID = 1L;
@@ -36,7 +44,6 @@ public class DropEvent extends BehaviorEvent
     private final Map<String, String> _dropDataMap;
     private final String _param;
 
-  //TODO: doc me
     public DropEvent(UIComponent component, DropTargetBehavior behavior, Map<String, String> dropDataMap, String param)
     {
         super(component, behavior);
@@ -57,7 +64,21 @@ public class DropEvent extends BehaviorEvent
         
     }
     
-  //TODO: doc me
+    /**
+     * Returns the values sent received from the client after a successful drop.
+     * <br/>
+     * ie.
+     * 
+     * <table>
+     * <tr>
+     * <th>Content-type</th>
+     * <th>Value</th>
+     * </tr>
+     * 
+     * 
+     *  
+     * @return
+     */
     public Map<String, String> getDropDataMap()
     {
         return _dropDataMap;

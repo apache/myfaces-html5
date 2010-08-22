@@ -44,8 +44,13 @@ import org.apache.myfaces.html5.renderkit.behavior.DropTargetBehaviorRenderer;
 import org.apache.myfaces.html5.renderkit.util.ClientBehaviorEvents;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 
+/* 
+ * Facelets tag handler for DropTargetBehavior.
+ *
+ * 
+ * DO NOT JAVADOC here since we don't want this doc to show up in Facelets doc.
+ */
 @JSFFaceletTag(name = "fx:dropTarget", behaviorClass="org.apache.myfaces.html5.behavior.DropTargetBehavior")
-// TODO: doc me
 public class DropTargetBehaviorHandler extends javax.faces.view.facelets.BehaviorHandler
 {
 
@@ -193,7 +198,7 @@ public class DropTargetBehaviorHandler extends javax.faces.view.facelets.Behavio
                 dropTargetBehavior.addDropTargetBehaviorListener(new DropListener(expr));
             }
 
-            // XXX: see https://issues.apache.org/jira/browse/MYFACES-2616
+            // see https://issues.apache.org/jira/browse/MYFACES-2616
             // see the thread http://www.mail-archive.com/dev@myfaces.apache.org/msg46764.html
             // using the same approach in DropSourceBehavior too... see there for explanation!
             if (_action != null)
@@ -249,7 +254,7 @@ public class DropTargetBehaviorHandler extends javax.faces.view.facelets.Behavio
             holder.addClientBehavior(ClientBehaviorEvents.DRAGOVER_EVENT, dropTargetBehavior);
             holder.addClientBehavior(ClientBehaviorEvents.DROP_EVENT, dropTargetBehavior);
         }
-        // XXX: check this out
+        //TODO: try in a composite component!
         /*
          * else if (UIComponent.isCompositeComponent(parent)) { // COPIED FROM AjaxHandler! // It is supposed that for
          * composite components, this tag should // add itself as a target, but note that on whole api does not exists

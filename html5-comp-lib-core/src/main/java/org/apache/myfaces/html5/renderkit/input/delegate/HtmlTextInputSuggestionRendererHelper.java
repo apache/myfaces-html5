@@ -53,21 +53,7 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
 {
     static final char TABULATOR = '\t';
 
-    // //XXX: not using singleton since that approach is evil and needs thread safety which means performance penalty
-    // private static HtmlTextInputSuggestionRendererHelper instance;
-    //
-    // private HtmlTextInputSuggestionRendererHelper()
-    // {
-    // }
-    //    
-    // public HtmlTextInputSuggestionRendererHelper getInstance()
-    // {
-    // //implement thread safety
-    // if(HtmlTextInputSuggestionRendererHelper.instance == null)
-    // HtmlTextInputSuggestionRendererHelper.instance = new HtmlTextInputSuggestionRendererHelper();
-    //            
-    // return instance;
-    // }
+    // not using singleton since that approach is evil, not testable and needs thread safety which means performance penalty
 
     /*
      * (non-Javadoc)
@@ -255,22 +241,19 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
 
         for (Iterator<SelectItem> iterator = selectItemsCollection.iterator(); iterator.hasNext();)
         {
-            // XXX: might throw an exception! don't handle, and let the user handle the exception
+            // might throw an exception! don't handle, and let the user handle the exception
             SelectItem selectItem = iterator.next();
 
             writer.write(TABULATOR);
 
             writer.startElement(HTML.OPTION_ELEM, null);
-            // XXX: do we need to set id of the generated option element?
 
             /*
              * we're writing an attribute, not text here: using <option value="value" label="Label" /> notation, not
              * <option value="value">Label</option>
              */
             String itemLabel = selectItem.getLabel();
-            // XXX: writeAttribute method escapes the label anyway. so ignore SelectItem#isEscape()...
-            // if(itemLabel!=null && !itemLabel.isEmpty() && selectItem.isEscape())
-            // itemLabel = ESCAPE(itemLabel);
+            // writeAttribute method escapes the label anyway. so ignore SelectItem#isEscape()...
             writer.writeAttribute(HTML.LABEL_ATTR, itemLabel, null);
 
             String itemStrValue = RendererUtils.getConvertedStringValue(facesContext, component, converter, selectItem);

@@ -142,7 +142,7 @@ public class DragSourceBehaviorHandler extends javax.faces.view.facelets.Behavio
 
             // evaluating the _param's value expression doesn't this work if I put the dragSource in a datatable and try
             // to set the valueexpression using the var of table.
-            // XXX: see https://issues.apache.org/jira/browse/MYFACES-2616
+            // see https://issues.apache.org/jira/browse/MYFACES-2616
             // see the thread http://www.mail-archive.com/dev@myfaces.apache.org/msg46764.html
             // thus need to pass the valuexpression to the behavior, then the renderer can evaluate it. AjaxBehavior
             // does this with a map.
