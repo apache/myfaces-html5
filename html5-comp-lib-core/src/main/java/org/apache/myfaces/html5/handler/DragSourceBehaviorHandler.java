@@ -162,7 +162,7 @@ public class DragSourceBehaviorHandler extends javax.faces.view.facelets.Behavio
             }
             if (_dropTargetTypes != null)
             {
-                if (_action.isLiteral())
+                if (_dropTargetTypes.isLiteral())
                 {
                     dragSourceBehavior.setDropTargetTypes(_dropTargetTypes.getObject(faceletContext));
                 }
