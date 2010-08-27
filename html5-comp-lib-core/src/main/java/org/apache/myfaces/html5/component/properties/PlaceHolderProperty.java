@@ -27,6 +27,6 @@ public interface PlaceHolderProperty
      * Hint to show on the input, when nothing is typed.
      */
     @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getPlaceHolder();
+    public abstract String getPlaceholder();
 
 }
