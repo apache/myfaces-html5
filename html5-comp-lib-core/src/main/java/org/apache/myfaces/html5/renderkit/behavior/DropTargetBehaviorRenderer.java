@@ -113,6 +113,8 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
         {
             dropDataMap = new HashMap<String, String>();
 
+            //TODO: allow multiple values for mime-types
+            //try with link DnDs
             String[] receivedDataMimeTypes = Html5RendererUtils.resolveStrings(strReceivedDataMimeTypes);
             for (String mimeType : receivedDataMimeTypes)
             {

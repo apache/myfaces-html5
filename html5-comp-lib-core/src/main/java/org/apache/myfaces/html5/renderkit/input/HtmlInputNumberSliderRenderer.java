@@ -56,6 +56,7 @@ public class HtmlInputNumberSliderRenderer extends Html5BaseInputTextRenderer
 
     private HtmlTextInputSuggestionRendererHelper _suggestionRendererHelper;
 
+    //TODO: add an implicit NumberConverter if not defined
     @Override
     protected void renderInputBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException
     {
