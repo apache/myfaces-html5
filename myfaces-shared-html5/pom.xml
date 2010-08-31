@@ -129,6 +129,7 @@
             <groupId>org.apache.myfaces.shared</groupId>
             <artifactId>myfaces-shared-core</artifactId>
             <version>${shared-core-version}</version>
+            <scope>provided</scope>
         </dependency>
 
 

@@ -42,7 +42,6 @@
             <groupId>org.apache.myfaces.html5-comp-lib</groupId>
             <artifactId>myfaces-shared-html5</artifactId>
             <version>0.0.3-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>

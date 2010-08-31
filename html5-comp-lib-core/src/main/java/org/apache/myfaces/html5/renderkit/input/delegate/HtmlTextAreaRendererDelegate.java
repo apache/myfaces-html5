@@ -26,11 +26,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.html5.component.input.HtmlInputText;
 import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
 import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
 import org.apache.myfaces.html5.renderkit.util.PassThroughClientBehaviorEvents;
+import org.apache.myfaces.shared_html5.renderkit.html.HTML;
+import org.apache.myfaces.shared_html5.renderkit.html.HtmlRendererUtils;
+import org.apache.myfaces.shared_html5.renderkit.html.util.JavascriptUtils;
 import org.apache.myfaces.shared_html5.renderkit.html.HtmlTextareaRendererBase;
 
 /**
@@ -41,13 +45,48 @@ import org.apache.myfaces.shared_html5.renderkit.html.HtmlTextareaRendererBase;
  */
 public class HtmlTextAreaRendererDelegate extends HtmlTextareaRendererBase
 {
-
     @Override
-    protected void renderTextAreaBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException
+    protected void renderTextAreaBegin(FacesContext facesContext,
+            UIComponent uiComponent) throws IOException
     {
-        super.renderTextAreaBegin(facesContext, uiComponent);
+        //TODO: use super.renderTextAreaBegin(...) when it is available on the SNAPSHOT!!
+        ResponseWriter writer = facesContext.getResponseWriter();
+        writer.startElement(HTML.TEXTAREA_ELEM, uiComponent);
 
+        Map<String, List<ClientBehavior>> behaviors = null;
+        if (uiComponent instanceof ClientBehaviorHolder && JavascriptUtils.isJavascriptAllowed(facesContext.getExternalContext()))
+        {
+            behaviors = ((ClientBehaviorHolder) uiComponent).getClientBehaviors();
+            if (!behaviors.isEmpty())
+            {
+                HtmlRendererUtils.writeIdAndName(writer, uiComponent, facesContext);
+            }
+            else
+            {
+                HtmlRendererUtils.writeIdIfNecessary(writer, uiComponent, facesContext);
+                writer.writeAttribute(HTML.NAME_ATTR, uiComponent.getClientId(facesContext), null);
+            }
+            HtmlRendererUtils.renderBehaviorizedOnchangeEventHandler(facesContext, writer, uiComponent, behaviors);
+            HtmlRendererUtils.renderBehaviorizedEventHandlers(facesContext, writer, uiComponent, behaviors);
+            HtmlRendererUtils.renderBehaviorizedFieldEventHandlersWithoutOnchange(facesContext, writer, uiComponent, behaviors);
+            HtmlRendererUtils.renderHTMLAttributes(writer, uiComponent, HTML.TEXTAREA_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED_AND_EVENTS);
+        }
+        else
+        {
+            HtmlRendererUtils.writeIdIfNecessary(writer, uiComponent, facesContext);
+            writer.writeAttribute(HTML.NAME_ATTR, uiComponent.getClientId(facesContext), null);
+            HtmlRendererUtils.renderHTMLAttributes(writer, uiComponent, HTML.TEXTAREA_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED);
+        }
+
+        if (isDisabled(facesContext, uiComponent))
+        {
+            writer.writeAttribute(org.apache.myfaces.shared_html5.renderkit.html.HTML.DISABLED_ATTR, Boolean.TRUE, null);
+        }
+        
         renderPassThruAttrsAndEvents(facesContext, uiComponent);
+
+        String strValue = org.apache.myfaces.shared_html5.renderkit.RendererUtils.getStringValue(facesContext, uiComponent);
+        writer.writeText(strValue, org.apache.myfaces.shared_html5.renderkit.JSFAttr.VALUE_ATTR);
     }
 
     // to make this extendible
