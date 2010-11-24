@@ -203,7 +203,7 @@
     </profiles>
     
     <properties>
-        <shared-core-version>4.0.2</shared-core-version>
+        <shared-core-version>4.0.4-SNAPSHOT</shared-core-version>
     </properties>
 
 </project>
