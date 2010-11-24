@@ -25,7 +25,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.BehaviorListener;
 
-//TODO: doc me
+/**
+ * Wrapper for drop listener expression of fx:dropTarget behavior.
+ */
 public class DropListener implements BehaviorListener
 {
     private static final Logger log = Logger.getLogger(DropListener.class.getName());

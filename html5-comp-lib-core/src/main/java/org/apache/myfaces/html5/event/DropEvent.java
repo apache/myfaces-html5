@@ -83,8 +83,10 @@ public class DropEvent extends BehaviorEvent
     {
         return _dropDataMap;
     }
-    
-  //TODO: doc me
+
+    /**
+     * Parameter of the drag and drop operation, which is specified with fx:dragSource behavior.
+     */
     public String getParam()
     {
         return _param;

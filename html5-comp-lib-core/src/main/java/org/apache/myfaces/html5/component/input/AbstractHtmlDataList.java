@@ -25,6 +25,9 @@ import javax.faces.model.SelectItem;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 
+/**
+ * Suggestions provider component for input components. 
+ */
 @JSFComponent(
         name = "hx:dataList",
         clazz = "org.apache.myfaces.html5.component.input.HtmlDataList",
@@ -33,7 +36,6 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
         family = "javax.faces.Output",
         type = "org.apache.myfaces.html5.HtmlDataList"
         )
-        //TODO: docme 
 public abstract class AbstractHtmlDataList extends javax.faces.component.UIComponentBase
 {
     private static final Logger log = Logger.getLogger(AbstractHtmlDataList.class.getName());
