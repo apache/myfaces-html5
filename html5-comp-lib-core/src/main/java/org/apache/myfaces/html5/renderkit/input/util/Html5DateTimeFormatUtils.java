@@ -93,7 +93,7 @@ public class Html5DateTimeFormatUtils
         }
         else if (HTML5.INPUT_TYPE_DATETIME_LOCAL.equals(type))
         {
-            return _formatLocalDateTime(value); // TODO: with which timezone?
+            return _formatLocalDateTime(value);
         }
         else if (HTML5.INPUT_TYPE_DATE.equals(type))
         {

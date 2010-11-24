@@ -116,7 +116,7 @@ public class Html5RendererUtils
                  * so draggable="draggable" is a syntax error. for these attrs, we need to render ="true" like
                  * draggable="true". so, to prevent writer.writeAttribute(...) render that, this is the workaround!
                  * 
-                 * TODO: file a ticket on JIRA for this issue
+                 * XXX: file a ticket on JIRA for this issue
                  */
 
                 if (value instanceof Boolean)

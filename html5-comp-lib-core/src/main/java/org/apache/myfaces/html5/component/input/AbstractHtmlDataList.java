@@ -40,7 +40,6 @@ public abstract class AbstractHtmlDataList extends javax.faces.component.UICompo
 {
     private static final Logger log = Logger.getLogger(AbstractHtmlDataList.class.getName());
 
-    //TODO: docme
     /**
      * Suggestion values to use. Can be one of comma seperated strings, array of {@link SelectItem} or collection of {@link SelectItem}. 
      */

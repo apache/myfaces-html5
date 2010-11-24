@@ -70,42 +70,42 @@ public abstract class AbstractHtmlInputDateTime extends org.apache.myfaces.html5
      *          <td>Step should be expressed in seconds.</td>
      *          <td>1 minute</td>
      *          <td>0.01 (10 miliseconds)</td>
-     *          <td>N/A</td> //TODO: test it again
+     *          <td>N/A</td> //XXX: test it again
      *      </tr>
      *      <tr>
      *          <td>date</td>
      *          <td>Step should be expressed in days.</td>
      *          <td>1 day</td>
      *          <td>1 (1 day)</td>
-     *          <td>N/A</td> //TODO: test it again
+     *          <td>N/A</td> //XXX: test it again
      *      </tr>
      *      <tr>
      *          <td>time</td>
      *          <td>Step should be expressed in seconds. If the step is less than 1 second, browser should show the miliseconds input too.</td>
      *          <td>1 minute</td>
      *          <td>0.01 (10 miliseconds)</td>
-     *          <td>N/A</td> //TODO: test it again
+     *          <td>N/A</td> //XXX: test it again
      *      </tr>
      *      <tr>
      *          <td>month</td>
      *          <td>Step should be expressed in months.</td>
      *          <td>1 month</td>
      *          <td>1 (1 month)</td>
-     *          <td>N/A</td> //TODO: test it again
+     *          <td>N/A</td> //XXX: test it again
      *      </tr>
      *      <tr>
      *          <td>week</td>
      *          <td>Step should be expressed in weeks.</td>
      *          <td>1 week</td>
      *          <td>1 (1 week)</td>
-     *          <td>N/A</td> //TODO: test it again
+     *          <td>N/A</td> //XXX: test it again
      *      </tr>
      *      <tr>
      *          <td>datetime-local</td>
      *          <td>Step should be expressed in seconds.</td>
      *          <td>1 minute</td>
      *          <td>0.01 (10 miliseconds)</td>
-     *          <td>N/A</td> //TODO: test it again
+     *          <td>N/A</td> //XXX: test it again
      *      </tr>
      *   </table>
      * 

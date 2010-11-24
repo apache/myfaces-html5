@@ -169,7 +169,7 @@ public class HtmlInputTextRenderer extends Renderer
      */
     protected void checkInputHtmlType(UIComponent uiComponent)
     {
-        // TODO: this is called from too many places! reduce them!
+        // XXX: this is called from too many places! reduce them!
         HtmlInputText component = (HtmlInputText) uiComponent;
         String type = component.getType();
         if (log.isLoggable(Level.FINE))

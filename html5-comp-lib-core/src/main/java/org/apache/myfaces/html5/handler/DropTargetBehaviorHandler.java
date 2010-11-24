@@ -254,7 +254,7 @@ public class DropTargetBehaviorHandler extends javax.faces.view.facelets.Behavio
             holder.addClientBehavior(ClientBehaviorEvents.DRAGOVER_EVENT, dropTargetBehavior);
             holder.addClientBehavior(ClientBehaviorEvents.DROP_EVENT, dropTargetBehavior);
         }
-        //TODO: try in a composite component!
+        //XXX: try in a composite component!
         /*
          * else if (UIComponent.isCompositeComponent(parent)) { // COPIED FROM AjaxHandler! // It is supposed that for
          * composite components, this tag should // add itself as a target, but note that on whole api does not exists

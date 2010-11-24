@@ -32,7 +32,9 @@ import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.JsfProperties;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 
-//TODO: docme
+/**
+ * Implementation of {@link SuggestionRendererHelper} for usage in {@link org.apache.myfaces.html5.component.input.HtmlDataList}s.
+ */
 public class HtmlDataListSuggestionRendererHelper extends HtmlTextInputSuggestionRendererHelper
 {
 

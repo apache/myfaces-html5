@@ -28,7 +28,6 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRendere
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlDataListSuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper;
 
-//TODO: docme
 @JSFRenderer(renderKitId = "HTML_BASIC", family = "javax.faces.Output", type = "org.apache.myfaces.html5.DataList")
 public class HtmlDataListRenderer extends Renderer
 {
