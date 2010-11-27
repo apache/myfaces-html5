@@ -34,6 +34,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.render.ClientBehaviorRenderer;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.html5.behavior.DropTargetBehavior;
 import org.apache.myfaces.html5.event.DropEvent;
 import org.apache.myfaces.html5.renderkit.util.BehaviorScriptUtils;
@@ -70,6 +71,8 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
 
     private static Set<String> ALLOWED_ACTIONS = new HashSet<String>(Arrays.asList("copy", "move", "link", "copyLink",
             "copyMove", "linkMove", "all", "none"));
+
+    private static final String ACCEPT_ALL_MIME_TYPES = "*";
 
     @Override
     public void decode(FacesContext context, UIComponent component, ClientBehavior behavior)
@@ -180,10 +183,7 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
     {
         String action = behavior.getAction() != null ? behavior.getAction().toString() : null;
         String[] types = Html5RendererUtils.resolveStrings(behavior.getTypes());
-        String[] acceptMimeTypes = Html5RendererUtils.resolveStrings(behavior.getAcceptMimeTypes(), new String[]
-        {
-            DEFAULT_MYFACES_MIME_TYPE
-        });
+        String[] acceptMimeTypes = _resolveAcceptMimeTypes(behavior);
 
         // it is better to check the action is one of allowed, isn't it? So, if user types 'cpy' instead of 'copy',
         // he/she will easily understand what is wrong. Other way, he/she has to watch the browser's javascript console.
@@ -200,27 +200,12 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
         return script;
     }
 
-    private void _checkAction(String action)
-    {
-        if (action == null || action.isEmpty())
-            return;
-
-        if (ALLOWED_ACTIONS.contains(action))
-            return;
-        else
-            throw new FacesException("Action of dropTarget is not one of allowed values "
-                    + Arrays.toString(ALLOWED_ACTIONS.toArray(new String[0])) + " but " + action);
-    }
-
     private String _getDropScript(ClientBehaviorContext behaviorContext, DropTargetBehavior behavior)
     {
 
         String sourceId = behaviorContext.getSourceId();
         String[] rerender = Html5RendererUtils.resolveStrings(behavior.getRerender());
-        String[] acceptMimeTypes = Html5RendererUtils.resolveStrings(behavior.getAcceptMimeTypes(), new String[]
-        {
-            DEFAULT_MYFACES_MIME_TYPE
-        });
+        String[] acceptMimeTypes = _resolveAcceptMimeTypes(behavior);
 
         String jsSourceId = (sourceId == null) ? "this" : BehaviorScriptUtils.convertToSafeJavascriptLiteral(sourceId);
         String jsAcceptMimeTypes = BehaviorScriptUtils.convertToSafeJavascriptLiteralArray(acceptMimeTypes);
@@ -232,6 +217,33 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
         String script = String.format(format, jsSourceId, jsRerender, jsAcceptMimeTypes);
 
         return script;
+    }
+
+    private String[] _resolveAcceptMimeTypes(DropTargetBehavior behavior) {
+        String[] acceptMimeTypes;
+        if(behavior.getAcceptMimeTypes()!=null && ACCEPT_ALL_MIME_TYPES.equals(behavior.getAcceptMimeTypes())){
+            acceptMimeTypes = new String[]{ACCEPT_ALL_MIME_TYPES};
+        }
+        else
+        {
+            acceptMimeTypes = Html5RendererUtils.resolveStrings(behavior.getAcceptMimeTypes(), new String[]
+            {
+                DEFAULT_MYFACES_MIME_TYPE
+            });
+        }
+        return acceptMimeTypes;
+    }
+
+    private void _checkAction(String action)
+    {
+        if (action == null || action.isEmpty())
+            return;
+
+        if (ALLOWED_ACTIONS.contains(action))
+            return;
+        else
+            throw new FacesException("Action of dropTarget is not one of allowed values "
+                    + Arrays.toString(ALLOWED_ACTIONS.toArray(new String[0])) + " but " + action);
     }
 
 }

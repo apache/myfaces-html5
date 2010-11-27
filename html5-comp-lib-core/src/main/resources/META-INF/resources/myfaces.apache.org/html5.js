@@ -28,6 +28,7 @@ myfaces.html5.PARAM_MIME_TYPE 				= 'text/x-myfaces-html5-dnd-param';
 myfaces.html5.COMPONENT_SOURCE_MIME_TYPE 	= 'text/x-myfaces-html5-dnd-source';
 myfaces.html5.DROP_TARGETS_MIME_TYPE 		= 'text/x-myfaces-html5-drop-target-type';
 myfaces.html5.COMPONENT_SOURCE 				= 'org.apache.myfaces';
+myfaces.html5.ACCEPT_ALL_MIME_TYPES 	    = '*';
 
 //myfaces.html5.COMPONENT_SOURCE_MIME_TYPE 	= 'text/x-myfaces-html5-dnd-source';
 
@@ -54,13 +55,16 @@ myfaces.html5.dragStart = function(event, effectAllowed, dropTargetTypes, paramT
 }
  
 myfaces.html5.dragEnterOrOver = function(event, allowedEffect, dropTargetTypes, acceptedMimeTypes) {
-	//check allowed mime types first
-    var foundMimeTypes = acceptedMimeTypes.filter(function (mimeType){return event.dataTransfer.types.contains(mimeType)});
-    //if even one of the event mime types are not allowed, stop DnD 
-    if(foundMimeTypes == null || foundMimeTypes.length == 0)
-    {
-        return true; //don't cancel the event, thus stop DnD
+	//check allowed mime types first. if its "*", then accept all (do not check it)
+    if(acceptedMimeTypes.length!=1 || acceptedMimeTypes[0]!=myfaces.html5.ACCEPT_ALL_MIME_TYPES){
+        var foundMimeTypes = acceptedMimeTypes.filter(function (mimeType){return event.dataTransfer.types.contains(mimeType)});
+        //if even one of the event mime types are not allowed, stop DnD
+        if(foundMimeTypes == null || foundMimeTypes.length == 0)
+        {
+            return true; //don't cancel the event, thus stop DnD
+        }
     }
+
     
     //if allowed effect is specified, set it. so the browser can decide whether continue or stop dnd operation.
     if(allowedEffect){
@@ -112,17 +116,26 @@ myfaces.html5.drop = function(event, source, rerender, acceptedMimeTypes){
 
     //set the data according to acceptedMimeTypes
     if(acceptedMimeTypes){
-	    var foundMimeTypes = acceptedMimeTypes.filter(function (mimeType){return event.dataTransfer.types.contains(mimeType)});
-	    if(foundMimeTypes.length > 0){
-	    	 options["org.apache.myfaces.dnd.foundMimeTypes"] = myfaces.html5._getArrayAsString(acceptedMimeTypes);
-	    	 for(var i=0; i< foundMimeTypes.length; i++){
-	    		 var mimeType = foundMimeTypes[i];
-	    		 var data = event.dataTransfer.getData(mimeType);
-	    		 if(data){
-	    			 options[mimeType] = data;
-	    		 }
-	    	 }
-	    }
+	    var foundMimeTypes;
+        if(acceptedMimeTypes.length==1 && acceptedMimeTypes[0]==myfaces.html5.ACCEPT_ALL_MIME_TYPES){
+            foundMimeTypes = new Array(event.dataTransfer.types.length);
+            for(var i=0; i<event.dataTransfer.types.length; i++){
+                foundMimeTypes[i] =  event.dataTransfer.types.item(i);
+            }
+        }
+        else {
+            foundMimeTypes = acceptedMimeTypes.filter(function (mimeType) {return event.dataTransfer.types.contains(mimeType)});
+        }
+        if(foundMimeTypes.length > 0){
+             options["org.apache.myfaces.dnd.foundMimeTypes"] = myfaces.html5._getArrayAsString(foundMimeTypes);
+             for(var i=0; i< foundMimeTypes.length; i++){
+                 var mimeType = foundMimeTypes[i];
+                 var data = event.dataTransfer.getData(mimeType);
+                 if(data){
+                     options[mimeType] = data;
+                 }
+             }
+        }
     }
     
     //set event
