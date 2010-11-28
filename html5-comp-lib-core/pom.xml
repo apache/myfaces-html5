@@ -128,8 +128,6 @@
                         <configuration>
                             <jsfVersion>20</jsfVersion>
                             <templateComponentName>componentClass20.vm</templateComponentName>
-                            <!-- TODO: remove this?? -->
-                            <mainSourceDirectory2>${project.build.directory}/html5_sources</mainSourceDirectory2>
                             <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                         </configuration>
                     </execution>
@@ -143,8 +141,6 @@
                         <configuration>
                             <jsfVersion>12</jsfVersion>
                             <templateValidatorName>validatorClass12.vm</templateValidatorName>
-                            <!-- TODO: remove this?? -->
-                            <mainSourceDirectory2>${project.build.directory}/html5_sources</mainSourceDirectory2>
                             <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                         </configuration>
                     </execution>
@@ -155,8 +151,6 @@
                         <configuration>
                             <jsfVersion>12</jsfVersion>
                             <templateTagName>tagClass12.vm</templateTagName>
-                            <!-- TODO: remove this?? -->
-                            <mainSourceDirectory2>${project.build.directory}/html5_sources</mainSourceDirectory2>
                             <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                         </configuration>
                         <goals>
