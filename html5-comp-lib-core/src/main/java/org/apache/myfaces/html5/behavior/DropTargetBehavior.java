@@ -107,7 +107,6 @@ public class DropTargetBehavior extends javax.faces.component.behavior.ClientBeh
     /**
      * @see DropTargetBehaviorHandler#_acceptMimeTypes
      */
-    // TODO: implement accepting all mime types with supporting '*' for the value.
     public Object getAcceptMimeTypes()
     {
         return deltaStateHelper.eval(ATTR_ACCEPT_MIME_TYPES);

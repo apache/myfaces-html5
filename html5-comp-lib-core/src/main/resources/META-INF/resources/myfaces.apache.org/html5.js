@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//TODO: use the approach(es) in jsf.js
 
 var myfaces;
 if(myfaces == undefined || myfaces == null)
