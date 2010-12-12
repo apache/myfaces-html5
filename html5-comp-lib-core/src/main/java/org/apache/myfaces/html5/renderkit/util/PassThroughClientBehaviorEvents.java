@@ -72,6 +72,14 @@ public interface PassThroughClientBehaviorEvents
         .events(PassThroughClientBehaviorEventGroups.HTML5_INPUT_BEHAVIOR_EVENTS)
         .unmodifiable();
 
+    Map<String, String> PROGRESS = map(7)
+        .events(PassThroughClientBehaviorEventGroups.HTML5_GLOBAL_BEHAVIOR_EVENTS)
+        .unmodifiable();
+
+    Map<String, String> METER = map(7)
+        .events(PassThroughClientBehaviorEventGroups.HTML5_GLOBAL_BEHAVIOR_EVENTS)
+        .unmodifiable();
+
     Map<String, String> DIV = map(11)
         .events(PassThroughClientBehaviorEventGroups.HTML_GLOBAL_BEHAVIOR_EVENTS)
         .events(PassThroughClientBehaviorEventGroups.HTML5_GLOBAL_BEHAVIOR_EVENTS)

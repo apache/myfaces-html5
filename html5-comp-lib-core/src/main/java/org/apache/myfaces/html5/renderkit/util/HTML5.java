@@ -91,4 +91,10 @@ public interface HTML5
     String CONTENTEDITABLE_ATTR = "contenteditable";
     String SPELLCHECK_ATTR = "spellcheck";
 
+
+    // meter
+    String LOW_ATTR = "low";
+    String HIGH_ATTR = "high";
+    String OPTIMUM_ATTR = "optimum";
+
 }

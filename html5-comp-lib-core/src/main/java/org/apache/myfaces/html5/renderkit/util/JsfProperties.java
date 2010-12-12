@@ -41,6 +41,8 @@ public interface JsfProperties
     String WIDTH_PROP = "width";
     String HEIGHT_PROP = "height";
 
+    String VALUE_PROP = "value";
+
     // new Html5 common props
     String HIDDEN_PROP = "hidden";
     String DRAGGABLE_PROP = "draggable";
@@ -129,5 +131,11 @@ public interface JsfProperties
     String INPUTDATETIME_TYPE_WEEK = "week";
     String INPUTDATETIME_TYPE_DATETIME_LOCAL = "datetime-local";
     
+    //progress and meter
+    String MAXIMUM_PROP = "maximum";
+    String MINIMUM_PROP = "minimum";
+    String OPTIMUM_PROP = "optimum";
+    String LOW_PROP = "low";
+    String HIGH_PROP = "high";
 
 }

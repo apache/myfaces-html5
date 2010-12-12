@@ -17,38 +17,23 @@
 -->
 <html lang="en"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
       
-<h:head>
-</h:head>
 <h:body>
-	<h1>Component Simple Showcase</h1>
-	<ul style="line-height:30px;">
-		<li>
-			<h:link outcome="video" value="hx:video, hx:audio, fx:mediaSource and fx:mediaSources"/>
-		</li>
-		<li>
-			<h:link outcome="inputText" value="hx:inputText and hx:datalist"/>
-		</li>
-		<li>
-			<h:link outcome="dnd" value="dnd : hx:div, fx:dropTarget and fx:dragSource"/>
-		</li>
-		<li>
-			<h:link outcome="inputDateTime" value="hx:inputDateTime and fx:validateDateTimeRange"/>
-		</li>
-		<li>
-			<h:link outcome="inputEmail" value="hx:inputEmail"/>
-		</li>
-		<li>
-			<h:link outcome="inputColor" value="hx:inputColor"/>
-		</li>
-		<li>
-			<h:link outcome="inputNumberXXX" value="hx:inputNumberSlider and hx:inputNumberSpinner"/>
-		</li>
-        <li>
-			<h:link outcome="meterProgress" value="hx:meter and hx:progress"/>
-		</li>
-	</ul>
+	
+	 <ui:composition template="/_template.xhtml">
+	    <ui:define name="pageName">
+	    	<h1>meter and progress Index</h1>
+	    </ui:define>
+
+		<ui:define name="content">
+	    	<ul>
+				<li><h:link outcome="meterProgress/meterProgress01" value="Simple progress"/></li>
+			</ul>
+	    </ui:define>
+			
+	</ui:composition>
 	
 </h:body>
 </html>

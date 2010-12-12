@@ -106,5 +106,23 @@ public interface PassThroughAttributes
         .attr(REQUIRED_PROP)
         .attr(READONLY_PROP)
         .unmodifiable();
+
+    Map<String, String> PROGRESS = map(11)
+        .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
+        .attrs(PassThroughAttributeGroups.HTML_GLOBAL_PROPS)
+        .attr(VALUE_PROP)
+        .attr(MAXIMUM_PROP, MAX_ATTR)
+        .unmodifiable();
+
+    Map<String, String> METER = map(11)
+        .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
+        .attrs(PassThroughAttributeGroups.HTML_GLOBAL_PROPS)
+        .attr(VALUE_PROP)
+        .attr(MAXIMUM_PROP, MAX_ATTR)
+        .attr(MINIMUM_PROP, MIN_ATTR)
+        .attr(LOW_PROP, LOW_ATTR)
+        .attr(HIGH_PROP, HIGH_ATTR)
+        .attr(OPTIMUM_PROP, OPTIMUM_ATTR)
+        .unmodifiable();
     
 }
