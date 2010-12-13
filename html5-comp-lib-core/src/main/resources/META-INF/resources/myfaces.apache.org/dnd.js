@@ -21,41 +21,45 @@ var myfaces;
 if(myfaces == undefined || myfaces == null)
 	myfaces = {};
 
-myfaces.html5 = {};
+if(myfaces.html5 == undefined || myfaces.html5 == null)
+    myfaces.html5 = {};
 
-myfaces.html5.PARAM_MIME_TYPE 				= 'text/x-myfaces-html5-dnd-param';
-myfaces.html5.COMPONENT_SOURCE_MIME_TYPE 	= 'text/x-myfaces-html5-dnd-source';
-myfaces.html5.DROP_TARGETS_MIME_TYPE 		= 'text/x-myfaces-html5-drop-target-type';
-myfaces.html5.COMPONENT_SOURCE 				= 'org.apache.myfaces';
-myfaces.html5.ACCEPT_ALL_MIME_TYPES 	    = '*';
+if(myfaces.html5.dnd == undefined || myfaces.html5.dnd == null)
+    myfaces.html5.dnd = {};
 
-//myfaces.html5.COMPONENT_SOURCE_MIME_TYPE 	= 'text/x-myfaces-html5-dnd-source';
+myfaces.html5.dnd.PARAM_MIME_TYPE 				= 'text/x-myfaces-html5-dnd-param';
+myfaces.html5.dnd.COMPONENT_SOURCE_MIME_TYPE 	= 'text/x-myfaces-html5-dnd-source';
+myfaces.html5.dnd.DROP_TARGETS_MIME_TYPE 		= 'text/x-myfaces-html5-drop-target-type';
+myfaces.html5.dnd.COMPONENT_SOURCE 				= 'org.apache.myfaces';
+myfaces.html5.dnd.ACCEPT_ALL_MIME_TYPES 	    = '*';
+
+//myfaces.html5.dnd.COMPONENT_SOURCE_MIME_TYPE 	= 'text/x-myfaces-html5-dnd-source';
 
 
 /*
  * This function is only used by MyFaces generated draggable elements, the ones that have <fx:dragSource> behavior.
  */
-myfaces.html5.dragStart = function(event, effectAllowed, dropTargetTypes, paramToSendToServer) {
+myfaces.html5.dnd.dragStart = function(event, effectAllowed, dropTargetTypes, paramToSendToServer) {
 	//set allowed effect
     event.dataTransfer.effectAllowed = effectAllowed;   //only allow some specific event
  
     //with this, drop target will understand that source of this dnd operation is some MyFaces component
-    event.dataTransfer.setData(myfaces.html5.COMPONENT_SOURCE_MIME_TYPE, myfaces.html5.COMPONENT_SOURCE);
+    event.dataTransfer.setData(myfaces.html5.dnd.COMPONENT_SOURCE_MIME_TYPE, myfaces.html5.dnd.COMPONENT_SOURCE);
  
     //this will be set if we want to send an optional parameter to the server-side drop listener
     if(paramToSendToServer)
-        event.dataTransfer.setData(myfaces.html5.PARAM_MIME_TYPE, paramToSendToServer);    
+        event.dataTransfer.setData(myfaces.html5.dnd.PARAM_MIME_TYPE, paramToSendToServer);
  
     //this will be set if we want to make the drop only into specific dropTargets with specific types
     if(dropTargetTypes)
-        event.dataTransfer.setData(myfaces.html5.DROP_TARGETS_MIME_TYPE, myfaces.html5._getArrayAsString(dropTargetTypes));    
+        event.dataTransfer.setData(myfaces.html5.dnd.DROP_TARGETS_MIME_TYPE, myfaces.html5.common.getArrayAsString(dropTargetTypes));
        
     return true;
 }
  
-myfaces.html5.dragEnterOrOver = function(event, allowedEffect, dropTargetTypes, acceptedMimeTypes) {
+myfaces.html5.dnd.dragEnterOrOver = function(event, allowedEffect, dropTargetTypes, acceptedMimeTypes) {
 	//check allowed mime types first. if its "*", then accept all (do not check it)
-    if(acceptedMimeTypes.length!=1 || acceptedMimeTypes[0]!=myfaces.html5.ACCEPT_ALL_MIME_TYPES){
+    if(acceptedMimeTypes.length!=1 || acceptedMimeTypes[0]!=myfaces.html5.dnd.ACCEPT_ALL_MIME_TYPES){
         var foundMimeTypes = acceptedMimeTypes.filter(function (mimeType){return event.dataTransfer.types.contains(mimeType)});
         //if even one of the event mime types are not allowed, stop DnD
         if(foundMimeTypes == null || foundMimeTypes.length == 0)
@@ -71,11 +75,11 @@ myfaces.html5.dragEnterOrOver = function(event, allowedEffect, dropTargetTypes, 
     }
     
     //check drop target type
-    var strAcceptedDropTargetTypesOfDragSource = event.dataTransfer.getData(myfaces.html5.DROP_TARGETS_MIME_TYPE);
+    var strAcceptedDropTargetTypesOfDragSource = event.dataTransfer.getData(myfaces.html5.dnd.DROP_TARGETS_MIME_TYPE);
     if(strAcceptedDropTargetTypesOfDragSource){		//if drag source defines a drop target type
     	//then, let's check this drop target's type matches with that
-    	var acceptedDropTargetTypesFromDragSource = myfaces.html5._convertStringToArray(event.dataTransfer.getData(myfaces.html5.DROP_TARGETS_MIME_TYPE));
-    	var foundDropTargetTypes = acceptedDropTargetTypesFromDragSource.filter(function (dropTargetType){return myfaces.html5._contains(dropTargetTypes, dropTargetType)});
+    	var acceptedDropTargetTypesFromDragSource = myfaces.html5.common.convertStringToArray(event.dataTransfer.getData(myfaces.html5.dnd.DROP_TARGETS_MIME_TYPE));
+    	var foundDropTargetTypes = acceptedDropTargetTypesFromDragSource.filter(function (dropTargetType){return myfaces.html5.common.contains(dropTargetTypes, dropTargetType)});
     	
     	//if even one of the drop target types are not allowed, stop DnD 
     	if(foundDropTargetTypes.length == 0)
@@ -89,7 +93,7 @@ myfaces.html5.dragEnterOrOver = function(event, allowedEffect, dropTargetTypes, 
     return false;
 }
  
-myfaces.html5.drop = function(event, source, rerender, acceptedMimeTypes){
+myfaces.html5.dnd.drop = function(event, source, rerender, acceptedMimeTypes){
 	//cancel the event. this is necessary for DnD execution
     if (event.preventDefault)
         event.preventDefault();
@@ -109,14 +113,14 @@ myfaces.html5.drop = function(event, source, rerender, acceptedMimeTypes){
     	options.render = "@none";
     
     //set param
-    var paramsToSend = event.dataTransfer.getData(myfaces.html5.PARAM_MIME_TYPE);
+    var paramsToSend = event.dataTransfer.getData(myfaces.html5.dnd.PARAM_MIME_TYPE);
     if(paramsToSend)
-    	options[myfaces.html5.PARAM_MIME_TYPE] = paramsToSend;
+    	options[myfaces.html5.dnd.PARAM_MIME_TYPE] = paramsToSend;
 
     //set the data according to acceptedMimeTypes
     if(acceptedMimeTypes){
 	    var foundMimeTypes;
-        if(acceptedMimeTypes.length==1 && acceptedMimeTypes[0]==myfaces.html5.ACCEPT_ALL_MIME_TYPES){
+        if(acceptedMimeTypes.length==1 && acceptedMimeTypes[0]==myfaces.html5.dnd.ACCEPT_ALL_MIME_TYPES){
             foundMimeTypes = new Array(event.dataTransfer.types.length);
             for(var i=0; i<event.dataTransfer.types.length; i++){
                 foundMimeTypes[i] =  event.dataTransfer.types.item(i);
@@ -126,7 +130,7 @@ myfaces.html5.drop = function(event, source, rerender, acceptedMimeTypes){
             foundMimeTypes = acceptedMimeTypes.filter(function (mimeType) {return event.dataTransfer.types.contains(mimeType)});
         }
         if(foundMimeTypes.length > 0){
-             options["org.apache.myfaces.dnd.foundMimeTypes"] = myfaces.html5._getArrayAsString(foundMimeTypes);
+             options["org.apache.myfaces.dnd.foundMimeTypes"] = myfaces.html5.common.getArrayAsString(foundMimeTypes);
              for(var i=0; i< foundMimeTypes.length; i++){
                  var mimeType = foundMimeTypes[i];
                  var data = event.dataTransfer.getData(mimeType);
@@ -144,36 +148,4 @@ myfaces.html5.drop = function(event, source, rerender, acceptedMimeTypes){
     
     return false;
 
-}
-
-
-myfaces.html5._getArrayAsString = function(arr){
-   var retVal = "";
-   for(var key in arr){
-	   if(key){
-		   var elem = arr[key];
-		   if(elem){
-			   if(elem != "")
-				   retVal += elem + ",";
-		   }
-	   }
-   }
-   if(retVal != "")
-	   retVal = retVal.substring(0, retVal.length-1);
-   
-   return retVal;
-}
-
-myfaces.html5._convertStringToArray = function(str){
-   return str.split(",");
-}
-
-myfaces.html5._contains = function(arr, str){
-    if(! str)
-    	return false;
-	for(var i=0; i<arr.length; i++){
-	   if(arr[i]==str)
-		   return true;
-   }
-   return false;;
 }
