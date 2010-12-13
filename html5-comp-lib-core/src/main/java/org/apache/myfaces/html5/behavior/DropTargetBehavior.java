@@ -40,7 +40,8 @@ import org.apache.myfaces.html5.handler.DropTargetBehaviorHandler;
 @ResourceDependencies(
 {
         @ResourceDependency(name = "jsf.js", library = "javax.faces", target = "head"),
-        @ResourceDependency(name = "html5.js", library = "myfaces.apache.org", target = "head")
+        @ResourceDependency(name = "common.js", library = "myfaces.apache.org.html5", target = "head"),
+        @ResourceDependency(name = "dnd.js", library = "myfaces.apache.org.html5", target = "head")
 })
 @JSFBehavior(name = "fx:dropTarget", id = "org.apache.myfaces.html5.DropTargetBehavior")
 public class DropTargetBehavior extends javax.faces.component.behavior.ClientBehaviorBase implements ValueExpressionHolder

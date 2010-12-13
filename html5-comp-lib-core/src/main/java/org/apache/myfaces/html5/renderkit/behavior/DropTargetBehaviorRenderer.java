@@ -194,7 +194,7 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
         String jsAcceptMimeTypes = BehaviorScriptUtils.convertToSafeJavascriptLiteralArray(acceptMimeTypes);
 
         // sample:: return dragEnterOrOver(event,'move',['firstdropTargetType'], ['text/x-myfaces-html5-dnd-source']);
-        String format = "return myfaces.html5.dragEnterOrOver(event, %s, %s, %s);";
+        String format = "return myfaces.html5.dnd.dragEnterOrOver(event, %s, %s, %s);";
         String script = String.format(format, jsAction, jsTypes, jsAcceptMimeTypes);
 
         return script;
@@ -211,9 +211,9 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
         String jsAcceptMimeTypes = BehaviorScriptUtils.convertToSafeJavascriptLiteralArray(acceptMimeTypes);
         String jsRerender = BehaviorScriptUtils.convertToSpaceSeperatedJSLiteral(rerender);
 
-        // sample:: return myfaces.html5.drop(event, 'drop_zone', '@this someId',
+        // sample:: return myfaces.html5.dnd.drop(event, 'drop_zone', '@this someId',
         // ['text/x-myfaces-html5-dnd-source','text/plain']);
-        String format = "return myfaces.html5.drop(event, %s, %s, %s);";
+        String format = "return myfaces.html5.dnd.drop(event, %s, %s, %s);";
         String script = String.format(format, jsSourceId, jsRerender, jsAcceptMimeTypes);
 
         return script;

@@ -73,8 +73,8 @@ public class DragSourceBehaviorRenderer extends ClientBehaviorRenderer
         String jsParam = BehaviorScriptUtils.convertToSafeJavascriptLiteral(behavior.getParam());
         String jsAction = BehaviorScriptUtils.convertToSafeJavascriptLiteral(behavior.getAction());
 
-        //sample : return myfaces.html5.dragStart(event, 'move', {'A','B'), 'LAL');
-        String format = "return myfaces.html5.dragStart(event, %s, %s, %s);";
+        //sample : return myfaces.html5.dnd.dragStart(event, 'move', {'A','B'), 'LAL');
+        String format = "return myfaces.html5.dnd.dragStart(event, %s, %s, %s);";
         String script = String.format(format, jsAction,
                 jsDropTargetTypes, jsParam);
 

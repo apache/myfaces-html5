@@ -33,14 +33,15 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFBehavio
 /**
  * Adds the Html5 drag functionality to its parent. <br/>
  * This behavior should be attached to "dragstart" event of the parent.
- * 
+ *
  * @author Ali Ok
- * 
+ *
  */
 @ResourceDependencies(
 {
         @ResourceDependency(name = "jsf.js", library = "javax.faces", target = "head"),
-        @ResourceDependency(name = "html5.js", library = "myfaces.apache.org", target = "head")
+        @ResourceDependency(name = "common.js", library = "myfaces.apache.org.html5", target = "head"),
+        @ResourceDependency(name = "dnd.js", library = "myfaces.apache.org.html5", target = "head")
 })
 @JSFBehavior(name = "fx:dragSource", id = "org.apache.myfaces.html5.DragSourceBehavior")
 public class DragSourceBehavior extends javax.faces.component.behavior.ClientBehaviorBase implements ValueExpressionHolder
@@ -117,12 +118,12 @@ public class DragSourceBehavior extends javax.faces.component.behavior.ClientBeh
     {
         return _valueExpressions;
     }
-    
-    public ValueExpression getValueExpression(String name) 
+
+    public ValueExpression getValueExpression(String name)
     {
         return getValueExpressionMap().get(name);
     }
-    
+
     @Override
     public void restoreState(FacesContext facesContext, Object o)
     {
@@ -131,7 +132,7 @@ public class DragSourceBehavior extends javax.faces.component.behavior.ClientBeh
             return;
         }
         Object[] values = (Object[]) o;
-        if (values[0] != null) 
+        if (values[0] != null)
         {
             super.restoreState(facesContext, values[0]);
         }
@@ -145,12 +146,12 @@ public class DragSourceBehavior extends javax.faces.component.behavior.ClientBeh
         {
             Object parentSaved = super.saveState(facesContext);
             Object deltaStateHelperSaved = deltaStateHelper.saveState(facesContext);
-            
+
             if (parentSaved == null && deltaStateHelperSaved == null)
             {
                 //No values
                 return null;
-            }   
+            }
             return new Object[]{parentSaved, deltaStateHelperSaved};
         }
         else
