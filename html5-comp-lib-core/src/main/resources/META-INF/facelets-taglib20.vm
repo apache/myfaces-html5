@@ -80,6 +80,11 @@ $baseContent
 #if ($modelIds.contains($component.modelId) 
     && ($component.name) && $utils.getTagPrefix($component.name) == $shortname)
     <tag>
+#if ($component.longDescription)
+        <description><![CDATA[$component.longDescription]]></description>
+#else
+        <description><![CDATA[]]></description>
+#end
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <component>
             <component-type>$component.type</component-type>
@@ -154,6 +159,11 @@ $baseContent
 #if (! ${model.findFaceletTagByName($behavior.name)})
 #if ($utils.getTagPrefix($behavior.name) == $shortname) 
     <tag>
+#if ($behavior.longDescription)
+        <description><![CDATA[$behavior.longDescription]]></description>
+#else
+        <description><![CDATA[]]></description>
+#end
         <tag-name>$utils.getTagName($behavior.name)</tag-name>
         <behavior>
             <behavior-id>$behavior.behaviorId</behavior-id>
@@ -175,6 +185,11 @@ $baseContent
 #if (! ${model.findFaceletTagByName($tag.name)})
 #if ($utils.getTagPrefix($tag.name) == $shortname)
    <tag>
+#if ($tag.longDescription)
+        <description><![CDATA[$tag.longDescription]]></description>
+#else
+        <description><![CDATA[]]></description>
+#end
       <tag-name>$utils.getTagName($tag.name)</tag-name>
       <handler-class>$tag.tagHandler</handler-class>
 #writeAttributes($tag.propertyList)
@@ -191,6 +206,11 @@ $baseContent
 #if ($modelIds.contains($faceletTag.modelId) && ($faceletTag.name))
 #if ($utils.getTagPrefix($faceletTag.name) == $shortname)
    <tag>
+#if ($faceletTag.longDescription)
+        <description><![CDATA[$faceletTag.longDescription]]></description>
+#else
+        <description><![CDATA[]]></description>
+#end
       <tag-name>$utils.getTagName($faceletTag.name)</tag-name>
 #if ($faceletTag.componentClass)
 #set ($component = ${model.findComponentByClassName($faceletTag.componentClass)})
