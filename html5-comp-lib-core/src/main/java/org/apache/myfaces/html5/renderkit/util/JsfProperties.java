@@ -138,4 +138,5 @@ public interface JsfProperties
     String LOW_PROP = "low";
     String HIGH_PROP = "high";
 
+    String ONANIMATIONEND_PROP = "onanimationEnd";
 }

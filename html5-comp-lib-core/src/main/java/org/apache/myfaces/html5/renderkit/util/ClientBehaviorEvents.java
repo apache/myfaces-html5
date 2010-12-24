@@ -73,4 +73,7 @@ public interface ClientBehaviorEvents
     String MOUSEOUT_EVENT = "mouseout";
     String MOUSEOVER_EVENT = "mouseover";
     String MOUSEUP_EVENT = "mouseup";
+
+    //Effect events
+    String ANIMATIONEND_EVENT = "webkitAnimationEnd";
 }

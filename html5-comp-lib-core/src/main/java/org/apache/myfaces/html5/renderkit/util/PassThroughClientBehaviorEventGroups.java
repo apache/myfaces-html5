@@ -71,6 +71,7 @@ interface PassThroughClientBehaviorEventGroups
     Map<String, String> HTML5_GLOBAL_BEHAVIOR_EVENTS = map(7)
         .events(DND_BEHAVIOR_EVENTS)
         .event(ONMOUSEWHEEL_PROP, MOUSEWHEEL_EVENT)
+        .event(ONANIMATIONEND_PROP, ANIMATIONEND_EVENT)
         .unmodifiable();
     
 }

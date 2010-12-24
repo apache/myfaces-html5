@@ -138,4 +138,10 @@ public interface Html5GlobalProperties extends Draggable        //extends the Dr
     @JSFProperty(clientEvent = "mousewheel")
     public String getOnmousewheel();
 
+    /**
+     *
+     * HTML : Script to run when the animation ends on Html element.
+     */
+    @JSFProperty(clientEvent = "webkitAnimationEnd")
+    public String getAnimationEnd();
 }
