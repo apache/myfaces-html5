@@ -17,18 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.component.properties.effect;
+package org.apache.myfaces.html5.component.properties.animation;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 
-/**
- * User: Ali Ok (ali.ok@innflow.com)
- * Date: 2010-12-25
- * Time: 01:54:14
- */
-public interface RotationProperty {
-    static final double DEFAULT_ROTATION = 20;
+public interface ScaleProperties {
+    static final double DEFAULT_MIN_SIZE = 0.5;
+    static final double DEFAULT_MAX_SIZE = 1.0;
 
-    @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_ROTATION")
-    public abstract double getRotation();
+    @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_MIN_SIZE")
+    public abstract double getMinSize();
+
+    @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_MAX_SIZE")
+    public abstract double getMaxSize();
 }

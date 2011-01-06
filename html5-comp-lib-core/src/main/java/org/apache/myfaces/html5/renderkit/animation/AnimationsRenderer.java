@@ -17,94 +17,84 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.renderkit.effect;
+package org.apache.myfaces.html5.renderkit.animation;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.html5.behavior.EffectBehavior;
-import org.apache.myfaces.html5.component.effect.AbstractEffect;
-import org.apache.myfaces.html5.component.effect.AbstractEffectPulse;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
+import org.apache.myfaces.html5.component.animation.AbstractAnimations;
 import org.apache.myfaces.html5.renderkit.util.CSS;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 import org.apache.myfaces.shared_html5.renderkit.html.HTML;
 import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
+import org.apache.myfaces.view.facelets.PostBuildComponentTreeOnRestoreViewEvent;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.*;
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public abstract class BaseEffectRenderer extends HtmlRenderer implements ComponentSystemEventListener {
+@ListenersFor({
+        @ListenerFor(systemEventClass = PostAddToViewEvent.class),
+        @ListenerFor(systemEventClass = PostBuildComponentTreeOnRestoreViewEvent.class)
+})
+@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Animations", type = "org.apache.myfaces.html5.Animations")
+public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemEventListener {
 
-    private static final Logger log = Logger.getLogger(BaseEffectRenderer.class.getName());
+    @Override
+    public boolean getRendersChildren() {
+        return true;
+    }
 
     @Override
     public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
-        if (log.isLoggable(Level.FINE))
-            log.fine("encodeBegin");
-
         super.encodeBegin(facesContext, uiComponent);
 
-        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffect.class);
+        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractAnimations.class);
 
-        AbstractEffect component = (AbstractEffect) uiComponent;
-
-        checkKeyFrameProperties(facesContext, component);
-        checkAnimationProperties(facesContext, component);
+        AbstractAnimations component = (AbstractAnimations) uiComponent;
 
         ResponseWriter writer = facesContext.getResponseWriter();
 
         writer.startElement(HTML.STYLE_ELEM, component);
+    }
+
+    @Override
+    public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractAnimations.class);
+
+        AbstractAnimations component = (AbstractAnimations) uiComponent;
+
+        ResponseWriter writer = facesContext.getResponseWriter();
 
         // write id
         final String id = component.getClientId(facesContext);
         writer.writeAttribute(HTML5.ID_ATTR, id, null);
 
-        writer.writeText(getKeyFrameDefinition(facesContext, component),component, null);
+        //TODO: what happens if id has colon? Will CSS accept it?
+        //write key frames (let child components render themselves)
+        writer.writeText("@-webkit-keyframes " + id + " { ", component, null);
+        //TODO: allow only BaseAnimation children!
+
+        super.encodeChildren(facesContext, component);
+
+        writer.writeText(" } ", component, null);
+        //write CSS class definition with animation definition
         writer.writeText(getAnimationDefinition(facesContext, component),component, null);
     }
 
     @Override
-    public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-        if (log.isLoggable(Level.FINE))
-            log.fine("encodeEnd");
+    public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
         // just close the element
-        super.encodeEnd(facesContext, component);
+        super.encodeEnd(facesContext, uiComponent);
 
         ResponseWriter writer = facesContext.getResponseWriter();
 
         writer.endElement(HTML.STYLE_ELEM);
     }
 
-    protected abstract void checkKeyFrameProperties(FacesContext facesContext, AbstractEffect component);
-
-    protected void checkAnimationProperties(FacesContext facesContext, AbstractEffect component) {
-        //do nothing
-    }
-
-    protected String getKeyFrameDefinition(FacesContext facesContext, AbstractEffect uiComponent){
-        String format = "@-webkit-keyframes %s  {%s} ";
-
-        final String id = uiComponent.getClientId(facesContext);
-        String keyFrameBodyDefinition = getKeyFrameBodyDefinition(facesContext, uiComponent);
-
-        return String.format(format, id, keyFrameBodyDefinition);
-    }
-
-    protected abstract String getKeyFrameBodyDefinition(FacesContext facesContext, AbstractEffect uiComponent);
-
-    protected String getAnimationDefinition(FacesContext facesContext, AbstractEffect component){
+    protected String getAnimationDefinition(FacesContext facesContext, AbstractAnimations component){
         final String id = component.getClientId(facesContext);
         final String duration = getTimeValue(component.getDuration());
         final String iteration = component.getIteration();
@@ -145,37 +135,12 @@ public abstract class BaseEffectRenderer extends HtmlRenderer implements Compone
             return s + "s";
     }
 
+
     public void processEvent(ComponentSystemEvent event) {
         UIComponent component = event.getComponent();
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
-        if (component.getParent() instanceof ClientBehaviorHolder) {
-            final ClientBehaviorHolder parent = (ClientBehaviorHolder) component.getParent();
-
-            Set<EffectBehavior> parentBehaviors = new HashSet<EffectBehavior>();
-
-            for (List<ClientBehavior> clientBehaviorList : parent.getClientBehaviors().values()) {
-                for (ClientBehavior behavior : clientBehaviorList) {
-                    if (behavior instanceof EffectBehavior) {
-                        parentBehaviors.add((EffectBehavior) behavior);
-                    }
-                }
-            }
-
-            if (parentBehaviors.isEmpty())
-                throw new RuntimeException("Effects must be placed inside a fx:effect.");
-
-            //TODO: check if there is any condition whether parent behavior is not single
-//            if(parentBehaviors.size()>1)
-//                throw new RuntimeException();
-
-            for (EffectBehavior parentBehavior : parentBehaviors) {
-                parentBehavior.addEffectToHandle(component.getId());
-            }
-        }
-
-        //XXX: other alternative than body? think about ajax PPR
+        //TODO: other alternative than body? think about ajax PPR
         facesContext.getViewRoot().addComponentResource(facesContext, component, "body");
     }
-
 }

@@ -17,38 +17,26 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.renderkit.effect;
+package org.apache.myfaces.html5.renderkit.animation;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
-import org.apache.myfaces.html5.component.effect.AbstractEffect;
-import org.apache.myfaces.html5.component.effect.AbstractEffectShake;
+import org.apache.myfaces.html5.component.animation.AbstractAnimationShake;
+import org.apache.myfaces.html5.component.animation.AbstractBaseAnimation;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.view.facelets.PostBuildComponentTreeOnRestoreViewEvent;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.ListenersFor;
-import javax.faces.event.PostAddToViewEvent;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-@ListenersFor({
-        @ListenerFor(systemEventClass = PostAddToViewEvent.class),
-        @ListenerFor(systemEventClass = PostBuildComponentTreeOnRestoreViewEvent.class)
-})
-@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.EffectShake", type = "org.apache.myfaces.html5.EffectShake")
-public class EffectShakeRenderer extends BaseEffectRenderer {
+@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.AnimationShake", type = "org.apache.myfaces.html5.AnimationShake")
+public class AnimationShakeRenderer extends BaseAnimationRenderer {
+
 
     @Override
-    protected void checkKeyFrameProperties(FacesContext facesContext, AbstractEffect uiComponent) {
-        //do nothing
-    }
+    protected String getKeyFrameBodyDefinition(FacesContext facesContext, AbstractBaseAnimation uiComponent) {
+        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractAnimationShake.class);
 
-    @Override
-    protected String getKeyFrameBodyDefinition(FacesContext facesContext, AbstractEffect uiComponent) {
-        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffectShake.class);
-
-        AbstractEffectShake component = (AbstractEffectShake) uiComponent;
+        AbstractAnimationShake component = (AbstractAnimationShake) uiComponent;
 
         final double rotation = component.getRotation();        //default value set, if not defined
 

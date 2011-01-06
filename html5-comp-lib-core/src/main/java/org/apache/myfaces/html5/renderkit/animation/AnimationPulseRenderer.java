@@ -17,41 +17,30 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.renderkit.effect;
+package org.apache.myfaces.html5.renderkit.animation;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
-import org.apache.myfaces.html5.component.effect.AbstractEffect;
-import org.apache.myfaces.html5.component.effect.AbstractEffectPulse;
+import org.apache.myfaces.html5.component.animation.AbstractAnimationPulse;
+import org.apache.myfaces.html5.component.animation.AbstractBaseAnimation;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.view.facelets.PostBuildComponentTreeOnRestoreViewEvent;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.*;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-@ListenersFor({
-        @ListenerFor(systemEventClass = PostAddToViewEvent.class),
-        @ListenerFor(systemEventClass = PostBuildComponentTreeOnRestoreViewEvent.class)
-})
-@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.EffectPulse", type = "org.apache.myfaces.html5.EffectPulse")
-public class EffectPulseRenderer extends BaseEffectRenderer {
+@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.AnimationPulse", type = "org.apache.myfaces.html5.AnimationPulse")
+public class AnimationPulseRenderer extends BaseAnimationRenderer {
 
     @Override
-    protected void checkKeyFrameProperties(FacesContext facesContext, AbstractEffect uiComponent) {
-        //do nothing
-    }
+    protected String getKeyFrameBodyDefinition(FacesContext facesContext, AbstractBaseAnimation uiComponent) {
+        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractAnimationPulse.class);
 
-    @Override
-    protected String getKeyFrameBodyDefinition(FacesContext facesContext, AbstractEffect uiComponent) {
-        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffectPulse.class);
-
-        AbstractEffectPulse component = (AbstractEffectPulse) uiComponent;
+        AbstractAnimationPulse component = (AbstractAnimationPulse) uiComponent;
 
         final double minOpacity = component.getMinOpacity();        //default value set, if not defined
         final double maxOpacity = component.getMaxOpacity();        //default value set, if not defined
 
-        String format = "0%%   {opacity: %s;} 50%%  {opacity: %s;} 100%% {opacity: %s;}";
+        String format = "0%% {opacity: %s;} 50%% {opacity: %s;} 100%% {opacity: %s;}";
 
         final NumberFormat numberFormat = NumberFormat.getInstance(Locale.ENGLISH);
 

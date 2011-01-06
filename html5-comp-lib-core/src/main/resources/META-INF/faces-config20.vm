@@ -92,8 +92,8 @@ $baseContent
         <client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.DropTargetBehaviorRenderer</client-behavior-renderer-class>
       </client-behavior-renderer>
       <client-behavior-renderer>
-        <client-behavior-renderer-type>org.apache.myfaces.html5.EffectBehavior</client-behavior-renderer-type>
-        <client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.EffectBehaviorRenderer</client-behavior-renderer-class>
+        <client-behavior-renderer-type>org.apache.myfaces.html5.AnimationsBehavior</client-behavior-renderer-type>
+        <client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.AnimationsBehaviorRenderer</client-behavior-renderer-class>
       </client-behavior-renderer>
 
   </render-kit>

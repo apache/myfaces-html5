@@ -5,7 +5,7 @@
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
+ * with the License.  You may obtain a copy of the License at
  *
  *   http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -17,15 +17,19 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.component.effect;
+package org.apache.myfaces.html5.component.animation;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
-import org.apache.myfaces.html5.component.properties.*;
-import org.apache.myfaces.html5.component.properties.effect.AnimationProperties;
-import org.apache.myfaces.html5.holder.MediaSourceHolder;
+import org.apache.myfaces.html5.component.properties.animation.RotationProperty;
 
 @JSFComponent(
-        clazz = "org.apache.myfaces.html5.component.effect.Effect",
-        configExcluded = true)
-public abstract class AbstractEffect extends javax.faces.component.UIComponentBase implements AnimationProperties{
+        name = "fx:animationShake",
+        clazz = "org.apache.myfaces.html5.component.animation.AnimationShake",
+        tagClass = "org.apache.myfaces.html5.tag.animation.AnimationShakeTag",
+        defaultRendererType = "org.apache.myfaces.html5.AnimationShake",
+        family = "org.apache.myfaces.AnimationShake",
+        type = "org.apache.myfaces.html5.AnimationShake"
+)
+public abstract class AbstractAnimationShake extends org.apache.myfaces.html5.component.animation.BaseAnimation implements RotationProperty{
+
 }

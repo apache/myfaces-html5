@@ -19,12 +19,9 @@
 
 package org.apache.myfaces.html5.behavior;
 
-import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFBehavior;
-
-import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
-import java.util.*;
+import javax.faces.component.behavior.FacesBehavior;
 
 @ResourceDependencies(
 {
@@ -32,19 +29,20 @@ import java.util.*;
         @ResourceDependency(name = "common.js", library = "org.apache.myfaces.html5", target = "head"),
         @ResourceDependency(name = "effect.js", library = "org.apache.myfaces.html5", target = "head")
 })
-@JSFBehavior(name = "fx:effect", id = "org.apache.myfaces.html5.EffectBehavior")
-public class EffectBehavior extends javax.faces.component.behavior.ClientBehaviorBase {
+@FacesBehavior("org.apache.myfaces.html5.AnimationsBehavior")
+public class AnimationsBehavior extends javax.faces.component.behavior.ClientBehaviorBase {
 
-    public static final String RENDERER_ID = "org.apache.myfaces.html5.EffectBehavior";
+    public static final String ID = "org.apache.myfaces.html5.AnimationsBehavior";
+    public static final String RENDERER_ID = "org.apache.myfaces.html5.AnimationsBehavior";
 
-    private Set<String> effectsToHandle = new HashSet<String>();
+    private String animationIdToHandle;
 
-    public void addEffectToHandle(String effectId){
-        this.effectsToHandle.add(effectId);
+    public String getAnimationIdToHandle() {
+        return animationIdToHandle;
     }
 
-    public Set<String> getEffectsToHandle() {
-        return Collections.unmodifiableSet(effectsToHandle);
+    public void setAnimationIdToHandle(String animationIdToHandle) {
+        this.animationIdToHandle = animationIdToHandle;
     }
 
     @Override

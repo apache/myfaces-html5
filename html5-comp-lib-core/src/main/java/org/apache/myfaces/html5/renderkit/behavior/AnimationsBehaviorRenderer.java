@@ -18,35 +18,28 @@
  */
 package org.apache.myfaces.html5.renderkit.behavior;
 
-import org.apache.myfaces.html5.behavior.EffectBehavior;
+import org.apache.myfaces.html5.behavior.AnimationsBehavior;
 import org.apache.myfaces.html5.renderkit.util.ClientBehaviorEvents;
 
 import javax.faces.FacesException;
-import javax.faces.component.PartialStateHolder;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
 import javax.faces.render.ClientBehaviorRenderer;
-import java.util.logging.Logger;
 
-public class EffectBehaviorRenderer extends ClientBehaviorRenderer
+public class AnimationsBehaviorRenderer extends ClientBehaviorRenderer
 {
 
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior)
     {
-        if (!(behavior instanceof EffectBehavior))
+        if (!(behavior instanceof AnimationsBehavior))
         {
-            throw new FacesException("Behavior is not a EffectBehavior.");
+            throw new FacesException("Behavior is not a AnimationsBehavior.");
         }
 
-        EffectBehavior effectBehavior = (EffectBehavior) behavior;
+        AnimationsBehavior effectBehavior = (AnimationsBehavior) behavior;
 
-        final StringBuilder builder = new StringBuilder();
-        for (String effectId : effectBehavior.getEffectsToHandle()) {
-            builder.append(effectId + " ");
-        }
-        String strEffects = builder.toString().trim();
+        String strEffects = effectBehavior.getAnimationIdToHandle();
 
         String format;
         if(ClientBehaviorEvents.ANIMATIONEND_EVENT.equals(behaviorContext.getEventName())){

@@ -43,7 +43,7 @@ import org.apache.myfaces.html5.component.properties.TabindexProperty;
         family = "org.apache.myfaces.Div",
         type = "org.apache.myfaces.html5.Div",
         implementz = "javax.faces.component.behavior.ClientBehaviorHolder",
-        defaultEventName="drop"
+        defaultEventName="mouseover"
 )
 public abstract class AbstractDiv extends javax.faces.component.UIComponentBase implements
         javax.faces.component.behavior.ClientBehaviorHolder, Html5GlobalProperties, AccesskeyProperty,

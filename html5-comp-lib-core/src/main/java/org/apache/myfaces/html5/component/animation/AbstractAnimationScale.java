@@ -17,20 +17,19 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.component.effect;
+package org.apache.myfaces.html5.component.animation;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
-import org.apache.myfaces.html5.component.properties.effect.OpacityProperties;
-import org.apache.myfaces.html5.component.properties.effect.RotationProperty;
+import org.apache.myfaces.html5.component.properties.animation.ScaleProperties;
 
 @JSFComponent(
-        name = "fx:effectShake",
-        clazz = "org.apache.myfaces.html5.component.effect.EffectShake",
-        tagClass = "org.apache.myfaces.html5.tag.effect.EffectShakeTag",
-        defaultRendererType = "org.apache.myfaces.html5.EffectShake",
-        family = "org.apache.myfaces.EffectShake",
-        type = "org.apache.myfaces.html5.EffectShake"
+        name = "fx:animationScale",
+        clazz = "org.apache.myfaces.html5.component.animation.AnimationScale",
+        tagClass = "org.apache.myfaces.html5.tag.animation.AnimationScaleTag",
+        defaultRendererType = "org.apache.myfaces.html5.AnimationScale",
+        family = "org.apache.myfaces.AnimationScale",
+        type = "org.apache.myfaces.html5.AnimationScale"
 )
-public abstract class AbstractEffectShake extends org.apache.myfaces.html5.component.effect.Effect implements RotationProperty{
+public abstract class AbstractAnimationScale extends org.apache.myfaces.html5.component.animation.BaseAnimation implements ScaleProperties {
 
 }

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.html5.component.properties.effect;
+package org.apache.myfaces.html5.component.properties.animation;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 

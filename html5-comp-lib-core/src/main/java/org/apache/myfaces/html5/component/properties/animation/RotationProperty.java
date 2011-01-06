@@ -17,20 +17,13 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.component.effect;
+package org.apache.myfaces.html5.component.properties.animation;
 
-import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
-import org.apache.myfaces.html5.component.properties.effect.*;
 
-@JSFComponent(
-        name = "fx:effectPulse",
-        clazz = "org.apache.myfaces.html5.component.effect.EffectPulse",
-        tagClass = "org.apache.myfaces.html5.tag.effect.EffectPulseTag",
-        defaultRendererType = "org.apache.myfaces.html5.EffectPulse",
-        family = "org.apache.myfaces.EffectPulse",
-        type = "org.apache.myfaces.html5.EffectPulse"
-)
-public abstract class AbstractEffectPulse extends org.apache.myfaces.html5.component.effect.Effect implements OpacityProperties{
+public interface RotationProperty {
+    static final double DEFAULT_ROTATION = 20;
 
+    @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_ROTATION")
+    public abstract double getRotation();
 }
