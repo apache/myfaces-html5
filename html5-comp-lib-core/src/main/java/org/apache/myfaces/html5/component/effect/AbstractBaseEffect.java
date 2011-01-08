@@ -17,19 +17,12 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.renderkit.util;
+package org.apache.myfaces.html5.component.effect;
 
-public interface CSS {
+import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 
-    String ANIMATION_NAME_PROP = "-webkit-animation-name";
-    String ANIMATION_DURATION_PROP = "-webkit-animation-duration";
-    String ANIMATION_ITERATION_COUNT_PROP = "-webkit-animation-iteration-count";
-    String ANIMATION_TIMING_FUNCTION_PROP = "-webkit-animation-timing-function";
-    String ANIMATION_DIRECTION_PROP = "-webkit-animation-direction";
-    String ANIMATION_DELAY_PROP = "-webkit-animation-delay";
-
-    String TRANSITION_PROPERTY_PROP = "-webkit-transition-property";
-    String TRANSITION_DURATION_PROP = "-webkit-transition-duration";
-    String TRANSITION_TIMING_FUNCTION_PROP = "-webkit-transition-timing-function";
-    String TRANSITION_DELAY_PROP = "-webkit-transition-delay";
+@JSFComponent(
+        clazz = "org.apache.myfaces.html5.component.effect.BaseEffect",
+        configExcluded = true)
+public abstract class AbstractBaseEffect extends javax.faces.component.UIComponentBase{
 }

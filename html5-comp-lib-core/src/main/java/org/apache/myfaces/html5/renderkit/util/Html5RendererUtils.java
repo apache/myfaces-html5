@@ -248,4 +248,10 @@ public class Html5RendererUtils
         return HtmlRendererUtils.findUIOutputConverterFailSafe(facesContext, component);
     }
 
+    public static String escapeCssSelector(String selector) {
+        if(selector==null)
+            return null;
+
+        return selector.replace(":", "\\:");
+    }
 }

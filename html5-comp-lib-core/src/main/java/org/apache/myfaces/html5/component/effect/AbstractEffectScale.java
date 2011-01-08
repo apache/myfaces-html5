@@ -17,27 +17,21 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.component.animation;
+package org.apache.myfaces.html5.component.effect;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
-import org.apache.myfaces.html5.component.properties.EventProperty;
-import org.apache.myfaces.html5.component.properties.effect.TransitionProperties;
 
 @JSFComponent(
-        name = "fx:animations",
-        clazz = "org.apache.myfaces.html5.component.animation.Animations",
-        tagClass = "org.apache.myfaces.html5.tag.animation.AnimationsTag",
-        defaultRendererType = "org.apache.myfaces.html5.Animations",
-        family = "org.apache.myfaces.Animations",
-        type = "org.apache.myfaces.html5.Animations"
+        name = "fx:effectScale",
+        clazz = "org.apache.myfaces.html5.component.effect.EffectScale",
+        tagClass = "org.apache.myfaces.html5.tag.effect.EffectScaleTag",
+        defaultRendererType = "org.apache.myfaces.html5.EffectScale",
+        family = "org.apache.myfaces.EffectScale",
+        type = "org.apache.myfaces.html5.EffectScale"
 )
-public abstract class AbstractAnimations extends javax.faces.component.UIComponentBase implements TransitionProperties, EventProperty {
+public abstract class AbstractEffectScale extends org.apache.myfaces.html5.component.effect.BaseEffect{
 
-    @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getIteration();
-
-    @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getDirection();
-
+    @JSFProperty(deferredValueType = "java.lang.Double", required = true)
+    public abstract double getSize();
 }

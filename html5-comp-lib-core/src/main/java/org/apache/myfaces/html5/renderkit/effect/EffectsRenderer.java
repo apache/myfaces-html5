@@ -17,11 +17,11 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.renderkit.animation;
+package org.apache.myfaces.html5.renderkit.effect;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
-import org.apache.myfaces.html5.component.animation.AbstractAnimations;
+import org.apache.myfaces.html5.component.effect.AbstractEffects;
 import org.apache.myfaces.html5.renderkit.util.CSS;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
@@ -40,8 +40,8 @@ import java.io.IOException;
         @ListenerFor(systemEventClass = PostAddToViewEvent.class),
         @ListenerFor(systemEventClass = PostBuildComponentTreeOnRestoreViewEvent.class)
 })
-@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Animations", type = "org.apache.myfaces.html5.Animations")
-public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemEventListener {
+@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Effects", type = "org.apache.myfaces.html5.Effects")
+public class EffectsRenderer extends HtmlRenderer implements ComponentSystemEventListener {
 
     @Override
     public boolean getRendersChildren() {
@@ -52,9 +52,9 @@ public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemE
     public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
         super.encodeBegin(facesContext, uiComponent);
 
-        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractAnimations.class);
+        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffects.class);
 
-        AbstractAnimations component = (AbstractAnimations) uiComponent;
+        AbstractEffects component = (AbstractEffects) uiComponent;
 
         ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -63,9 +63,9 @@ public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemE
 
     @Override
     public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
-        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractAnimations.class);
+        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffects.class);
 
-        AbstractAnimations component = (AbstractAnimations) uiComponent;
+        AbstractEffects component = (AbstractEffects) uiComponent;
 
         ResponseWriter writer = facesContext.getResponseWriter();
 
@@ -75,14 +75,14 @@ public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemE
 
         //TODO: what happens if id has colon? Will CSS accept it?
         //write key frames (let child components render themselves)
-        writer.writeText("@-webkit-keyframes " + Html5RendererUtils.escapeCssSelector(id) + " { ", component, null);
-        //TODO: allow only BaseAnimation children!
+        writer.writeText("." + Html5RendererUtils.escapeCssSelector(id) + " { -webkit-transform: ", component, null);
+        //TODO: allow only BaseEffect children!
 
         super.encodeChildren(facesContext, component);
 
-        writer.writeText(" } ", component, null);
+        writer.writeText(" ; } ", component, null);
         //write CSS class definition with animation definition
-        writer.writeText(getAnimationDefinition(facesContext, component),component, null);
+        writer.writeText(getTransitionDefinition(component),component, null);
     }
 
     @Override
@@ -95,24 +95,19 @@ public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemE
         writer.endElement(HTML.STYLE_ELEM);
     }
 
-    protected String getAnimationDefinition(FacesContext facesContext, AbstractAnimations component){
-        final String id = component.getClientId(facesContext);
-        final String duration = getTimeValue(component.getDuration());
-        final String iteration = component.getIteration();
+    protected String getTransitionDefinition(AbstractEffects component){
         final String timingFunction = component.getTimingFunction();
-        final String direction = component.getDirection();
+        final String duration = getTimeValue(component.getDuration());
         final String delay = getTimeValue(component.getDelay());
 
         StringBuilder builder = new StringBuilder();
-        builder.append(".").append(Html5RendererUtils.escapeCssSelector(id));
+        builder.append("#").append(Html5RendererUtils.escapeCssSelector(component.getTransitionComponentId()));
         builder.append(" { ");
 
-        appendIfNotNull(builder, CSS.ANIMATION_NAME_PROP, Html5RendererUtils.escapeCssSelector(id));
-        appendIfNotNull(builder, CSS.ANIMATION_DURATION_PROP, duration);
-        appendIfNotNull(builder, CSS.ANIMATION_ITERATION_COUNT_PROP, iteration);
-        appendIfNotNull(builder, CSS.ANIMATION_TIMING_FUNCTION_PROP, timingFunction);
-        appendIfNotNull(builder, CSS.ANIMATION_DIRECTION_PROP, direction);
-        appendIfNotNull(builder, CSS.ANIMATION_DELAY_PROP, delay);
+        appendIfNotNull(builder, CSS.TRANSITION_PROPERTY_PROP, "all");
+        appendIfNotNull(builder, CSS.TRANSITION_DURATION_PROP, duration);
+        appendIfNotNull(builder, CSS.TRANSITION_TIMING_FUNCTION_PROP, timingFunction);
+        appendIfNotNull(builder, CSS.TRANSITION_DELAY_PROP, delay);
 
         builder.append("} ");
 
@@ -140,6 +135,9 @@ public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemE
     public void processEvent(ComponentSystemEvent event) {
         UIComponent component = event.getComponent();
         FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        if(StringUtils.isBlank(((AbstractEffects)component).getTransitionComponentId()))
+            ((AbstractEffects)component).setTransitionComponentId(component.getParent().getClientId(facesContext));
 
         //TODO: other alternative than body? think about ajax PPR
         facesContext.getViewRoot().addComponentResource(facesContext, component, "body");

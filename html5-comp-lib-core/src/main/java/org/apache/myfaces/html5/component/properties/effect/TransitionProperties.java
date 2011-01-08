@@ -17,27 +17,19 @@
  * under the License.
  */
 
-package org.apache.myfaces.html5.component.animation;
+package org.apache.myfaces.html5.component.properties.effect;
 
-import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
-import org.apache.myfaces.html5.component.properties.EventProperty;
-import org.apache.myfaces.html5.component.properties.effect.TransitionProperties;
 
-@JSFComponent(
-        name = "fx:animations",
-        clazz = "org.apache.myfaces.html5.component.animation.Animations",
-        tagClass = "org.apache.myfaces.html5.tag.animation.AnimationsTag",
-        defaultRendererType = "org.apache.myfaces.html5.Animations",
-        family = "org.apache.myfaces.Animations",
-        type = "org.apache.myfaces.html5.Animations"
-)
-public abstract class AbstractAnimations extends javax.faces.component.UIComponentBase implements TransitionProperties, EventProperty {
+public interface TransitionProperties {
 
     @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getIteration();
+    public abstract String getDuration();
 
     @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getDirection();
+    public abstract String getTimingFunction();
+
+    @JSFProperty(deferredValueType = "java.lang.String")
+    public abstract String getDelay();
 
 }

@@ -21,6 +21,8 @@ package org.apache.myfaces.html5.component.effect;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
+import org.apache.myfaces.html5.component.properties.EventProperty;
+import org.apache.myfaces.html5.component.properties.effect.TransitionProperties;
 
 @JSFComponent(
         name = "fx:effects",
@@ -30,7 +32,16 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
         family = "org.apache.myfaces.Effects",
         type = "org.apache.myfaces.html5.Effects"
 )
-public abstract class AbstractEffects extends javax.faces.component.UIComponentBase {
+public abstract class AbstractEffects extends javax.faces.component.UIComponentBase implements TransitionProperties, EventProperty {
+    private String transitionComponentId;
+
+    public void setTransitionComponentId(String transitionComponentId) {
+        this.transitionComponentId = transitionComponentId;
+    }
+
+    public String getTransitionComponentId() {
+        return transitionComponentId;
+    }
 
     @JSFProperty(deferredValueType = "java.lang.String")
     public abstract String getEvent();
@@ -40,14 +51,4 @@ public abstract class AbstractEffects extends javax.faces.component.UIComponentB
 
     @JSFProperty(deferredValueType = "java.lang.String")
     public abstract String getAdditionalStyleClassToActivate();
-
-    @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getDuration();
-
-    @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getIteration();
-
-    @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getTimingFunction();
-
 }
