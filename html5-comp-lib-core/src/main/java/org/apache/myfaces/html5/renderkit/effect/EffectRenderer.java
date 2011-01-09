@@ -21,30 +21,25 @@ package org.apache.myfaces.html5.renderkit.effect;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.effect.AbstractBaseEffect;
-import org.apache.myfaces.html5.component.effect.AbstractEffectScale;
+import org.apache.myfaces.html5.component.effect.AbstractEffect;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 
 import javax.faces.context.FacesContext;
-import java.text.NumberFormat;
-import java.util.Locale;
 
-@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.EffectScale", type = "org.apache.myfaces.html5.EffectScale")
-public class EffectScaleRenderer extends BaseEffectRenderer {
+@JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Effect", type = "org.apache.myfaces.html5.Effect")
+public class EffectRenderer extends BaseEffectRenderer {
 
     @Override
     protected String getEffectDefinition(FacesContext facesContext, AbstractBaseEffect uiComponent) {
-        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffectScale.class);
+        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffect.class);
 
-        AbstractEffectScale component = (AbstractEffectScale) uiComponent;
+        AbstractEffect component = (AbstractEffect) uiComponent;
 
-        final double size = component.getSize();
+        final String property = component.getProperty();
+        final String value = component.getValue();
 
-        String format = "scale(%s)";
+        String format = "%s : %s; ";
 
-        final NumberFormat numberFormat = NumberFormat.getInstance(Locale.ENGLISH);
-
-        final String strSize = numberFormat.format(size);
-
-        return String.format(format,strSize);
+        return String.format(format, property, value);
     }
 }

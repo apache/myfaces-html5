@@ -248,6 +248,10 @@ public class Html5RendererUtils
         return HtmlRendererUtils.findUIOutputConverterFailSafe(facesContext, component);
     }
 
+    /**
+     * Escapes the given string for use as a CSS selector.
+     * @return Escaped selector
+     */
     public static String escapeCssSelector(String selector) {
         if(selector==null)
             return null;

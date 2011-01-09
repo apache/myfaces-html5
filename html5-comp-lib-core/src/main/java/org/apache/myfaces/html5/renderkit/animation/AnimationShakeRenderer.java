@@ -40,7 +40,7 @@ public class AnimationShakeRenderer extends BaseAnimationRenderer {
 
         final double rotation = component.getRotation();        //default value set, if not defined
 
-        String format = "0%% { -webkit-transform: rotate(0deg)} 25%% { -webkit-transform: rotate(%sdeg)} 75%%  { -webkit-transform: rotate(-%sdeg)} 100%% { -webkit-transform: rotate(0deg)}";
+        String format = "25%% { -webkit-transform: rotate(%sdeg)} 75%% { -webkit-transform: rotate(-%sdeg)}";
 
         final NumberFormat numberFormat = NumberFormat.getInstance(Locale.ENGLISH);
 

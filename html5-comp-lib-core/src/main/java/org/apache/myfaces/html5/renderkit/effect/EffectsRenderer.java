@@ -73,14 +73,13 @@ public class EffectsRenderer extends HtmlRenderer implements ComponentSystemEven
         final String id = component.getClientId(facesContext);
         writer.writeAttribute(HTML5.ID_ATTR, id, null);
 
-        //TODO: what happens if id has colon? Will CSS accept it?
         //write key frames (let child components render themselves)
-        writer.writeText("." + Html5RendererUtils.escapeCssSelector(id) + " { -webkit-transform: ", component, null);
+        writer.writeText("." + Html5RendererUtils.escapeCssSelector(id) + " { ", component, null);
         //TODO: allow only BaseEffect children!
 
         super.encodeChildren(facesContext, component);
 
-        writer.writeText(" ; } ", component, null);
+        writer.writeText(" } ", component, null);
         //write CSS class definition with animation definition
         writer.writeText(getTransitionDefinition(component),component, null);
     }

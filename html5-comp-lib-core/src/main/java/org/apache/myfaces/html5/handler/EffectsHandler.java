@@ -65,7 +65,11 @@ public class EffectsHandler extends javax.faces.view.facelets.ComponentHandler {
 
         EffectsActivationBehavior activationBehavior = (EffectsActivationBehavior) app.createBehavior(EffectsActivationBehavior.ID);
 
-        activationBehavior.setEffectIdToHandle(component.getClientId(faceletContext.getFacesContext()));
+        String effectsIdToHandle = component.getClientId(faceletContext.getFacesContext());
+        if(!StringUtils.isBlank(component.getAdditionalStyleClassToActivate()))
+            effectsIdToHandle = effectsIdToHandle + " " + component.getAdditionalStyleClassToActivate();
+
+        activationBehavior.setEffectIdToHandle(effectsIdToHandle);
 
         String eventName = getEventName(faceletContext);
         if(StringUtils.isBlank(eventName))
@@ -76,7 +80,7 @@ public class EffectsHandler extends javax.faces.view.facelets.ComponentHandler {
         if(!StringUtils.isBlank(eventName) || deactivationEvents!=null){
             EffectsDeactivationBehavior deactivationBehavior = (EffectsDeactivationBehavior) app.createBehavior(EffectsDeactivationBehavior.ID);
 
-            deactivationBehavior.setEffectIdToHandle(component.getClientId(faceletContext.getFacesContext()));
+            deactivationBehavior.setEffectIdToHandle(effectsIdToHandle);
 
             String[] deactivationEventNames = getDeactivationEventNames(faceletContext);
             if(deactivationEventNames!=null){

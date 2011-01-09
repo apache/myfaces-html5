@@ -23,15 +23,18 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 
 @JSFComponent(
-        name = "fx:effectScale",
-        clazz = "org.apache.myfaces.html5.component.effect.EffectScale",
-        tagClass = "org.apache.myfaces.html5.tag.effect.EffectScaleTag",
-        defaultRendererType = "org.apache.myfaces.html5.EffectScale",
-        family = "org.apache.myfaces.EffectScale",
-        type = "org.apache.myfaces.html5.EffectScale"
+        name = "fx:effect",
+        clazz = "org.apache.myfaces.html5.component.effect.Effect",
+        tagClass = "org.apache.myfaces.html5.tag.effect.EffectTag",
+        defaultRendererType = "org.apache.myfaces.html5.Effect",
+        family = "org.apache.myfaces.Effect",
+        type = "org.apache.myfaces.html5.Effect"
 )
-public abstract class AbstractEffectScale extends org.apache.myfaces.html5.component.effect.BaseEffect{
+public abstract class AbstractEffect extends BaseEffect{
 
-    @JSFProperty(deferredValueType = "java.lang.Double", required = true)
-    public abstract double getSize();
+    @JSFProperty(deferredValueType = "java.lang.String", required = true)
+    public abstract String getProperty();
+
+    @JSFProperty(deferredValueType = "java.lang.String", required = true)
+    public abstract String getValue();
 }

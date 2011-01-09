@@ -32,4 +32,12 @@ public interface CSS {
     String TRANSITION_DURATION_PROP = "-webkit-transition-duration";
     String TRANSITION_TIMING_FUNCTION_PROP = "-webkit-transition-timing-function";
     String TRANSITION_DELAY_PROP = "-webkit-transition-delay";
+
+    String TRANSFORMATION_FUNCTION_ROTATE = "rotate";
+    String TRANSFORMATION_FUNCTION_SCALE_X = "scaleX";
+    String TRANSFORMATION_FUNCTION_SCALE_Y = "scaleY";
+    String TRANSFORMATION_FUNCTION_SKEW_X = "skewX";
+    String TRANSFORMATION_FUNCTION_SKEW_Y = "skewY";
+    String TRANSFORMATION_FUNCTION_TRANSLATE_X = "translateX";
+    String TRANSFORMATION_FUNCTION_TRANSLATE_Y = "translateY";
 }
