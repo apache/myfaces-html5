@@ -23,6 +23,11 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.behavior.FacesBehavior;
 
+/**
+ * Behavior to generate script for deactivating effects.
+ *
+ * @author Ali Ok
+ */
 @ResourceDependencies(
 {
         @ResourceDependency(name = "jsf.js", library = "javax.faces", target = "head"),

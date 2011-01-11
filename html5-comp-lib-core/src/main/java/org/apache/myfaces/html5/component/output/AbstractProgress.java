@@ -25,9 +25,15 @@ public abstract class AbstractProgress extends javax.faces.component.UIComponent
         TabindexProperty, MouseEventProperties, GlobalEventProperties
 {
 
+    /**
+     * Value of the progress element. Value should be in the interval of [0, maximum]
+     */
     @JSFProperty(required = false, deferredValueType = "java.lang.Double")
     public abstract Double getValue();
 
+    /**
+     * Maximum value of the progress element. If the value of the progress element reaches the maximum value, then it means the progress is done.
+     */
     @JSFProperty(required = false, deferredValueType = "java.lang.Double", defaultValue = "1.0")
     public abstract Double getMaximum();
     

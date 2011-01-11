@@ -24,6 +24,10 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
 public interface RotationProperty {
     static final double DEFAULT_ROTATION = 20;
 
+    /**
+     * Value to rotate the ClientBehaviorHolder. Defaults to 20. Value must be in degrees.<br/>
+     * Values negative or larger than 360 are also valid, and causes the animation to overlap.
+     */
     @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_ROTATION")
     public abstract double getRotation();
 }

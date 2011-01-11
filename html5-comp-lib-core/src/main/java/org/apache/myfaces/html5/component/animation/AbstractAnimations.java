@@ -24,6 +24,12 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
 import org.apache.myfaces.html5.component.properties.EventProperty;
 import org.apache.myfaces.html5.component.properties.effect.TransitionProperties;
 
+/**
+ * Animations container for using them with the parent ClientBehaviorHolder.<br/>
+ * fx:animation... components must be nested inside this component.
+ *
+ * @author Ali Ok
+ */
 @JSFComponent(
         name = "fx:animations",
         clazz = "org.apache.myfaces.html5.component.animation.Animations",

@@ -26,9 +26,15 @@ public interface OpacityProperties
     static final double DEFAULT_MIN_OPACITY = 0.5;
     static final double DEFAULT_MAX_OPACITY = 1;
 
+    /**
+     * Min opacity value for animating. Value should be in the range [0.0, 1.0]. Defaults to 0.5.
+     */
     @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_MIN_OPACITY")
     public abstract double getMinOpacity();
 
+    /**
+     * Max opacity value for animating. Value should be in the range [0.0, 1.0]. Defaults to 1.0.
+     */
     @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_MAX_OPACITY")
     public abstract double getMaxOpacity();
 

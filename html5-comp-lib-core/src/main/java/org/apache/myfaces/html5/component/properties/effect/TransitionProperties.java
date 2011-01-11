@@ -23,12 +23,46 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
 
 public interface TransitionProperties {
 
+    /**
+     * Duration for animation/effect to run through. <br/>
+     * Value must be in seconds or milliseconds, thus must end with 's' or 'ms'. If not, the value is considered in seconds.<br/>
+     * Some of the sample values are:
+     * <ul>
+     * <li>'1' : 1 second</li>
+     * <li>'1s' : 1 seconds</li>
+     * <li>'0.1' : 0.1 second</li>
+     * <li>'100ms' : 100 milliseconds</li>
+     * </ul>
+     */
     @JSFProperty(deferredValueType = "java.lang.String")
     public abstract String getDuration();
 
+    /**
+     * Timing function to calculate animation/effect transitions. <br/>
+     * The timing functions defined by CSS3 spec are:
+     * <ul>
+     * <li>ease</li>
+     * <li>linear</li>
+     * <li>ease-in</li>
+     * <li>ease-out</li>
+     * <li>ease-in-out</li>
+     * <li>cubic-bezier(<number>, <number>, <number>, <number>)</li>
+     * </ul>
+     */
     @JSFProperty(deferredValueType = "java.lang.String")
     public abstract String getTimingFunction();
 
+    /**
+     * Duration for animation/effect to wait before running. <br/>
+     * Value must be in seconds or milliseconds, thus must end with 's' or 'ms'. If not, the value is considered in seconds.<br/>
+     * Some of the sample values are:
+     * <ul>
+     * <li>'1' : 1 second</li>
+     * <li>'1s' : 1 seconds</li>
+     * <li>'0.1' : 0.1 second</li>
+     * <li>'100ms' : 100 milliseconds</li>
+     * </ul>
+     */
     @JSFProperty(deferredValueType = "java.lang.String")
     public abstract String getDelay();
 

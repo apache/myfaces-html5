@@ -23,6 +23,11 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
 import org.apache.myfaces.html5.component.properties.*;
 import org.apache.myfaces.html5.holder.MediaSourceHolder;
 
+/**
+ * Base class for animations.
+ *
+ * @author Ali Ok
+ */
 @JSFComponent(
         clazz = "org.apache.myfaces.html5.component.animation.BaseAnimation",
         configExcluded = true)

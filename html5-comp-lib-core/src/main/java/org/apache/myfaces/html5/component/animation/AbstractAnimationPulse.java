@@ -22,6 +22,11 @@ package org.apache.myfaces.html5.component.animation;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.html5.component.properties.animation.OpacityProperties;
 
+/**
+ * Pulsates the component that this is attached.
+ *
+ * @author Ali Ok
+ */
 @JSFComponent(
         name = "fx:animationPulse",
         clazz = "org.apache.myfaces.html5.component.animation.AnimationPulse",

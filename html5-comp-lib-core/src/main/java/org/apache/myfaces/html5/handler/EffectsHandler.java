@@ -24,7 +24,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFFacelet
 import org.apache.myfaces.html5.behavior.EffectsActivationBehavior;
 import org.apache.myfaces.html5.behavior.EffectsDeactivationBehavior;
 import org.apache.myfaces.html5.component.effect.AbstractEffects;
-import org.apache.myfaces.html5.renderkit.util.DefaultActivationEvents;
+import org.apache.myfaces.html5.renderkit.util.DefaultDeactivationEvents;
 import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
 
 import javax.faces.FacesException;
@@ -108,7 +108,7 @@ public class EffectsHandler extends javax.faces.view.facelets.ComponentHandler {
     }
 
     private String[] getDefaultDeactivationEvents(String eventName) {
-        final Set<String> stringSet = DefaultActivationEvents.map.get(eventName);
+        final Set<String> stringSet = DefaultDeactivationEvents.map.get(eventName);
         if(stringSet==null || stringSet.isEmpty())
             return null;
         return stringSet.toArray(new String[stringSet.size()]);

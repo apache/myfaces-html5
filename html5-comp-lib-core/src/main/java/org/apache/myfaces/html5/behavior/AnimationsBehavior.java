@@ -23,6 +23,11 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.behavior.FacesBehavior;
 
+/**
+ * Behavior for generating scripts for activating and stopping animations.
+ *
+ * @author Ali Ok
+ */
 @ResourceDependencies(
 {
         @ResourceDependency(name = "jsf.js", library = "javax.faces", target = "head"),

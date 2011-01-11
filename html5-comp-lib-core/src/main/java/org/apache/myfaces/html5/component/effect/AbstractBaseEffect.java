@@ -21,6 +21,11 @@ package org.apache.myfaces.html5.component.effect;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 
+/**
+ * Base class for effects.
+ *
+ * @author Ali Ok
+ */
 @JSFComponent(
         clazz = "org.apache.myfaces.html5.component.effect.BaseEffect",
         configExcluded = true)

@@ -22,6 +22,11 @@ package org.apache.myfaces.html5.component.animation;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.html5.component.properties.animation.RotationProperty;
 
+/**
+ * Shake animation.
+ *
+ * @author Ali Ok
+ */
 @JSFComponent(
         name = "fx:animationShake",
         clazz = "org.apache.myfaces.html5.component.animation.AnimationShake",

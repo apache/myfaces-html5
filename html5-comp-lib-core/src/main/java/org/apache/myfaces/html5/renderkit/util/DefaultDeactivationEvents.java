@@ -21,7 +21,7 @@ package org.apache.myfaces.html5.renderkit.util;
 
 import java.util.*;
 
-public abstract class DefaultActivationEvents {
+public abstract class DefaultDeactivationEvents {
     public final static Map<String, Set<String>> map = new DeactivationEventMap().
     		add(event("blur").			deactivationEvent("focus")).
             add(event("drag").			deactivationEvent("dragend")).

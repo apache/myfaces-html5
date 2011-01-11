@@ -22,6 +22,11 @@ package org.apache.myfaces.html5.component.effect;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 
+/**
+ * Provides transition of a CSS property to a value.
+ *
+ * @author Ali Ok
+ */
 @JSFComponent(
         name = "fx:effect",
         clazz = "org.apache.myfaces.html5.component.effect.Effect",
@@ -32,9 +37,15 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
 )
 public abstract class AbstractEffect extends BaseEffect{
 
+    /**
+     * The CSS property name to make the transition. Must be a CSS property name (i.e. opacity)
+     */
     @JSFProperty(deferredValueType = "java.lang.String", required = true)
     public abstract String getProperty();
 
+    /**
+     * The value to make the transition.
+     */
     @JSFProperty(deferredValueType = "java.lang.String", required = true)
     public abstract String getValue();
 }

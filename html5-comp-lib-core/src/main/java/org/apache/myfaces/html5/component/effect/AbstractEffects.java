@@ -24,6 +24,12 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
 import org.apache.myfaces.html5.component.properties.EventProperty;
 import org.apache.myfaces.html5.component.properties.effect.TransitionProperties;
 
+/**
+ * Container for effects.<br/>
+ * fx:effect... components should be nested inside this component.
+ *
+ * @author Ali Ok
+ */
 @JSFComponent(
         name = "fx:effects",
         clazz = "org.apache.myfaces.html5.component.effect.Effects",
@@ -43,12 +49,21 @@ public abstract class AbstractEffects extends javax.faces.component.UIComponentB
         return transitionComponentId;
     }
 
-    @JSFProperty(deferredValueType = "java.lang.String")
-    public abstract String getEvent();
-
+    /**
+     * Event(s) to deactivate to effect. The effect is activated on the event defined with the 'event' attribute, and deactivated
+     * on any of the events defined with this attribute. Value can be strings separated with comma, list of strings or array of strings.
+     * <br/>
+     * For example to to activate the effect on mouse hover and deactivate it on click or mouse out: event='mouseover' deactivationEvents='mouseout, click'
+     * attributes should be defined.<br/>
+     * If nothing is defined, the renderer will use deactivation events that make sense(i.e. 'drop' and 'dragleave' for 'dragover' event).
+     *
+     */
     @JSFProperty(deferredValueType = "java.lang.Object")
     public abstract Object getDeactivationEvents();
 
+    /**
+     * Css style class name to activate additionally with the effect.
+     */
     @JSFProperty(deferredValueType = "java.lang.String")
     public abstract String getAdditionalStyleClassToActivate();
 }

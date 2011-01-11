@@ -25,9 +25,17 @@ public interface ScaleProperties {
     static final double DEFAULT_MIN_SIZE = 0.5;
     static final double DEFAULT_MAX_SIZE = 1.0;
 
+    /**
+     * The minimum extreme point value to scale the ClientBehaviorHolder during the animation.<br/>
+     * Defaults to 0.5.
+     */
     @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_MIN_SIZE")
     public abstract double getMinSize();
 
+    /**
+     * The maximum extreme point value to scale the ClientBehaviorHolder during the animation.<br/>
+     * Defaults to 1 (back to original size).
+     */
     @JSFProperty(deferredValueType = "java.lang.Double", defaultValue = "DEFAULT_MAX_SIZE")
     public abstract double getMaxSize();
 }
