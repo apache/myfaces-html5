@@ -31,6 +31,7 @@ import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
 import org.apache.myfaces.view.facelets.PostBuildComponentTreeOnRestoreViewEvent;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.*;
@@ -41,57 +42,18 @@ import java.io.IOException;
         @ListenerFor(systemEventClass = PostBuildComponentTreeOnRestoreViewEvent.class)
 })
 @JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Effects", type = "org.apache.myfaces.html5.Effects")
-public class EffectsRenderer extends HtmlRenderer implements ComponentSystemEventListener {
-
-    @Override
-    public boolean getRendersChildren() {
-        return true;
-    }
-
-    @Override
-    public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
-        super.encodeBegin(facesContext, uiComponent);
-
-        RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffects.class);
-
-        AbstractEffects component = (AbstractEffects) uiComponent;
-
-        ResponseWriter writer = facesContext.getResponseWriter();
-
-        writer.startElement(HTML.STYLE_ELEM, component);
-    }
+public class EffectsRenderer extends EffectOutputRenderer implements ComponentSystemEventListener {
 
     @Override
     public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
         RendererUtils.checkParamValidity(facesContext, uiComponent, AbstractEffects.class);
-
         AbstractEffects component = (AbstractEffects) uiComponent;
-
         ResponseWriter writer = facesContext.getResponseWriter();
-
-        // write id
-        final String id = component.getClientId(facesContext);
-        writer.writeAttribute(HTML5.ID_ATTR, id, null);
-
-        //write key frames (let child components render themselves)
-        writer.writeText("." + Html5RendererUtils.escapeCssSelector(id) + " { ", component, null);
-        //TODO: allow only BaseEffect children!
 
         super.encodeChildren(facesContext, component);
 
-        writer.writeText(" } ", component, null);
         //write CSS class definition with animation definition
         writer.writeText(getTransitionDefinition(component),component, null);
-    }
-
-    @Override
-    public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
-        // just close the element
-        super.encodeEnd(facesContext, uiComponent);
-
-        ResponseWriter writer = facesContext.getResponseWriter();
-
-        writer.endElement(HTML.STYLE_ELEM);
     }
 
     protected String getTransitionDefinition(AbstractEffects component){
@@ -103,10 +65,16 @@ public class EffectsRenderer extends HtmlRenderer implements ComponentSystemEven
         builder.append("#").append(Html5RendererUtils.escapeCssSelector(component.getTransitionComponentId()));
         builder.append(" { ");
 
-        appendIfNotNull(builder, CSS.TRANSITION_PROPERTY_PROP, "all");
-        appendIfNotNull(builder, CSS.TRANSITION_DURATION_PROP, duration);
-        appendIfNotNull(builder, CSS.TRANSITION_TIMING_FUNCTION_PROP, timingFunction);
-        appendIfNotNull(builder, CSS.TRANSITION_DELAY_PROP, delay);
+        //for now
+        appendIfNotNull(builder, "-webkit-" + CSS.TRANSITION_PROPERTY_PROP, "all");
+        appendIfNotNull(builder, "-webkit-" + CSS.TRANSITION_DURATION_PROP, duration);
+        appendIfNotNull(builder, "-webkit-" + CSS.TRANSITION_TIMING_FUNCTION_PROP, timingFunction);
+        appendIfNotNull(builder, "-webkit-" + CSS.TRANSITION_DELAY_PROP, delay);
+
+        appendIfNotNull(builder, "-o-" + CSS.TRANSITION_PROPERTY_PROP, "all");
+        appendIfNotNull(builder, "-o-" + CSS.TRANSITION_DURATION_PROP, duration);
+        appendIfNotNull(builder, "-o-" + CSS.TRANSITION_TIMING_FUNCTION_PROP, timingFunction);
+        appendIfNotNull(builder, "-o-" + CSS.TRANSITION_DELAY_PROP, delay);
 
         builder.append("} ");
 
@@ -135,10 +103,12 @@ public class EffectsRenderer extends HtmlRenderer implements ComponentSystemEven
         UIComponent component = event.getComponent();
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
-        if(StringUtils.isBlank(((AbstractEffects)component).getTransitionComponentId()))
-            ((AbstractEffects)component).setTransitionComponentId(component.getParent().getClientId(facesContext));
+        final AbstractEffects abstractEffects = (AbstractEffects) component;
 
-        //TODO: other alternative than body? think about ajax PPR
+        if(StringUtils.isBlank(abstractEffects.getTransitionComponentId())) {
+            abstractEffects.setTransitionComponentId(component.getParent().getClientId(facesContext));
+        }
+
         facesContext.getViewRoot().addComponentResource(facesContext, component, "body");
     }
 }

@@ -47,8 +47,16 @@ public class AnimationsHandler extends javax.faces.view.facelets.ComponentHandle
     public void onComponentCreated(FaceletContext faceletContext, UIComponent uiComponent, UIComponent parent) {
         super.onComponentPopulated(faceletContext, uiComponent, parent);
 
-        if (!(parent instanceof ClientBehaviorHolder))
-            throw new FacesException("Parent is not ClientBehaviorHolder");
+        String eventName = getEventName(faceletContext);
+
+        if ((!(parent instanceof ClientBehaviorHolder))){
+            if(StringUtils.isNotBlank(eventName))
+                throw new FacesException("Parent component is not a ClientBehaviorHolder, however event attribute is defined.");
+            else{
+                //then only render children animations, do not attach a client behavior
+                return;
+            }
+        }
 
         if (!(uiComponent instanceof AbstractAnimations))
             throw new FacesException("Created component is not a AbstractAnimations");
@@ -60,7 +68,6 @@ public class AnimationsHandler extends javax.faces.view.facelets.ComponentHandle
 
         behavior.setAnimationIdToHandle(uiComponent.getClientId(faceletContext.getFacesContext()));
 
-        String eventName = getEventName(faceletContext);
         if(StringUtils.isBlank(eventName))
             eventName = ((ClientBehaviorHolder) parent).getDefaultEventName();
 

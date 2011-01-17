@@ -22,6 +22,7 @@ package org.apache.myfaces.html5.component.effect;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.html5.component.properties.EventProperty;
+import org.apache.myfaces.html5.component.properties.TargetProperty;
 import org.apache.myfaces.html5.component.properties.effect.TransitionProperties;
 
 /**
@@ -38,7 +39,7 @@ import org.apache.myfaces.html5.component.properties.effect.TransitionProperties
         family = "org.apache.myfaces.Effects",
         type = "org.apache.myfaces.html5.Effects"
 )
-public abstract class AbstractEffects extends javax.faces.component.UIComponentBase implements TransitionProperties, EventProperty {
+public abstract class AbstractEffects extends org.apache.myfaces.html5.component.effect.EffectOutput implements TransitionProperties{
     private String transitionComponentId;
 
     public void setTransitionComponentId(String transitionComponentId) {
@@ -48,6 +49,9 @@ public abstract class AbstractEffects extends javax.faces.component.UIComponentB
     public String getTransitionComponentId() {
         return transitionComponentId;
     }
+
+    @JSFProperty(tagExcluded = true)
+    public abstract String getEvent();
 
     /**
      * Event(s) to deactivate to effect. The effect is activated on the event defined with the 'event' attribute, and deactivated

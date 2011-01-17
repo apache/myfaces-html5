@@ -21,6 +21,7 @@ package org.apache.myfaces.html5.renderkit.util;
 
 public interface CSS {
 
+    //animations are only supported on Webkit
     String ANIMATION_NAME_PROP = "-webkit-animation-name";
     String ANIMATION_DURATION_PROP = "-webkit-animation-duration";
     String ANIMATION_ITERATION_COUNT_PROP = "-webkit-animation-iteration-count";
@@ -28,10 +29,10 @@ public interface CSS {
     String ANIMATION_DIRECTION_PROP = "-webkit-animation-direction";
     String ANIMATION_DELAY_PROP = "-webkit-animation-delay";
 
-    String TRANSITION_PROPERTY_PROP = "-webkit-transition-property";
-    String TRANSITION_DURATION_PROP = "-webkit-transition-duration";
-    String TRANSITION_TIMING_FUNCTION_PROP = "-webkit-transition-timing-function";
-    String TRANSITION_DELAY_PROP = "-webkit-transition-delay";
+    String TRANSITION_PROPERTY_PROP = "transition-property";
+    String TRANSITION_DURATION_PROP = "transition-duration";
+    String TRANSITION_TIMING_FUNCTION_PROP = "transition-timing-function";
+    String TRANSITION_DELAY_PROP = "transition-delay";
 
     String TRANSFORMATION_FUNCTION_ROTATE = "rotate";
     String TRANSFORMATION_FUNCTION_SCALE_X = "scaleX";

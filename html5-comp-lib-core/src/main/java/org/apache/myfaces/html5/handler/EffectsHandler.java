@@ -52,8 +52,11 @@ public class EffectsHandler extends javax.faces.view.facelets.ComponentHandler {
     public void onComponentCreated(FaceletContext faceletContext, UIComponent uiComponent, UIComponent parent) {
         super.onComponentPopulated(faceletContext, uiComponent, parent);
 
-        if (!(parent instanceof ClientBehaviorHolder))
-            throw new FacesException("Parent is not ClientBehaviorHolder");
+        String eventName = getEventName(faceletContext);
+
+        if (!(parent instanceof ClientBehaviorHolder)){
+            throw new FacesException("Created component is not a ClientBehaviorHolder");
+        }
 
         if (!(uiComponent instanceof AbstractEffects))
             throw new FacesException("Created component is not a AbstractEffects");
@@ -71,7 +74,6 @@ public class EffectsHandler extends javax.faces.view.facelets.ComponentHandler {
 
         activationBehavior.setEffectIdToHandle(effectsIdToHandle);
 
-        String eventName = getEventName(faceletContext);
         if(StringUtils.isBlank(eventName))
             eventName = ((ClientBehaviorHolder) parent).getDefaultEventName();
 
