@@ -41,6 +41,8 @@ public interface HTML5
     // html elements
     String TEXTAREA_ELEM = "textarea";
     String DIV_ELEM = "div";
+    String STYLE_ELEM = "style";
+    String SCRIPT_ELEM = "script";
 
     // general attrs
     String ID_ATTR = "id";

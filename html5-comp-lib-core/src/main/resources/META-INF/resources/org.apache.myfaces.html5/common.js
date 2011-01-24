@@ -68,7 +68,7 @@ myfaces.html5.common.contains = function(arr, str){
 	   if(arr[i]==str)
 		   return true;
    }
-   return false;;
+   return false;
 }
 
 /**

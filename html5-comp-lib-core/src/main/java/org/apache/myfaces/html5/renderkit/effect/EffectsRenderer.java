@@ -58,13 +58,14 @@ public class EffectsRenderer extends EffectOutputRenderer implements ComponentSy
 
     protected String getTransitionDefinition(AbstractEffects component){
         final String timingFunction = component.getTimingFunction();
-        final String duration = getTimeValue(component.getDuration());
-        final String delay = getTimeValue(component.getDelay());
+        final String duration = Html5RendererUtils.getTimeValue(component.getDuration());
+        final String delay = Html5RendererUtils.getTimeValue(component.getDelay());
 
         StringBuilder builder = new StringBuilder();
         builder.append("#").append(Html5RendererUtils.escapeCssSelector(component.getTransitionComponentId()));
         builder.append(" { ");
 
+        //TODO: use CssBuilder. see SlideViewRenderer.
         //for now
         appendIfNotNull(builder, "-webkit-" + CSS.TRANSITION_PROPERTY_PROP, "all");
         appendIfNotNull(builder, "-webkit-" + CSS.TRANSITION_DURATION_PROP, duration);
@@ -87,15 +88,6 @@ public class EffectsRenderer extends EffectOutputRenderer implements ComponentSy
 
         if(!StringUtils.isBlank(propValue))
             builder.append(propName).append(": ").append(propValue).append("; ");
-    }
-
-    private static String getTimeValue(String s) {
-        if(StringUtils.isBlank(s))
-            return null;
-        else if(s.endsWith("s") || s.endsWith("ms"))
-            return s;
-        else
-            return s + "s";
     }
 
 

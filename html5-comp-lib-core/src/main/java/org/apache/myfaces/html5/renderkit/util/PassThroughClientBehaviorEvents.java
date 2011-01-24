@@ -84,6 +84,16 @@ public interface PassThroughClientBehaviorEvents
         .events(PassThroughClientBehaviorEventGroups.HTML_GLOBAL_BEHAVIOR_EVENTS)
         .events(PassThroughClientBehaviorEventGroups.HTML5_GLOBAL_BEHAVIOR_EVENTS)
         .unmodifiable();
+
+     Map<String, String> SLIDE = map(11)
+        .events(PassThroughClientBehaviorEventGroups.HTML_GLOBAL_BEHAVIOR_EVENTS)
+        .events(PassThroughClientBehaviorEventGroups.HTML5_GLOBAL_BEHAVIOR_EVENTS)
+        .unmodifiable();
+
+    Map<String, String> SLIDE_VIEW = map(11)
+        .events(PassThroughClientBehaviorEventGroups.HTML_GLOBAL_BEHAVIOR_EVENTS)
+        .events(PassThroughClientBehaviorEventGroups.HTML5_GLOBAL_BEHAVIOR_EVENTS)
+        .unmodifiable();
     
     
 }

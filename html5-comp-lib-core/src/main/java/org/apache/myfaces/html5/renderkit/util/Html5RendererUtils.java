@@ -33,6 +33,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.html5.component.input.Html5BaseInputText;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 import org.apache.myfaces.shared_html5.renderkit.html.HtmlRendererUtils;
@@ -54,6 +55,8 @@ public class Html5RendererUtils
             HTML5.DRAGGABLE_ATTR, HTML5.SPELLCHECK_ATTR);
 
     private static final String HTML_EVENT_ATTR_PREFIX = "on";
+
+    private static final String DEFAULT_WIDGET_PREFIX = "widget_";
 
     /**
      * Renders the pass through attributes of the component. Value of the JSF properties will be written with the
@@ -257,5 +260,25 @@ public class Html5RendererUtils
             return null;
 
         return selector.replace(":", "\\:");
+    }
+
+    public static String getTimeValue(String s) {
+        if(StringUtils.isBlank(s))
+            return null;
+        else if(s.endsWith("s") || s.endsWith("ms"))
+            return s;
+        else
+            return s + "s";
+    }
+
+    public static String generateWidgetVar(String clientId){
+        return DEFAULT_WIDGET_PREFIX + escapeJavaScriptVariableName(clientId);
+    }
+
+    private static String escapeJavaScriptVariableName(String str) {
+        if(str==null)
+            return null;
+
+        return str.replace(":", "_");
     }
 }

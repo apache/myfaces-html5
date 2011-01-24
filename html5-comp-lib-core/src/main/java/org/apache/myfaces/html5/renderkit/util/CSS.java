@@ -41,4 +41,8 @@ public interface CSS {
     String TRANSFORMATION_FUNCTION_SKEW_Y = "skewY";
     String TRANSFORMATION_FUNCTION_TRANSLATE_X = "translateX";
     String TRANSFORMATION_FUNCTION_TRANSLATE_Y = "translateY";
+
+    String LEFT_PROP = "left";
+    String WIDTH_PROP = "width";
+    String HEIGHT_PROP = "height";
 }

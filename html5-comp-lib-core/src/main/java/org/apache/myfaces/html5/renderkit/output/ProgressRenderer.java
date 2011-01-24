@@ -1,14 +1,12 @@
 package org.apache.myfaces.html5.renderkit.output;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
-import org.apache.myfaces.html5.component.media.AbstractMedia;
 import org.apache.myfaces.html5.component.output.AbstractProgress;
 import org.apache.myfaces.html5.renderkit.panel.DivRenderer;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
 import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
 import org.apache.myfaces.html5.renderkit.util.PassThroughClientBehaviorEvents;
-import org.apache.myfaces.shared_html5.renderkit.JSFAttr;
 import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
 

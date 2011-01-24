@@ -124,5 +124,15 @@ public interface PassThroughAttributes
         .attr(HIGH_PROP, HIGH_ATTR)
         .attr(OPTIMUM_PROP, OPTIMUM_ATTR)
         .unmodifiable();
+
+    Map<String, String> SLIDE = map(11)
+        .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
+        .attrs(PassThroughAttributeGroups.HTML_GLOBAL_PROPS)
+        .unmodifiable();
+
+    Map<String, String> SLIDE_VIEW = map(11)
+        .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
+        .attrs(PassThroughAttributeGroups.HTML_GLOBAL_PROPS)
+        .unmodifiable();
     
 }
