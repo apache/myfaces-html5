@@ -34,7 +34,7 @@ if(myfaces.html5.slide == undefined || myfaces.html5.slide == null){
         element : null
     };
 
-    myfaces.html5.slide.SlideView = function(_root){
+    myfaces.html5.slide.SlideView = function(_root, _navigateOnArrowKeys, _navigateOnMouseWheel){
         this.slides = new Array();
 
         for(var i=0; i<_root.children.length; i++)
@@ -50,9 +50,14 @@ if(myfaces.html5.slide == undefined || myfaces.html5.slide == null){
         myfaces.html5.effect.addEffect(_root, 'mf-slideview');
 
         var slideView = this;
-        document.addEventListener('keydown', function(e) { slideView.handleKeyDown(e); }, false);
-        document.addEventListener('mousewheel',  function(e) { slideView.handleMouseWheel(e); }, false);
-        document.addEventListener('DOMMouseScroll',  function(e) { slideView.handleMouseWheel(e); }, false);
+        if(_navigateOnArrowKeys){
+            document.addEventListener('keydown', function(e) { slideView.handleKeyDown(e); }, false);
+        }
+        if(_navigateOnMouseWheel){
+            document.addEventListener('mousewheel',  function(e) { slideView.handleMouseWheel(e); }, false);
+            document.addEventListener('DOMMouseScroll',  function(e) { slideView.handleMouseWheel(e); }, false);
+        }
+
 
         var userAgent = navigator.userAgent;
         var opera = parseFloat(userAgent.split('Opera/')[1]) || undefined;

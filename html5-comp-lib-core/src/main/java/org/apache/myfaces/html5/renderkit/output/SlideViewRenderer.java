@@ -160,8 +160,11 @@ public class SlideViewRenderer extends HtmlRenderer
         else
             widgetVar = Html5RendererUtils.generateWidgetVar(clientId);
 
+        final boolean navigateOnArrowKeys = component.isNavigateOnArrowKeys();
+        final boolean navigateOnMouseWheel = component.isNavigateOnMouseWheel();
+
         writer.startElement(HTML5.SCRIPT_ELEM, component);
-        String jsDefinition = MessageFormat.format("var {0} = new myfaces.html5.slide.SlideView(document.getElementById(''{1}''));", widgetVar, clientId);
+        String jsDefinition = MessageFormat.format("var {0} = new myfaces.html5.slide.SlideView(document.getElementById(''{1}''), {2}, {3});", widgetVar, clientId, navigateOnArrowKeys, navigateOnMouseWheel);
         writer.write(jsDefinition);
         writer.endElement(HTML5.SCRIPT_ELEM);
     }
