@@ -96,6 +96,10 @@ $baseContent
         <client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.AnimationsBehaviorRenderer</client-behavior-renderer-class>
       </client-behavior-renderer>
       <client-behavior-renderer>
+        <client-behavior-renderer-type>org.apache.myfaces.html5.AnimationBehavior</client-behavior-renderer-type>
+        <client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.AnimationBehaviorRenderer</client-behavior-renderer-class>
+      </client-behavior-renderer>
+      <client-behavior-renderer>
         <client-behavior-renderer-type>org.apache.myfaces.html5.EffectsActivationBehaviorRenderer</client-behavior-renderer-type>
         <client-behavior-renderer-class>org.apache.myfaces.html5.renderkit.behavior.EffectsActivationBehaviorRenderer</client-behavior-renderer-class>
       </client-behavior-renderer>
