@@ -36,13 +36,17 @@ if(myfaces.html5.slide == undefined || myfaces.html5.slide == null){
 
     myfaces.html5.slide.SlideView = function(_root, _navigateOnArrowKeys, _navigateOnMouseWheel){
         this.slides = new Array();
+        this.slideIndexes = new Array();
 
         for(var i=0; i<_root.children.length; i++)
         {
             var obj = _root.children[i];
             if(obj.tagName == "DIV"){
-                this.slideCount++;
                 this.slides.push(new myfaces.html5.slide.Slide(obj));
+                if(obj.id){
+                    this.slideIndexes[obj.id] = this.slideCount;
+                }
+                this.slideCount++;
             }
         }
 
@@ -68,6 +72,7 @@ if(myfaces.html5.slide == undefined || myfaces.html5.slide == null){
 
     myfaces.html5.slide.SlideView.prototype = {
         slides : [],
+        //slideIndexes : [],
         currentIndex : 0,
         slideCount : 0,
 
@@ -131,6 +136,12 @@ if(myfaces.html5.slide == undefined || myfaces.html5.slide == null){
             this.currentIndex = newIndex;
             this.setClasses();
             this.addTransition();
+        },
+
+        goBySlideId : function(slideId){
+            if(this.slideIndexes[slideId]){
+                this.goto(this.slideIndexes[slideId]);
+            }
         },
 
         handleKeyDown: function(e) {
