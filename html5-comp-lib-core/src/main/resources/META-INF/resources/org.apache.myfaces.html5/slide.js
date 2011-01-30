@@ -139,7 +139,7 @@ if(myfaces.html5.slide == undefined || myfaces.html5.slide == null){
         },
 
         goBySlideId : function(slideId){
-            if(this.slideIndexes[slideId]){
+            if(this.slideIndexes[slideId]!=undefined && this.slideIndexes[slideId]!=null){
                 this.goto(this.slideIndexes[slideId]);
             }
         },
