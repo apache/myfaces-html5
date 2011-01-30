@@ -23,8 +23,11 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.html5.component.properties.*;
 import org.apache.myfaces.html5.component.properties.effect.TransitionProperties;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 /**
  * Provides a presentation-like slide view.<br/>
@@ -45,7 +48,8 @@ import javax.faces.component.NamingContainer;
 )
 public abstract class AbstractSlideView extends javax.faces.component.UIComponentBase implements
         javax.faces.component.behavior.ClientBehaviorHolder, Html5GlobalProperties, AccesskeyProperty,
-        TabindexProperty, MouseEventProperties, GlobalEventProperties, WidgetVarProperty, TransitionProperties, NamingContainer
+        TabindexProperty, MouseEventProperties, GlobalEventProperties, WidgetVarProperty, TransitionProperties,
+        PrependIdProperty, NamingContainer
 {
     public static final Double DEFAULT_SLIDE_LEFT = 10.0;
     public static final Double DEFAULT_SLIDE_WIDTH = 80.0;
@@ -92,4 +96,20 @@ public abstract class AbstractSlideView extends javax.faces.component.UIComponen
      */
     @JSFProperty(required = false, deferredValueType = "java.lang.Boolean", defaultValue = "true")
     public abstract boolean isNavigateOnMouseWheel();
+
+
+    @Override
+    public String getContainerClientId(FacesContext ctx)
+    {
+        if (isPrependId())
+        {
+            return super.getContainerClientId(ctx);
+        }
+        UIComponent parentNamingContainer = ComponentUtils.findParentNamingContainer(this, false);
+        if (parentNamingContainer != null)
+        {
+            return parentNamingContainer.getContainerClientId(ctx);
+        }
+        return null;
+    }
 }

@@ -3,8 +3,11 @@ package org.apache.myfaces.html5.component.output;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFComponent;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.html5.component.properties.*;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 /**
  * Provides a slide in the slide view.<br/>
@@ -25,7 +28,22 @@ import javax.faces.component.NamingContainer;
 )
 public abstract class AbstractSlide extends javax.faces.component.UIComponentBase implements
         javax.faces.component.behavior.ClientBehaviorHolder, Html5GlobalProperties, AccesskeyProperty,
-        TabindexProperty, MouseEventProperties, GlobalEventProperties
+        TabindexProperty, MouseEventProperties, GlobalEventProperties, PrependIdProperty, NamingContainer
 {
+
+    @Override
+    public String getContainerClientId(FacesContext ctx)
+    {
+        if (isPrependId())
+        {
+            return super.getContainerClientId(ctx);
+        }
+        UIComponent parentNamingContainer = ComponentUtils.findParentNamingContainer(this, false);
+        if (parentNamingContainer != null)
+        {
+            return parentNamingContainer.getContainerClientId(ctx);
+        }
+        return null;
+    }
 
 }
