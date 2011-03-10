@@ -20,7 +20,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 
-	<display-name>html5-comp-lib-examples</display-name>
+	<display-name>myfaces-html5-examples</display-name>
 
 	<welcome-file-list>
 		<welcome-file>index.jsf</welcome-file>

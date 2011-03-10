@@ -21,15 +21,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>html5-comp-lib-project</artifactId>
-        <groupId>org.apache.myfaces.html5-comp-lib</groupId>
-        <version>0.0.3-SNAPSHOT</version>
+        <groupId>org.apache.myfaces.html5</groupId>
+        <artifactId>myfaces-html5-project</artifactId>
+        <version>0.0.4-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.apache.myfaces.html5-comp-lib</groupId>
-    <artifactId>html5-comp-lib-core</artifactId>
-    <name>Html5 Renderkit for Apache MyFaces</name>
-    <version>0.0.3-SNAPSHOT</version>
+    <groupId>org.apache.myfaces.html5</groupId>
+    <artifactId>myfaces-html5-core</artifactId>
+    <name>MyFaces Html5 Core</name>
+    <description>Html5 Core for Apache MyFaces</description>
 
     <dependencies>
         <dependency>
@@ -39,9 +39,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces.html5-comp-lib</groupId>
+            <groupId>org.apache.myfaces.shared</groupId>
             <artifactId>myfaces-shared-html5</artifactId>
-            <version>0.0.3-SNAPSHOT</version>
+            <version>${shared-core-version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -174,7 +174,7 @@
                                 <description>HTML5 Html component library for MyFaces.</description>
                             </params>
                             <modelIds>
-                                <modelId>html5-comp-lib-core</modelId>
+                                <modelId>myfaces-html5-core</modelId>
                             </modelIds>
                         </configuration>
                         <goals>
@@ -195,7 +195,7 @@
                                 <uri>http://myfaces.apache.org/html5/html</uri>
                             </params>
                             <modelIds>
-                                <modelId>html5-comp-lib-core</modelId>
+                                <modelId>myfaces-html5-core</modelId>
                             </modelIds>
                         </configuration>
                         <goals>
@@ -219,7 +219,7 @@
                                 <description>HTML5 core component library for MyFaces.</description>
                             </params>
                             <modelIds>
-                                <modelId>html5-comp-lib-core</modelId>
+                                <modelId>myfaces-html5-core</modelId>
                             </modelIds>
                         </configuration>
                         <goals>
@@ -240,7 +240,7 @@
                                 <uri>http://myfaces.apache.org/html5/core</uri>
                             </params>
                             <modelIds>
-                                <modelId>html5-comp-lib-core</modelId>
+                                <modelId>myfaces-html5-core</modelId>
                             </modelIds>
                         </configuration>
                         <goals>
@@ -299,7 +299,7 @@
                                         <description>HTML5 Html component library for MyFaces.</description>
                                     </params>
                                     <modelIds>
-                                        <modelId>html5-comp-lib-core</modelId>
+                                        <modelId>myfaces-html5-core</modelId>
                                     </modelIds>
                                 </configuration>
                                 <goals>
@@ -323,7 +323,7 @@
                                         <description>HTML5 core component library for MyFaces.</description>
                                     </params>
                                     <modelIds>
-                                        <modelId>html5-comp-lib-core</modelId>
+                                        <modelId>myfaces-html5-core</modelId>
                                     </modelIds>
                                 </configuration>
                                 <goals>

@@ -26,21 +26,20 @@
         <version>6</version>
     </parent>
 
-    <groupId>org.apache.myfaces.html5-comp-lib</groupId>
-    <artifactId>html5-comp-lib-project</artifactId>
+    <groupId>org.apache.myfaces.html5</groupId>
+    <artifactId>myfaces-html5-project</artifactId>
     <packaging>pom</packaging>
-    <name>Html5 Renderkit for Apache MyFaces Parent Project </name>
-    <version>0.0.3-SNAPSHOT</version>
-    <description>Apache MyFaces Html5 Renderkit is a sub-project of Apache MyFaces which provides Html5 enabled components.</description>
+    <name>Apache MyFaces Html5 Parent Project</name>
+    <version>0.0.4-SNAPSHOT</version>
+    <description>Apache MyFaces Html5 is a sub-project of Apache MyFaces which provides Html5 functionality.</description>
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/gsoc/html5-comp-lib/trunk</connection>
-        <developerConnection>scm:svn:http://svn.apache.org/repos/asf/myfaces/gsoc/html5-comp-lib/trunk</developerConnection>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/html5/trunk</connection>
+        <developerConnection>scm:svn:http://svn.apache.org/repos/asf/myfaces/html5/trunk</developerConnection>
     </scm>
 
     <modules>
-        <module>html5-comp-lib-core</module>
-        <module>myfaces-shared-html5</module>
-        <module>html5-comp-lib-examples</module>
+        <module>myfaces-html5-core</module>
+        <module>myfaces-html5-examples</module>
     </modules>
 
     <repositories>
@@ -114,12 +113,12 @@
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-            <version>2.0.1</version>
+            <version>${myfaces-core-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
-            <version>2.0.1</version>
+            <version>${myfaces-core-version}</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -203,7 +202,8 @@
     </profiles>
     
     <properties>
-        <shared-core-version>4.0.4-SNAPSHOT</shared-core-version>
+        <myfaces-core-version>2.0.1</myfaces-core-version>
+        <shared-core-version>4.0.6-SNAPSHOT</shared-core-version>
     </properties>
 
 </project>
