@@ -42,7 +42,6 @@
 
     <modules>
         <module>myfaces-html5-core</module>
-        <module>myfaces-html5-examples</module>
         <module>myfaces-html5-demo</module>
     </modules>
 
