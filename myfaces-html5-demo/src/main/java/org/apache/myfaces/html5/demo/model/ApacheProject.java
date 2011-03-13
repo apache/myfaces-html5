@@ -19,19 +19,17 @@
 
 package org.apache.myfaces.html5.demo.model;
 
-import org.apache.myfaces.html5.demo.model.SportsTeamType;
-
 import java.io.Serializable;
 
-public class SportsTeam implements Serializable
+public class ApacheProject implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     private String id;
     private String name;
-    private SportsTeamType type;
+    private ApacheProjectLanguage type;
 
-    public SportsTeam(String id, String name, SportsTeamType type)
+    public ApacheProject(String id, String name, ApacheProjectLanguage type)
     {
         this.id = id;
         this.name = name;
@@ -58,12 +56,12 @@ public class SportsTeam implements Serializable
         this.name = name;
     }
 
-    public SportsTeamType getType()
+    public ApacheProjectLanguage getType()
     {
         return type;
     }
 
-    public void setType(SportsTeamType type)
+    public void setType(ApacheProjectLanguage type)
     {
         this.type = type;
     }
@@ -71,9 +69,9 @@ public class SportsTeam implements Serializable
     @Override
     public boolean equals(Object obj)
     {
-        if (obj instanceof SportsTeam)
+        if (obj instanceof ApacheProject)
         {
-            SportsTeam other = (SportsTeam) obj;
+            ApacheProject other = (ApacheProject) obj;
             if(other.getId().equals(this.id))
                 return true;
         }

@@ -30,8 +30,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AbortProcessingException;
 
-import org.apache.myfaces.html5.demo.model.SportsTeam;
-import org.apache.myfaces.html5.demo.model.SportsTeamType;
+import org.apache.myfaces.html5.demo.model.ApacheProject;
+import org.apache.myfaces.html5.demo.model.ApacheProjectLanguage;
 import org.apache.myfaces.html5.event.DropEvent;
 
 @ManagedBean(name = "dndBean")
@@ -42,7 +42,7 @@ public class DndBean implements Serializable
 
     private String simpleDndOutput = "Nothing dropped yet";
     private String dragAnythingOutput = "Nothing dropped yet";
-    private String teamDropOutput = "Nothing dropped yet";
+    private String projectDropOutput = "Nothing dropped yet";
 
     public void processSimpleDnd(DropEvent event) throws AbortProcessingException
     {
@@ -77,146 +77,146 @@ public class DndBean implements Serializable
         return dragAnythingOutput;
     }
 
-    private List<SportsTeam> teams;
-    private List<SportsTeam> footballTeams;
-    private List<SportsTeam> basketballTeams;
+    private List<ApacheProject> projects;
+    private List<ApacheProject> cProjects;
+    private List<ApacheProject> javaProjects;
 
     public DndBean()
     {
-        initTeams();
+        initProjects();
     }
 
-    public String initTeams()
+    public String initProjects()
     {
-        teams = new ArrayList<SportsTeam>();
-        footballTeams = new ArrayList<SportsTeam>();
-        basketballTeams = new ArrayList<SportsTeam>();
-        teams.add(new SportsTeam("fcb", "FC Barcelona", SportsTeamType.FOOTBALL));
-        teams.add(new SportsTeam("rma", "Real Madrid", SportsTeamType.FOOTBALL));
-        teams.add(new SportsTeam("lal", "LA Lakers", SportsTeamType.BASKETBALL));
-        teams.add(new SportsTeam("boc", "Boston Celtics", SportsTeamType.BASKETBALL));
+        projects = new ArrayList<ApacheProject>();
+        cProjects = new ArrayList<ApacheProject>();
+        javaProjects = new ArrayList<ApacheProject>();
+        projects.add(new ApacheProject("spamassassin", "SpamAssasin", ApacheProjectLanguage.C));
+        projects.add(new ApacheProject("subversion", "Subversion", ApacheProjectLanguage.C));
+        projects.add(new ApacheProject("myfaces", "MyFaces", ApacheProjectLanguage.JAVA));
+        projects.add(new ApacheProject("tomcat", "Tomcat", ApacheProjectLanguage.JAVA));
 
         this.simpleDndOutput = "Nothing dropped yet";
         this.dragAnythingOutput = "Nothing dropped yet";
-        this.teamDropOutput = "Nothing dropped yet";
+        this.projectDropOutput = "Nothing dropped yet";
         
         return null;
     }
 
-    public List<SportsTeam> getTeams()
+    public List<ApacheProject> getProjects()
     {
-        return teams;
+        return projects;
     }
 
     // TODO: reuse the code!
-    public void processFootballTeamDrop(DropEvent event) throws AbortProcessingException
+    public void processJavaProjectDrop(DropEvent event) throws AbortProcessingException
     {
         String param = event.getParam();
         if (param == null || param.isEmpty())
             return;
 
-        SportsTeam droppedTeam = null;
-        for (SportsTeam team : this.teams)
+        ApacheProject droppedProject = null;
+        for (ApacheProject project : this.projects)
         {
-            if (team.getId().equals(param))
+            if (project.getId().equals(param))
             {
-                droppedTeam = team;
+                droppedProject = project;
                 break;
             }
         }
 
-        if (droppedTeam == null)
+        if (droppedProject == null)
         {
-            teamDropOutput = "No team or already dropped team is dropped.";
+            projectDropOutput = "No project or already dropped project is dropped.";
             return;
         }
 
-        teams.remove(droppedTeam);
-        footballTeams.add(droppedTeam);
+        projects.remove(droppedProject);
+        javaProjects.add(droppedProject);
 
-        teamDropOutput = droppedTeam.getName() + " is moved.";
+        projectDropOutput = droppedProject.getName() + " is moved.";
     }
 
-    public void processBasketballTeamDrop(DropEvent event) throws AbortProcessingException
+    public void processCProjectDrop(DropEvent event) throws AbortProcessingException
     {
         String param = event.getParam();
         if (param == null || param.isEmpty())
             return;
 
-        SportsTeam droppedTeam = null;
-        for (SportsTeam team : this.teams)
+        ApacheProject droppedProject = null;
+        for (ApacheProject project : this.projects)
         {
-            if (team.getId().equals(param))
+            if (project.getId().equals(param))
             {
-                droppedTeam = team;
+                droppedProject = project;
                 break;
             }
         }
 
-        if (droppedTeam == null)
+        if (droppedProject == null)
         {
-            teamDropOutput = "No team or already dropped team is dropped.";
+            projectDropOutput = "No project or already dropped project is dropped.";
             return;
         }
 
-        teams.remove(droppedTeam);
-        basketballTeams.add(droppedTeam);
+        projects.remove(droppedProject);
+        cProjects.add(droppedProject);
 
-        teamDropOutput = droppedTeam.getName() + " is moved.";
+        projectDropOutput = droppedProject.getName() + " is moved.";
     }
 
-    public void processTeamDrop(DropEvent event) throws AbortProcessingException
+    public void processProjectDrop(DropEvent event) throws AbortProcessingException
     {
         String param = event.getParam();
         if (param == null || param.isEmpty())
             return;
 
-        SportsTeam droppedTeam = null;
-        for (SportsTeam team : this.footballTeams)
+        ApacheProject droppedProject = null;
+        for (ApacheProject project : this.javaProjects)
         {
-            if (team.getId().equals(param))
+            if (project.getId().equals(param))
             {
-                droppedTeam = team;
-                this.footballTeams.remove(team);
+                droppedProject = project;
+                this.javaProjects.remove(project);
                 break;
             }
         }
-        if (droppedTeam == null)
+        if (droppedProject == null)
         {
-            for (SportsTeam team : this.basketballTeams)
+            for (ApacheProject project : this.cProjects)
             {
-                if (team.getId().equals(param))
+                if (project.getId().equals(param))
                 {
-                    droppedTeam = team;
-                    this.basketballTeams.remove(team);
+                    droppedProject = project;
+                    this.cProjects.remove(project);
                     break;
                 }
             }
         }
         
-        if (droppedTeam == null)
+        if (droppedProject == null)
         {
-            teamDropOutput = "No team or already dropped team is dropped.";
+            projectDropOutput = "No project or already dropped project is dropped.";
             return;
         }
 
-        teams.add(droppedTeam);
+        projects.add(droppedProject);
 
-        teamDropOutput = droppedTeam.getName() + " is moved.";
+        projectDropOutput = droppedProject.getName() + " is moved.";
     }
 
-    public String getTeamDropOutput()
+    public String getProjectDropOutput()
     {
-        return teamDropOutput;
+        return projectDropOutput;
     }
 
-    public List<SportsTeam> getFootballTeams()
+    public List<ApacheProject> getJavaProjects()
     {
-        return footballTeams;
+        return javaProjects;
     }
 
-    public List<SportsTeam> getBasketballTeams()
+    public List<ApacheProject> getCProjects()
     {
-        return basketballTeams;
+        return cProjects;
     }
 }

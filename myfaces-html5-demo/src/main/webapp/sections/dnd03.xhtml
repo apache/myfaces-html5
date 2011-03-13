@@ -54,7 +54,7 @@
                   .dragStarted { border: 2px solid yellow;}
                   .dragEntered { border: 4px dashed green; background-color: #88FF00;}
 		          
-		          .team { 
+		          .project {
 		              width: 200px; 
 	                  height: 38px; 
 	                  color:gray; 
@@ -62,7 +62,7 @@
 	                  font-size: 17px;
 	                  text-shadow: 0 3px 5px rgba(100, 100, 100, 0.5);
                   }
-		          .team img {
+		          .project img {
 		              width: 35px;
 		          }
 		          
@@ -78,72 +78,72 @@
 	                <table width="100%">
 	                    <tr>
 	                        <td align="left">
-	                              <hx:div id="teamDropZone" styleClass="dropZone03">
+	                              <hx:div id="projectDropZone" styleClass="dropZone03">
                                       <fx:effects event="dragenter" additionalStyleClassToActivate="dragEntered" duration="0.5"/>
                                       <fx:animations event="drop" duration="1s" iteration="5">
                                           <fx:animationShake rotation="15" />
                                       </fx:animations>
-	                                  <fx:dropTarget dropListener="#{dndBean.processTeamDrop}" rerender="dynamicDnDContainer" types="F,B"/>
+	                                  <fx:dropTarget dropListener="#{dndBean.processProjectDrop}" rerender="dynamicDnDContainer" types="C,J"/>
 
 	                                  <div style="padding:5px; text-align: center;">
-	                                      <h:outputText value="All Teams" />
+	                                      <h:outputText value="All Projects" />
 	                                  </div>
 	                                  
-	                                  <h:dataTable value="#{dndBean.teams}" var="team">
+	                                  <h:dataTable value="#{dndBean.projects}" var="project">
 	                                      <h:column>
-	                                          <hx:div styleClass="team">
+	                                          <hx:div styleClass="project">
                                                   <fx:effects event="dragstart" additionalStyleClassToActivate="dragStarted" duration="0.5"/>
-	                                              <fx:dragSource action="move" param="#{team.id}" dropTargetTypes="#{team.type.code}" />
-	                                              <img src="#{request.contextPath}/resources/image/team/#{team.id}.png" draggable="false" />
-	                                              <h:outputText value="#{team.name}" draggable="false"/>
+	                                              <fx:dragSource action="move" param="#{project.id}" dropTargetTypes="#{project.type.code}" />
+	                                              <img src="#{request.contextPath}/resources/image/apache-project/#{project.id}.png" draggable="false" />
+	                                              <h:outputText value="#{project.name}" draggable="false"/>
 	                                          </hx:div>
 	                                      </h:column>
 	                                  </h:dataTable>
 	                              </hx:div>
 	                        </td>
 	                        <td align="center">
-	                            <hx:div id="basketballTeamDropZone" styleClass="dropZone03">
+	                            <hx:div id="cProjectDropZone" styleClass="dropZone03">
                                      <fx:effects event="dragenter" additionalStyleClassToActivate="dragEntered" duration="0.5"/>
 	                                 <fx:animations event="drop" duration="1s" iteration="5">
                                           <fx:animationShake rotation="15" />
                                       </fx:animations>
-                                     <fx:dropTarget dropListener="#{dndBean.processBasketballTeamDrop}" rerender="dynamicDnDContainer" types="B"/>
+                                     <fx:dropTarget dropListener="#{dndBean.processCProjectDrop}" rerender="dynamicDnDContainer" types="C"/>
 	                                    
 	                                 <div style="padding:5px; text-align: center;">
-	                                    <h:outputText value="Basketball Teams" />
+	                                    <h:outputText value="C Projects" />
 	                                 </div>
 	                                             
-	                                 <h:dataTable value="#{dndBean.basketballTeams}" var="team">
+	                                 <h:dataTable value="#{dndBean.CProjects}" var="project">
 	                                      <h:column>
-	                                          <hx:div styleClass="team">
+	                                          <hx:div styleClass="project">
                                                   <fx:effects event="dragstart" additionalStyleClassToActivate="dragStarted" duration="0.5"/>
-                                                  <fx:dragSource action="move" param="#{team.id}" dropTargetTypes="#{team.type.code}" />
-	                                              <img src="#{request.contextPath}/resources/image/team/#{team.id}.png" draggable="false" />
-	                                              <h:outputText value="#{team.name}" draggable="false"/>
+                                                  <fx:dragSource action="move" param="#{project.id}" dropTargetTypes="#{project.type.code}" />
+	                                              <img src="#{request.contextPath}/resources/image/apache-project/#{project.id}.png" draggable="false" />
+	                                              <h:outputText value="#{project.name}" draggable="false"/>
 	                                          </hx:div>
 	                                      </h:column>
 	                                 </h:dataTable>
 	                             </hx:div>
 	                         </td>
 	                        <td align="right">
-	                              <hx:div id="footballTeamDropZone" styleClass="dropZone03">
+	                              <hx:div id="javaProjectDropZone" styleClass="dropZone03">
                                       <fx:effects event="dragenter" additionalStyleClassToActivate="dragEntered" duration="0.5"/>
                                       <fx:animations event="drop" duration="1s" iteration="5">
                                           <fx:animationShake rotation="15" />
                                       </fx:animations>
-	                                  <fx:dropTarget dropListener="#{dndBean.processFootballTeamDrop}" rerender="dynamicDnDContainer" types="F"/>
+	                                  <fx:dropTarget dropListener="#{dndBean.processJavaProjectDrop}" rerender="dynamicDnDContainer" types="J"/>
 	                              
 	                                  <div style="padding:5px; text-align: center;">
-	                                     <h:outputText value="Football Teams" />
+	                                     <h:outputText value="Java Projects" />
 	                                  </div>
 	                              
-	                                 <h:dataTable value="#{dndBean.footballTeams}" var="team">
+	                                 <h:dataTable value="#{dndBean.javaProjects}" var="project">
 	                                      <h:column>
-	                                          <hx:div styleClass="team">
+	                                          <hx:div styleClass="project">
                                                   <fx:effects event="dragstart" additionalStyleClassToActivate="dragStarted" duration="0.5"/>
-	                                              <fx:dragSource action="move" param="#{team.id}" dropTargetTypes="#{team.type.code}" />
-	                                              <img src="#{request.contextPath}/resources/image/team/#{team.id}.png" draggable="false" />
-	                                              <h:outputText value="#{team.name}" draggable="false"/>
+	                                              <fx:dragSource action="move" param="#{project.id}" dropTargetTypes="#{project.type.code}" />
+	                                              <img src="#{request.contextPath}/resources/image/apache-project/#{project.id}.png" draggable="false" />
+	                                              <h:outputText value="#{project.name}" draggable="false"/>
 	                                          </hx:div>
 	                                      </h:column>
 	                                 </h:dataTable>
@@ -152,13 +152,13 @@
 	                    </tr>
 	                    <tr>
 	                        <td colspan="1" align="center">
-                                <h:commandButton action="#{dndBean.initTeams}" value="Refresh Teams">
+                                <h:commandButton action="#{dndBean.initProjects}" value="Refresh Projects">
                                     <f:ajax render="@form"/>
                                 </h:commandButton>
                             </td>
 	                        <td colspan="2" align="center">
 	                            <span>Output of drop listener : </span>
-	                            <h:outputText value="#{dndBean.teamDropOutput}" id="teamDropOutput" escape="false" style="color:green; font-size:medium;"/>
+	                            <h:outputText value="#{dndBean.projectDropOutput}" id="projectDropOutput" escape="false" style="color:green; font-size:medium;"/>
 	                        </td>
 	                    </tr>
 	                </table>
@@ -168,23 +168,23 @@
                 <tr>
                     <td>
 		               <sh:sh><![CDATA[
-<h:dataTable value="#_{dndBean.teams}" var="team">
+<h:dataTable value="#_{dndBean.projects}" var="project">
    <h:column>
        <hx:div ...>
-           <fx:dragSource param="#_{team.id}" dropTargetTypes="#_{team.type.code}" />
+           <fx:dragSource param="#_{project.id}" dropTargetTypes="#_{project.type.code}" />
            ...
        </hx:div>
    </h:column>
 </h:dataTable>
 ...
-<hx:div id="basketballTeamDropZone" ...>
-   <fx:dropTarget dropListener="#_{dndBean.processBasketballTeamDrop}"
+<hx:div id="cProjectDropZone" ...>
+   <fx:dropTarget dropListener="#_{dndBean.processCProjectDrop}"
       rerender="@form" types="B"/>...
-   <!-- List dropped basketball teams into this target -->
-   <h:dataTable value="#_{dndBean.basketballTeams}" var="team">
+   <!-- List dropped C projects into this target -->
+   <h:dataTable value="#_{dndBean.CProjects}" var="project">
         <h:column>
-            <hx:div styleClass="team">...
-                <h:outputText value="#_{team.name}" .../>
+            <hx:div styleClass="project">...
+                <h:outputText value="#_{project.name}" .../>
             </hx:div>
         </h:column>
    </h:dataTable>
@@ -193,20 +193,20 @@
 	                 </td>
                     <td>
                      <sh:sh><![CDATA[
-<hx:div id="footbalTeamDropZone" ...>...
+<hx:div id="javaProjectDropZone" ...>...
    <fx:dropTarget ... types="F"/>
 </hx:div>
                      ]]></sh:sh>
 	                 <sh:sh lang="java"><![CDATA[
-public void processBasketballTeamDrop(DropEvent event)
+public void processCProjectDrop(DropEvent event)
   throws AbortProcessingException{
-  String teamId = event.getParam();
+  String projectId = event.getParam();
   ...
-  SportsTeam droppedTeam = getTeam(
-     this.basketballTeamsList, teamId);
+  ApacheProject droppedProject = getProject(
+     this.cProjectsList, projectId);
   ...
-  teams.remove(droppedTeam);
-  basketballTeams.add(droppedTeam);
+  projects.remove(droppedProject);
+  cProjects.add(droppedProject);
 }
 	                 ]]></sh:sh>
                     </td>

@@ -21,14 +21,14 @@ package org.apache.myfaces.html5.demo.model;
 
 
 
-public enum SportsTeamType
+public enum ApacheProjectLanguage
 {
 
-    FOOTBALL("F"), BASKETBALL("B");
+    JAVA("J"), C("C");
 
     private final String code;
 
-    private SportsTeamType(String code)
+    private ApacheProjectLanguage(String code)
     {
         this.code = code;
     }
