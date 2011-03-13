@@ -33,15 +33,21 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.myfaces.shared</groupId>
+            <artifactId>myfaces-shared-html5</artifactId>
+            <version>${myfaces-shared-html5-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>myfaces-builder-annotations</artifactId>
+            <version>${myfaces-builder-annotations-version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.1.1</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces.shared</groupId>
-            <artifactId>myfaces-shared-html5</artifactId>
-            <version>${shared-core-version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -63,11 +69,6 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.myfaces.buildtools</groupId>
-            <artifactId>myfaces-builder-annotations</artifactId>
-            <version>1.0.5</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
@@ -92,7 +93,7 @@
             <plugin>
                 <groupId>org.apache.myfaces.buildtools</groupId>
                 <artifactId>myfaces-builder-plugin</artifactId>
-                <version>1.0.8-SNAPSHOT</version>
+                <version>${myfaces-builder-plugin-version}</version>
                 <executions>
                     <!-- first, build metadata. components and stuff will 
                         be generated from this. -->
@@ -269,7 +270,7 @@
                     <plugin>
                         <groupId>org.apache.myfaces.buildtools</groupId>
                         <artifactId>myfaces-builder-plugin</artifactId>
-                        <version>1.0.6</version>
+                        <version>${myfaces-builder-plugin-version}</version>
                         <executions>
                             <!-- first, build metadata. facelets tag documentation will be generated from this. -->
                             <execution>
@@ -357,5 +358,10 @@
             </build>
         </profile>
     </profiles>
+
+    <properties>
+        <myfaces-builder-plugin-version>1.0.8</myfaces-builder-plugin-version>
+        <myfaces-builder-annotations-version>1.0.5</myfaces-builder-annotations-version>
+    </properties>
 
 </project>

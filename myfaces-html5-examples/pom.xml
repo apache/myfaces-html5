@@ -37,11 +37,10 @@
     		<artifactId>myfaces-html5-core</artifactId>
     		<version>${project.version}</version>
     	</dependency>
-        
         <dependency>
             <groupId>org.apache.myfaces.shared</groupId>
             <artifactId>myfaces-shared-html5</artifactId>
-            <version>${shared-core-version}</version>
+            <version>${myfaces-shared-html5-version}</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -78,18 +77,10 @@
             <version>1.2.13</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
             <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.myfaces.buildtools</groupId>
-            <artifactId>myfaces-builder-annotations</artifactId>
-            <version>1.0.5</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
