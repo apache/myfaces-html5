@@ -1,0 +1,146 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+
+
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+    Effects
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="true" />
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="effects" slideId="effects02" />
+</ui:define>
+
+<ui:define name="sectionContent">
+    <h:outputStylesheet>
+        div.effectDemoBox{
+            border: 1px dashed blue;
+            margin-top : 15px;
+            width: 100% !important;
+            height:200px !important;
+        }
+
+        div.effectDemoBoxText{
+            text-align:center;
+            width:100%;
+        }
+    </h:outputStylesheet>
+
+    <p class="sectionManual">
+        Using predefined effects allows us to use the same effect in multiple places. A CSS class can also be activated with the defined effect. 
+    </p>
+
+    <fx:effectOutput id="myCustomEffect" target="head">
+        <fx:effectTransform rotate="-20deg"/>
+    </fx:effectOutput>
+
+    <h:panelGrid columns="2" width="100%">
+
+        <hx:div styleClass="effectDemoBox">
+            <div class="effectDemoBoxText">Using predefined effect</div>
+            <fx:effects event="mouseover" additionalStyleClassToActivate="myCustomEffect" duration="0.2s" timingFunction="ease-out"/>
+            <sh:sh><![CDATA[
+<fx:effectOutput id="myCustomEffect" target="head">
+    <fx:effectTransform rotate="-20deg"/>
+</fx:effectOutput>
+...
+<hx:div>
+  <fx:effects event="mouseover"
+    additionalStyleClassToActivate="myCustomEffect"
+    duration="0.2s" timingFunction="ease-out"/>
+</hx:div>
+            ]]></sh:sh>
+        </hx:div>
+
+        <hx:div styleClass="effectDemoBox">
+            <div class="effectDemoBoxText">Using the same predefined effect</div>
+            <div class="effectDemoBoxText">along with a new effect</div>
+            <fx:effects event="mouseover" additionalStyleClassToActivate="myCustomEffect" duration="1s" timingFunction="linear">
+                <fx:effect property="background-color" value="red" />
+            </fx:effects>
+            <sh:sh><![CDATA[
+<hx:div>
+  <fx:effects event="mouseover"
+    additionalStyleClassToActivate="myCustomEffect"
+    duration="1s" timingFunction="linear">
+    <fx:effect property="background-color" value="red" />
+  </fx:effects/>  
+</hx:div>
+            ]]></sh:sh>
+        </hx:div>
+
+        <h:panelGroup>
+            <h:outputStylesheet id="effectsDemoCustomStyle">
+                .effectsDemoCustomStyle{
+                    background-color : yellow;
+                }
+            </h:outputStylesheet>
+            <hx:div styleClass="effectDemoBox">
+                <div class="effectDemoBoxText">Using a CSS class </div>
+                <div class="effectDemoBoxText">for transition</div>
+                <fx:effects event="mouseover" additionalStyleClassToActivate="effectsDemoCustomStyle" duration="0.5s" timingFunction="linear"/>
+                <sh:sh><![CDATA[
+<h:outputStylesheet id="effectsDemoCustomStyle">
+    .effectsDemoCustomStyle{
+        background-color : yellow; }
+</h:outputStylesheet>
+<hx:div>
+  <fx:effects event="mouseover"
+    additionalStyleClassToActivate="effectsDemoCustomStyle".../>
+</hx:div>
+                ]]></sh:sh>
+            </hx:div>
+        </h:panelGroup>
+
+        <h:panelGroup>
+            <hx:div styleClass="effectDemoBox">
+                <div class="effectDemoBoxText">Using the same CSS class</div>
+                <div class="effectDemoBoxText">along with an effect</div>
+                <fx:effects event="mouseover" additionalStyleClassToActivate="effectsDemoCustomStyle" duration="0.5s" timingFunction="linear">
+                    <fx:effectTransform rotate="-10deg" />
+                </fx:effects>
+                <sh:sh><![CDATA[
+<hx:div>
+  <fx:effects event="mouseover"
+    additionalStyleClassToActivate="effectsDemoCustomStyle"...>
+    <fx:effectTransform rotate="-10deg" />
+</hx:div>
+                ]]></sh:sh>
+            </hx:div>
+        </h:panelGroup>
+
+    </h:panelGrid>
+</ui:define>
+</ui:composition>

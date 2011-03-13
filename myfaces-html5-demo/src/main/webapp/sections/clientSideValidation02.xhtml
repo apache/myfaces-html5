@@ -1,0 +1,98 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+ Driving Properties and Client-Side Validation by JSF Validators/Converters
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="true" operaSupport="true" />
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="clientSideValidation" slideId="clientSideValidation02" />
+</ui:define>
+
+<ui:define name="sectionContent">
+		    <p class="sectionManual">
+                Custom JSF validators can also drive client-side validation. The only thing required is implementing ClientSidePatternProvider interface and providing a pattern.
+            </p>
+
+            <h:form id="clientSideValidationForm02">
+	            <h:panelGrid columns="3">
+                    <h:outputLabel for="it03" value="Client-side validation pattern driven by custom JSF validator"/>
+                    <hx:inputText id="it03" value="#{clientSideValidationBean.param03}" placeholder="Enter a promo code" cols="20" 
+                           alt="A promo code consists of 2 digits followed by 2 upper-case characters">
+                       <f:validator validatorId="promoCodeValidator" />
+                    </hx:inputText>
+                    <h:panelGroup id="it03Msg">
+                        <h:message for="it03" />
+                    </h:panelGroup>
+
+	                <h:outputText />
+	                <input type="button" value="Try Submitting" 
+	                   onclick="if(submitForm('clientSideValidationForm02')){jsf.ajax.request(this,event, {execute:'@form',render:'clientSideValidationForm02:it03Msg',onevent: handleAjaxEvent, onerror:handleAjaxError})};return false;"/>
+	                <h:outputText />
+	            </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <h:panelGroup>
+	                    <sh:sh><![CDATA[
+<hx:inputText ...>
+   <f:validator validatorId="promoCodeValidator" />
+</hx:inputText>
+	                    ]]></sh:sh>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <sh:sh lang="java"><![CDATA[
+@FacesValidator(value="promoCodeValidator")
+public class PromoCodeValidator implements
+    Validator, ClientSidePatternProvider{
+    //replace | with closing square bracket
+    private static final String PATTERN = "|0-9|{2}|A-Z|{2}";
+
+    public String getPattern(){
+        return PATTERN;
+    }
+
+    public void validate(FacesContext context, UIComponent cmp,
+        Object value) throws ValidatorException{
+        ...
+        if(! Pattern.matches(PATTERN, partNum))
+            throw new ValidatorException(new FacesMessage
+                ("Provided value is not a promo code"));
+    }
+}
+                        ]]></sh:sh>
+                    </h:panelGroup>
+                </h:panelGrid>
+	        </h:form>
+
+</ui:define>
+</ui:composition>

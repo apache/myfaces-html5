@@ -1,0 +1,75 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+.expandedBrowserSupportInfo{
+    height:300px !important;
+    width:20% !important;
+    overflow:visible;
+    z-index:100;
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#EEEEEE), to(white));
+    background: -moz-linear-gradient(-90deg, #EEEEEE, white);
+    box-shadow: rgba(0, 0, 128, 0.25) -3px 7px 9px;
+    -webkit-box-shadow: rgba(0, 0, 128, 0.25) -3px 7px 9px;
+    -moz-box-shadow: rgba(0, 0, 128, 0.25) -3px 7px 9px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: -300px !important;
+}
+
+div.browserSupportInfo div.browserInfoContent{
+    opacity:0.0;
+}
+
+div.expandedBrowserSupportInfo div.browserInfoContent{
+    opacity:1.0;
+}
+
+.browserSupportInfo{
+    height:24px;
+    width:24px;
+    overflow:hidden;
+    z-index:99;
+
+    font-size:0.8em;
+    top: 0px;
+    right:100px;
+    text-align: left;
+
+    position:relative;
+    margin-bottom: -24px;
+    float : right;
+}
+.supportedBrowserIcon, .unSupportedBrowserIcon, .emphasizedBrowserIcon{
+    float:right;
+}
+
+.supportedBrowserIcon{
+    border : 2px solid green;
+    opacity:1 !important;
+}
+
+.unSupportedBrowserIcon{
+    opacity:0.1;
+}
+
+.emphasizedBrowserIcon{
+    opacity:0.5;
+    border : 2px solid red !important;
+}

@@ -1,0 +1,68 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core">
+
+<composite:interface shortDescription="If a facet is defined, but support attr is false, then its icon will be shown with red border.">
+    <composite:facet name="webkit" />
+    <composite:facet name="mozilla" />
+    <composite:facet name="opera" />
+    <composite:facet name="ie" />
+    <composite:attribute name="webkitSupport" type="java.lang.Boolean" default="#{not empty cc.facets.webkit}" />
+    <composite:attribute name="mozillaSupport" type="java.lang.Boolean" default="#{not empty cc.facets.mozilla}" />
+    <composite:attribute name="operaSupport" type="java.lang.Boolean" default="#{not empty cc.facets.opera}" />
+    <composite:attribute name="ieSupport" type="java.lang.Boolean" default="#{not empty cc.facets.ie}" />
+</composite:interface>
+
+
+<composite:implementation>
+        <bs:_browserInfo iconName="webkit.ico" facetName="webkit" support="#{cc.attrs.webkitSupport}"
+                         supportedMessage="This feature is supported by Webkit browsers(Chrome and Safari)."
+                         unsupportedMessage="This feature is not supported by Webkit browsers(Chrome and Safari)." style="right:94px;">
+            <composite:insertFacet name="webkit" />
+        </bs:_browserInfo>
+
+        <bs:_browserInfo iconName="mozilla.ico" facetName="mozilla" support="#{cc.attrs.mozillaSupport}"
+                         supportedMessage="This feature is supported by Mozilla browsers."
+                         unsupportedMessage="This feature is not supported by Mozilla browsers." style="right:66px;">
+            <composite:insertFacet name="mozilla" />
+        </bs:_browserInfo>
+
+        <bs:_browserInfo iconName="opera.ico" facetName="opera" support="#{cc.attrs.operaSupport}"
+                         supportedMessage="This feature is supported by Opera."
+                         unsupportedMessage="This feature is not supported by Opera." style="right:38px;">
+            <composite:insertFacet name="opera" />
+        </bs:_browserInfo>
+
+        <bs:_browserInfo iconName="iewin.gif"   facetName="ie" support="#{cc.attrs.ieSupport}"
+                         supportedMessage="This feature is supported by Internet Explorer."
+                         unsupportedMessage="This feature is not supported by Internet Explorer." style="right:10px;">
+            <composite:insertFacet name="ie" />
+        </bs:_browserInfo>
+
+</composite:implementation>
+</html>

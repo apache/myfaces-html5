@@ -1,0 +1,130 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+  Drag and Drop
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="false" mozillaSupport="true">
+      <f:facet name="webkit">
+          Does not work in Chrome because of <a href="http://code.google.com/p/chromium/issues/detail?id=50009" style="text-decoration: underline;">Chromium Issue-50009</a>
+      </f:facet>
+  </bs:browserSupport>
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="dnd" slideId="dnd02" />
+</ui:define>
+
+<ui:define name="sectionContent">
+      
+              <h:outputStylesheet id="dnd02Style" target="head">
+		          .dropZone, .dropZone02, .dropZone03, .dragSource01, .dragSource02 {text-align: center; color:green; font-size:30px; }
+		          .dragSource01 { width: 210px; height: 100px; background-image: url("#{request.contextPath}/resources/image/MyFaces_logo.jpg"); }
+		          .dragSource02 { width: 210px; height: 100px; background-image: url("#{request.contextPath}/resources/image/MyFaces_logo.jpg"); }
+		          
+		          .dropZone, .dropZone02, .dropZone03 { float: right; border: 2px dashed gray;}
+		          .dropZone { width: 219px; height: 213px; background-image: url("#{request.contextPath}/resources/image/apache_feather.png"); }
+		          .dropZone02 { width: 219px; height: 213px;}
+		          .dropZone03 { min-width: 300px; min-height: 300px; float: none;}
+
+                  .dragStarted { border: 2px solid yellow;}
+                  .dragEntered { border: 4px dashed green; background-color: #88FF00;}
+		          
+		          .team { width: 250px; height: 80px; color:darkGray; border: 1px solid gray; font-size: 20px;}
+	          </h:outputStylesheet>
+
+              <p class="sectionManual">
+                  In this example, anything can be dragged and dropped on the drop zone.
+              </p>
+
+	          <h:form prependId="false">
+		          <table width="100%">
+	                <tr>
+	                    <td>
+	                        <hx:div styleClass="dragSource01">
+                                <fx:effects event="dragstart" additionalStyleClassToActivate="dragStarted" duration="0.5"/>
+	                            <fx:dragSource action="move" param="MyFaces"/>
+	                            <h:outputText value="DRAG ME"/>
+	                        </hx:div>
+	                    </td>
+	                    <td align="center" style="font-size:medium;">
+	                         <h3 style="color:blue;">
+	                             Text To Drag and drop 
+	                         </h3>
+	                         <br/>
+	                         <img src="#{request.contextPath}/resources/image/duke.jpg" alt="Duke" width="100" height="80"/> -> Image to drag and drop
+	                         <br/>
+	                         <a href="http://www.apache.org" style="text-decoration: underline;">apache.org</a> -> link to drag and drop
+	                         <br/>
+	                         Try dragging an image from any page, any text, any link etc...
+	                     </td>
+	                    <td>
+	                        <hx:div id="dropZone02" styleClass="dropZone02">
+                                <fx:effects event="dragenter" additionalStyleClassToActivate="dragEntered" duration="0.5"/>
+                                <fx:dropTarget acceptMimeTypes="text/x-myfaces-html5-dnd-source, text/plain, URL, text/uri-list"
+	                                    dropListener="#{dndBean.processDragAnything}" rerender="dragAnythingOutput"/>
+	                            <div style="padding-top:45%; text-align: center;">
+	                                <h:outputText value="DROP HERE" />
+	                            </div>
+	                        </hx:div>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td colspan="3"  align="center">
+	                        <span>Output of drop listener : </span><br/>
+	                        <h:outputText value="#{dndBean.dragAnythingOutput}" id="dragAnythingOutput" escape="false" style="color:green; font-size:medium;"/>
+	                    </td>
+	                </tr>
+	                <tr>
+	                   <td colspan="3">
+                            <sh:sh><![CDATA[
+<hx:div ...>
+    <fx:dropTarget acceptMimeTypes="text/x-myfaces-html5-dnd-source, text/plain, text/uri-list"
+        dropListener="#_{dndBean.processDragAnything}" rerender="dragAnythingOutput"/> ...
+    </div>
+</hx:div>
+                           ]]></sh:sh>
+                           <sh:sh lang="java"><![CDATA[
+public void processDragAnything(DropEvent event) throws AbortProcessingException{
+    String param = event.getParam();
+    Map<String, String> dropDataMap = event.getDropDataMap();
+    String text = dropDataMap.get("text/plain");
+    ...
+}
+                           ]]></sh:sh>
+                        </td>
+	                </tr>
+	            </table>    
+	          </h:form>
+
+</ui:define>
+</ui:composition>

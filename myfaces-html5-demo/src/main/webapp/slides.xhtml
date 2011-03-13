@@ -1,0 +1,127 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html">
+	<h:head>
+
+        <h:outputStylesheet library="script/google-code-prettify" name="prettify.css" />
+        <h:outputScript library="script/google-code-prettify" name="prettify.js" />
+
+        <h:outputScript library="script/demo" name="common.js" />
+
+        <h:outputStylesheet library="style" name="text.css" />
+        <h:outputStylesheet library="style" name="animation.css" />
+        <h:outputStylesheet library="style" name="box.css" />
+        <h:outputStylesheet library="style" name="common.css" />
+
+        <h:outputScript library="javax.faces" name="jsf.js" />
+
+	    <meta charset="utf-8" />
+        <title>Apache Myfaces Html5 Component Library Demo</title>
+
+        <h:outputStylesheet>
+            div#parentSlideView{
+                margin-top : 0%;
+                padding-top : 1%;
+            }
+        </h:outputStylesheet>
+	  </h:head>
+    <h:body style="align:center;" class="nodecorate">
+        <hx:slideView id="parentSlideView" prependId="false"
+                      duration="0.5s" timingFunction="ease-in-out" widgetVar="slideView">
+            <hx:slide id="slidesInfo" prependId="false">
+                <ui:include src="/slides/slidesInfo.xhtml" />
+            </hx:slide>
+            <hx:slide id="slidesIndex" prependId="false">
+                <ui:include src="/slides/slidesIndex.xhtml" />
+            </hx:slide>
+            <hx:slide id="slideView" prependId="false">
+                <ui:include src="/slides/slideView.xhtml" />
+            </hx:slide>
+            <hx:slide id="inputTypes" prependId="false">
+                <ui:include src="/slides/inputTypes.xhtml" />
+            </hx:slide>
+            <hx:slide id="clientSideValidation01" prependId="false">
+                <ui:include src="/slides/clientSideValidation01.xhtml" />
+            </hx:slide>
+            <hx:slide id="clientSideValidation02" prependId="false">
+                <ui:include src="/slides/clientSideValidation02.xhtml" />
+            </hx:slide>
+            <hx:slide id="clientSideValidation03" prependId="false">
+                <ui:include src="/slides/clientSideValidation03.xhtml" />
+            </hx:slide>
+            <hx:slide id="effects01" prependId="false">
+                <ui:include src="/slides/effects01.xhtml" />
+            </hx:slide>
+            <hx:slide id="effects02" prependId="false">
+                <ui:include src="/slides/effects02.xhtml" />
+            </hx:slide>
+            <hx:slide id="animations" prependId="false">
+                <ui:include src="/slides/animations.xhtml" />
+            </hx:slide>
+            <hx:slide id="media01" prependId="false">
+                <ui:include src="/slides/media01.xhtml" />
+            </hx:slide>
+            <hx:slide id="media02" prependId="false">
+                <ui:include src="/slides/media02.xhtml" />
+            </hx:slide>
+            <hx:slide id="meterAndProgress" prependId="false">
+                <ui:include src="/slides/meterAndProgress.xhtml" />
+            </hx:slide>
+            <hx:slide id="datetime" prependId="false">
+                <ui:include src="/slides/datetime.xhtml" />
+            </hx:slide>
+            <hx:slide id="suggestions" prependId="false">
+                <ui:include src="/slides/suggestions.xhtml" />
+            </hx:slide>
+            <hx:slide id="dnd01" prependId="false">
+                <ui:include src="/slides/dnd01.xhtml" />
+            </hx:slide>
+            <hx:slide id="dnd02" prependId="false">
+                <ui:include src="/slides/dnd02.xhtml" />
+            </hx:slide>
+            <hx:slide id="dnd03" prependId="false">
+                <ui:include src="/slides/dnd03.xhtml" />
+            </hx:slide>
+            <hx:slide id="infoEnd" prependId="false">
+                <ui:include src="/slides/infoEnd.xhtml" />
+            </hx:slide>
+        </hx:slideView>
+
+    <script>
+        removeCDataAndTrim();
+        prettyPrint();
+        try {
+            if(parseInt(window.location.hash.split('#')[1])){
+                slideView.goto(parseInt(window.location.hash.split('#')[1]));
+            }
+            else{
+                if(window.location.hash.split('#')[1])
+                    slideView.goBySlideId(window.location.hash.split('#')[1]);
+            }
+        }catch (e) {
+        }
+    </script>
+  </h:body>
+</html>

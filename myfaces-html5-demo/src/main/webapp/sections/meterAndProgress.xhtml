@@ -1,0 +1,131 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+    Meter and Progress
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="true" operaSupport="true">
+  </bs:browserSupport>
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="meterAndProgress" slideId="meterAndProgress" />
+</ui:define>
+
+<ui:define name="sectionContent">
+    <h:outputStylesheet>
+        div.meterAndProgressDemoBox{
+            border : 1px solid blue;
+        }
+        div.meterAndProgressDemoBox div{
+            text-align:center;
+        }
+    </h:outputStylesheet>
+    <h:panelGrid columns="2" width="100%">
+        <hx:div styleClass="meterAndProgressDemoBox">
+            <div>Value lower than optimal range</div>
+            <div>
+                <hx:meter value="15" maximum="100" minimum="0" low="20" high="80" optimum="50" />
+            </div>
+            <sh:sh><![CDATA[
+<hx:meter value="15" maximum="100" minimum="0"
+    low="20" high="80" optimum="50" />
+            ]]></sh:sh>
+        </hx:div>
+
+        <hx:div styleClass="meterAndProgressDemoBox">
+            <div>Value in acceptable range</div>
+            <div>
+                <hx:meter value="60" maximum="100" minimum="0" low="20" high="80" optimum="50" />
+            </div>
+            <sh:sh><![CDATA[
+<hx:meter value="60" maximum="100" minimum="0"
+    low="20" high="80" optimum="50" />
+            ]]></sh:sh>
+        </hx:div>
+
+        <hx:div styleClass="meterAndProgressDemoBox">
+            <div>Value higher than optimal range</div>
+            <div>
+                <hx:meter value="90" maximum="100" minimum="0" low="20" high="80" optimum="50" />
+            </div>
+            <sh:sh><![CDATA[
+<hx:meter value="90" maximum="100" minimum="0"
+    low="20" high="80" optimum="50" />
+            ]]></sh:sh>
+        </hx:div>
+
+        <h:outputText />
+
+        <hx:div styleClass="meterAndProgressDemoBox">
+            <div>Low progress</div>
+            <div>
+                <hx:progress value="15" maximum="100"/>
+            </div>
+            <sh:sh><![CDATA[
+<hx:progress value="15" maximum="100"/>
+            ]]></sh:sh>
+        </hx:div>
+
+        <hx:div styleClass="meterAndProgressDemoBox">
+            <div>Middle in the progress</div>
+            <div>
+                <hx:progress value="50" maximum="100"/>
+            </div>
+            <sh:sh><![CDATA[
+<hx:progress value="50" maximum="100"/>
+            ]]></sh:sh>
+        </hx:div>
+
+        <hx:div styleClass="meterAndProgressDemoBox">
+            <div>High progress</div>
+            <div>
+                <hx:progress value="90" maximum="100"/>
+            </div>
+            <sh:sh><![CDATA[
+<hx:progress value="90" maximum="100"/>
+            ]]></sh:sh>
+        </hx:div>
+
+        <hx:div styleClass="meterAndProgressDemoBox">
+            <div>Indefinite progress</div>
+            <div>
+                <hx:progress maximum="100"/>
+            </div>
+            <sh:sh><![CDATA[
+<hx:progress maximum="100"/>
+            ]]></sh:sh>
+        </hx:div>
+    </h:panelGrid>
+</ui:define>
+</ui:composition>

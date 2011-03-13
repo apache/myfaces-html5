@@ -1,0 +1,95 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+    Date inputs
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="false" operaSupport="true">
+      <f:facet name="webkit">
+          Currently, Chrome does not show the date picker, but it validates the entered value.
+      </f:facet>
+  </bs:browserSupport>
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="datetime" slideId="datetime" />
+</ui:define>
+
+<ui:define name="sectionContent">
+      
+              <h:panelGrid columns="4">
+	               <h:outputLabel for="idt01" value="Datetime"/>
+	                <hx:inputDateTime id="idt01" type="datetime" value="#{dateTimeBean.date01}" />
+	                <h:message for="idt01" />
+	                <sh:sh><![CDATA[
+<hx:inputDateTime type="datetime" .../>
+	                ]]></sh:sh>
+	                
+	                <h:outputLabel for="idt02" value="Date"/>
+	                <hx:inputDateTime id="idt02" type="date" value="#{dateTimeBean.date02}" />
+	                <h:message for="idt02" />
+	                <sh:sh><![CDATA[
+<hx:inputDateTime type="date" .../>
+	                ]]></sh:sh>
+	                
+	                <h:outputLabel for="idt03" value="Time"/>
+	                <hx:inputDateTime id="idt03" type="time" value="#{dateTimeBean.date03}"  />
+	                <h:message for="idt03" />
+	                <sh:sh><![CDATA[
+<hx:inputDateTime type="time" .../>
+	                ]]></sh:sh>
+	                
+	                <h:outputLabel for="idt04" value="Month"/>
+	                <hx:inputDateTime id="idt04" type="month" value="#{dateTimeBean.date04}" />
+	                <h:message for="idt04" />
+	                <sh:sh><![CDATA[
+<hx:inputDateTime type="month" .../>
+	                ]]></sh:sh>
+	                
+	                <h:outputLabel for="idt05" value="Week"/>
+	                <hx:inputDateTime id="idt05" type="week" value="#{dateTimeBean.date05}"  />
+	                <h:message for="idt05" />
+	                <sh:sh><![CDATA[
+<hx:inputDateTime type="week" .../>
+	                ]]></sh:sh>
+	                
+	                <h:outputLabel for="idt06" value="Local Datetime"/>
+	                <hx:inputDateTime id="idt06" type="datetime-local" value="#{dateTimeBean.date06}" />
+	                <h:message for="idt06" />
+	                <sh:sh><![CDATA[
+<hx:inputDateTime type="datetime-local" .../>
+	                ]]></sh:sh>
+
+             </h:panelGrid>
+
+</ui:define>
+</ui:composition>

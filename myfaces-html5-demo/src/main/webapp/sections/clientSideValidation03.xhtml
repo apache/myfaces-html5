@@ -1,0 +1,106 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+ Driving Properties and Client-Side Validation by JSF Validators/Converters
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="true" operaSupport="true" />
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="clientSideValidation" slideId="clientSideValidation03" />
+</ui:define>
+
+<ui:define name="sectionContent">
+      
+             <h:outputScript target="head" id="hackingButtonScript">
+                 function hack(){
+                    document.getElementById('clientSideValidationForm03:it03').pattern='[0-9]{2}';
+                    document.getElementById('hackDesc').className='visible appear';
+                 }
+             </h:outputScript>
+
+            <p class="sectionManual">
+                Even if the client-side validation is passed by changing the pattern attribute with Javascript, server-side validation always works.
+            </p>
+            <p class="sectionManual">
+                Because of custom JSF validator, "promoCodeValidator", the pattern defined is 2 numbers and 2 uppercase letters. "Hacking button" changes the pattern attribute of the input element
+                to accept only 2 numbers, however server-side code is not changed. Try typing a 2 digit number in the input and submit the form. After pressing the "Hack Button", you will be able to
+                send the form, but server-side validation will fail.
+            </p>
+
+
+		     <h:form id="clientSideValidationForm03">
+	            <h:panelGrid columns="3">
+	                
+	                <h:outputLabel for="it03" value="Client-side validation pattern driven by custom JSF validator"/>
+                    <h:panelGroup>
+	                    <hx:inputText id="it03" value="#{clientSideValidationBean.param03}" placeholder="Enter a promo code" cols="20" 
+	                           alt="A promo code consists of 2 digits followed by 2 upper-case characters">
+	                       <f:validator validatorId="promoCodeValidator" />
+	                    </hx:inputText>
+	                    <h:panelGroup id="it03Msg" >
+                            <h:message for="it03" style="color:red; font-size:14px;" />
+	                    </h:panelGroup>
+                    </h:panelGroup>
+                    
+                    <sh:sh><![CDATA[
+<hx:inputText ...>
+   <f:validator validatorId="promoCodeValidator" />
+</hx:inputText>
+                    ]]></sh:sh>
+
+                    <button onclick="hack();return false;">
+                        Hacking Button
+                    </button>
+                    <h:panelGroup>
+                        <div id="hackDesc" class="hidden" style="font-size:smaller; width: 200px; margin: 15px;">
+                            <p>Now the pattern is changed. So any two-digit number is accepted on client-side!</p>
+                            <p>But this is not the case on server-side.</p>
+                            <p>Try to submit the form with any two digit number!</p> 
+                        </div>
+                    </h:panelGroup>
+                    <sh:sh lang="js"><![CDATA[
+//HACK:
+document.getElementById('demoForm:it03').pattern='|0-9|{2}';
+                    ]]></sh:sh>
+                    
+                    <h:outputText />
+                    <input type="button" value="Try Submitting" 
+                       onclick="if(submitForm('clientSideValidationForm03')){jsf.ajax.request(this,event, {execute:'@form',render:'clientSideValidationForm03:it03Msg',onevent: handleAjaxEvent, onerror:handleAjaxError})} return false;"/>
+                    <h:outputText />
+	                               
+	            </h:panelGrid>
+	        </h:form>
+
+</ui:define>
+</ui:composition>

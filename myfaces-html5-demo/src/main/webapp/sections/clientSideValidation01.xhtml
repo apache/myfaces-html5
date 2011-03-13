@@ -1,0 +1,146 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+
+<ui:define name="title">
+ Driving Properties and Client-Side Validation by JSF Validators/Converters
+</ui:define>
+
+
+<ui:define name="browserSupport">
+    <bs:browserSupport webkitSupport="true" operaSupport="true" />
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="clientSideValidation" slideId="clientSideValidation01" />
+</ui:define>
+
+
+<ui:define name="sectionContent">
+    <script>
+           function updateSliderValue(element){
+               document.getElementById('sliderValue').innerHTML = element.valueAsNumber;
+           };
+    </script>
+
+    <h:form id="clientSideValidationForm01">
+          <p class="sectionManual">
+              Try to type some inputs and submit the form. Form will not be submitted until validations are passed. Patterns can be defined in the JSF page and used in both client and server side.
+              For applicable components, patterns are set automatically. 
+          </p>
+
+          <h:panelGrid columns="4">
+              <h:outputLabel for="it01" value="Promo code" alt="Has pattern and required"/>
+              <hx:inputText id="it01" value="#{clientSideValidationBean.param01}" placeholder="Enter a promo code" cols="20"
+                     alt="A promo code consists of 2 digits followed by 2 upper-case characters" required="true">
+                 <f:validateRegex pattern="[0-9]{2}[A-Z]{2}" />
+              </hx:inputText>
+              <h:panelGroup id="it01Msg" >
+                  <h:message for="it01" style="font-size:9px;" />
+              </h:panelGroup>
+              <sh:sh><![CDATA[
+<hx:inputText ... required="true">
+    <f:validateRegex pattern="|0-9|{2}|A-Z|{2}">
+</hx:inputText>
+              ]]></sh:sh>
+
+              <h:outputLabel for="it02" value="URL"/>
+              <hx:inputText id="it02" type="url" value="#{clientSideValidationBean.param02}" cols="20"/>
+              <h:panelGroup id="it02Msg" >
+                  <h:message for="it02" />
+              </h:panelGroup>
+              <sh:sh><![CDATA[
+<hx:inputText type="url" .../>
+              ]]></sh:sh>
+
+              <h:outputLabel for="ie01" value="Email"/>
+              <hx:inputEmail id="ie01" value="#{clientSideValidationBean.email01}" placeholder="Type your email" />
+              <h:panelGroup id="ie01Msg">
+                  <h:message for="ie01" />
+              </h:panelGroup>
+              <sh:sh><![CDATA[
+<hx:inputEmail .../>
+              ]]></sh:sh>
+
+              <h:outputLabel for="ins01" value="Range min-max driven by standard JSF validator"/>
+              <h:panelGroup>
+                  <hx:inputNumberSlider id="ins01" value="#{clientSideValidationBean.number01}" step="5" onchange="updateSliderValue(this);">
+                      <f:convertNumber />
+                      <f:validateLongRange minimum="30" maximum="90" />
+                  </hx:inputNumberSlider>
+                  <span id="sliderValue">60</span>
+              </h:panelGroup>
+              <h:panelGroup id="ins01Msg" >
+                  <h:message for="ins01" />
+              </h:panelGroup>
+              <sh:sh><![CDATA[
+<hx:inputNumberSlider step="5" ...>
+    <f:validateLongRange minimum="30" maximum="90" />
+</hx:inputNumberSlider>
+              ]]></sh:sh>
+
+              <h:outputLabel for="ins02" value="Number min-max driven by standard JSF validator"/>
+              <hx:inputNumberSpinner id="ins02" value="#{clientSideValidationBean.number02}" segmentCount="10">
+                  <f:convertNumber />
+                  <f:validateLongRange minimum="0" maximum="50" />
+              </hx:inputNumberSpinner>
+              <h:panelGroup id="ins02Msg">
+                  <h:message for="ins02" />
+              </h:panelGroup>
+              <sh:sh><![CDATA[
+<hx:inputNumberSpinner segmentCount="10" ...>
+    <f:validateLongRange minimum="0" maximum="50" />
+</hx:inputNumberSpinner>
+              ]]></sh:sh>
+
+              <h:outputLabel for="idt01" value="Date"/>
+             <hx:inputDateTime id="idt01" type="date" value="#{dateTimeBean.date02}" step="3">
+                <fx:validateDateTimeRange minimum="2010-08-15" maximum="2010-12-31"/>
+             </hx:inputDateTime>
+             <h:panelGroup id="idt01Msg">
+                <h:message for="idt01" />
+             </h:panelGroup>
+             <sh:sh><![CDATA[
+<hx:inputDateTime type="date" step="3" ...>
+<fx:validateDateTimeRange minimum="2010-08-15"
+    maximum="2010-12-31"/>
+</hx:inputDateTime>
+             ]]></sh:sh>
+
+              <h:outputText />
+              <input type="button" value="Try Submitting"
+                 onclick="if(submitForm('clientSideValidationForm01')){jsf.ajax.request(this,event, {execute:'@form',render:'clientSideValidationForm01:it01Msg clientSideValidationForm01:it02Msg clientSideValidationForm01:ie01Msg clientSideValidationForm01:ins01Msg clientSideValidationForm01:ins02Msg clientSideValidationForm01:idt01Msg ',onevent: handleAjaxEvent, onerror:handleAjaxError})};return false;"/>
+              <h:outputText />
+              <h:outputText />
+
+          </h:panelGrid>
+  </h:form>
+</ui:define>
+</ui:composition>

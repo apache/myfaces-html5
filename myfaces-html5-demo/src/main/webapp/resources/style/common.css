@@ -1,0 +1,175 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+@CHARSET "ISO-8859-1";
+
+    body{
+        font-family: 'Didact GothicMedium';
+    }
+
+    input, a {
+        -webkit-transition: all 0.5s ease-out; 
+        -moz-transition: all 0.5s ease-out;
+        -o-transition: all 0.5s ease-out;
+    }
+
+	input, textarea
+    {
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        
+        font-family: 'Didact GothicMedium';
+        font-size: 100%;
+    }
+    
+    textarea {
+        border-width : 2px;
+        border-collapse: separate;
+        border-color: #EEE;
+		border-style: inset;
+    }
+	
+	input[type=submit], input[type=button], button
+    {
+        box-shadow: rgba(204, 204, 204, 0.6) -3px 7px 9px;
+        -webkit-box-shadow: rgba(204, 204, 204, 0.6) -3px 7px 9px;
+        -moz-box-shadow: rgba(204, 204, 204, 0.6) -3px 7px 9px;
+
+        border-radius: 8px;
+        -moz-border-radius: 8px;
+
+        background: -webkit-gradient(linear, left top, left bottom, from(#EEEEEE), to(white));
+        background: -moz-linear-gradient(-90deg, #EEEEEE, white);
+        font-family: 'Didact GothicMedium';
+        font-size: large;
+    }
+    
+    input[type=submit]:hover, input[type=button]:hover, button:hover
+    {
+        box-shadow: rgba(204, 204, 204, 1) -3px 7px 9px;
+        -webkit-box-shadow: rgba(204, 204, 204, 1) -3px 7px 9px;
+        -moz-box-shadow: rgba(204, 204, 204, 1) -3px 7px 9px;
+    }
+    
+    input::-webkit-input-placeholder, isindex::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+	   color: darkGray;
+	}
+	
+    :invalid  {
+	    -webkit-animation-name: flash;
+	    -webkit-animation-duration: 0.4s;
+	    -webkit-animation-iteration-count: 3;
+	    -webkit-animation-timing-function: ease-in-out;
+        -webkit-animation-direction: alternate;
+        
+        background-color: yellow;
+    }
+    
+    input:invalid::-webkit-input-placeholder {
+       color: #D00;
+    }
+    
+    a, a:visited
+    {
+        text-decoration: none;
+        color: black;
+    }
+    
+    a:hover
+    {
+        text-decoration: none;
+        
+        border: 2px solid darkGray;
+        border-radius: 8px;
+        -moz-border-radius: 8px;
+        
+        background: -webkit-gradient(linear, left top, left bottom, from(#EEEEEE), to(white));
+        background: -moz-linear-gradient(-90deg, #EEEEEE, white);
+
+        box-shadow: rgba(204, 204, 204, 0.8) -3px 7px 9px;
+        -webkit-box-shadow: rgba(204, 204, 204, 0.8) -3px 7px 9px;
+        -moz-box-shadow: rgba(204, 204, 204, 0.8) -3px 7px 9px;
+    }
+
+    h1, h2 {
+        font-family: 'Nova Font FamilyRegular';
+    }
+    
+    pre.prettyprint{
+        font-size: small !important;
+        font-family: Consolas, 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+        background-color: #EEEEEE !important;
+        padding-right: 5px;
+    }
+
+    pre.prettyprint ol{
+        padding-left: 5% !important;
+    }
+    
+    .infoSlide{
+        height: 370px;
+		position: relative;
+		text-align: center;
+		top: 25%;
+    }
+
+    div.mf-slide {
+        padding-left : 1%;
+    }
+
+    @-webkit-keyframes newFeatureKeyFrame{
+        0% {
+           opacity: 1.0;
+        }
+        100% {
+           opacity: 0.1;
+        }
+    }
+    sup.newFeature{
+        -webkit-animation-name : newFeatureKeyFrame;
+        -webkit-animation-duration: 0.7s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: ease-in-out;
+        -webkit-animation-direction: alternate;
+        color: red;
+        font-size: small;
+        font-style: normal;
+        font-variant: small-caps;
+        font-weight: bold;
+    }
+
+    p.sectionManual{
+        width : 80%;
+    }
+
+    .slideViewSinglePageViewLink{
+        height:24px;
+        overflow:hidden;
+        z-index:99;
+
+        font-size:0.8em;
+        top: -14px;
+        text-align: left;
+
+        position:relative;
+        margin-bottom: -24px;
+        float : right;
+
+        font-size: small;
+    }

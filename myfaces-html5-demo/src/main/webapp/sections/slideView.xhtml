@@ -1,0 +1,125 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+  Slide View
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="true" mozillaSupport="true" operaSupport="true">
+      <f:facet name="mozilla">
+          Current version of the Firefox does not support transition effects. The slide view will work, but you will not able to see
+          any smooth transition.
+      </f:facet>
+  </bs:browserSupport>
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="slideView" slideId="slideView" />
+</ui:define>
+
+<ui:define name="sectionContent">
+
+    Even the <h:outputLink value="slides.jsf"> Slide View</h:outputLink> of this demo is made with SlideView component.
+
+    <sh:sh><![CDATA[
+<hx:slideView duration="0.5s" timingFunction="ease-in-out" widgetVar="slideViewWidget">
+    <hx:slide>
+        <ui:include src="/slides/info.xhtml" />
+    </hx:slide>
+    ...
+</hx:slideView>
+   ]]></sh:sh>
+
+
+    SlideView provides a number of client-side functionality to navigate between slides.
+
+    <sh:sh><![CDATA[
+<a href="#" onclick="slideViewWidget.goto(5);...">Navigate to 5th slide</a>
+<a href="#" onclick="slideViewWidget.right();...">Navigate to next slide</a>
+<a href="#" onclick="slideViewWidget.goBySlideId('explanationSlide');...">Navigate to explanation slide</a>
+    ]]></sh:sh>
+
+
+    Customized Slide View:
+
+    <sh:sh><![CDATA[
+<hx:slideView id="innerSlideView" navigateOnArrowKeys="false" navigateOnMouseWheel="false" slideHeight="10"
+          slideWidth="60" slideLeft="20" inactiveSlideScale="0.85" widgetVar="innerSlideView"
+          duration="2s" timingFunction="ease-in-out" delay="0.3s" prependId="false">
+    <hx:slide id="firstSlide">
+        <h:outputText value="SLIDE1" />
+        <a href="#" onclick="innerSlideView.left(); return false;">Previous</a>
+        <a href="#" onclick="innerSlideView.right();return false;">Next</a>
+        <a href="#" onclick="innerSlideView.goto(3);return false;">Third</a>
+    </hx:slide>
+    ...
+</hx:slideView>
+   ]]></sh:sh>
+
+    <h:outputStylesheet>
+        #innerSlideView{
+            background : none !important;
+            top : 80% !important;
+        }
+        #innerSlideView div.mf-slide{
+            text-align: center;
+        }
+    </h:outputStylesheet>
+
+    <hx:slideView id="innerSlideView" navigateOnArrowKeys="false" navigateOnMouseWheel="false" slideHeight="10"
+                slideWidth="60" slideLeft="20" inactiveSlideScale="0.85" widgetVar="innerSlideView"
+                duration="2s" timingFunction="ease-in-out" delay="0.3s" prependId="false">
+        <hx:slide id="firstSlide">
+            <h:outputText value="SLIDE1" />                                          <br/>
+            <a href="#" onclick="innerSlideView.right();return false;">Next</a>     <br/>
+            <a href="#" onclick="innerSlideView.goto(2);return false;">Go to Third</a>  <br/>
+            <a href="#" onclick="innerSlideView.goBySlideId('lastSlide');return false;">Last</a>   <br/>
+        </hx:slide>
+        <hx:slide>
+            <h:outputText value="SLIDE2" />                                          <br/>
+            <a href="#" onclick="innerSlideView.left(); return false;">Previous</a> <br/>
+            <a href="#" onclick="innerSlideView.right();return false;">Next</a>     <br/>
+        </hx:slide>
+        <hx:slide>
+            <h:outputText value="SLIDE3" />                                          <br/>
+            <a href="#" onclick="innerSlideView.left(); return false;">Previous</a> <br/>
+            <a href="#" onclick="innerSlideView.right();return false;">Next</a>     <br/>
+        </hx:slide>
+        <hx:slide id="lastSlide">
+            <h:outputText value="SLIDE4" />                                          <br/>
+            <a href="#" onclick="innerSlideView.left(); return false;">Previous</a> <br/>
+            <a href="#" onclick="innerSlideView.right(); return false;">Next (does nothing)</a> <br/>
+            <a href="#" onclick="innerSlideView.goBySlideId('firstSlide');return false;">First</a>
+        </hx:slide>
+    </hx:slideView>
+
+</ui:define>
+</ui:composition>

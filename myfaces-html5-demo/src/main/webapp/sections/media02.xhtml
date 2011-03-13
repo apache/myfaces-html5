@@ -1,0 +1,95 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+  Media
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="true" operaSupport="false" mozillaSupport="false" ieSupport="false">
+      <f:facet name="mozilla">
+          The video will be played on Chrome, but not on Opera or Firefox since the only defined media source (h264 on mp4) is not supported by them.
+      </f:facet>
+      <f:facet name="opera">
+          The video will be played on Chrome, but not on Opera or Firefox since the only defined media source (h264 on mp4) is not supported by them.
+      </f:facet>
+      <f:facet name="ie">
+          You will see a flash fallback in IE or anyother browser that does not support Html5 video.
+      </f:facet>
+  </bs:browserSupport>
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="media" slideId="media02" />
+</ui:define>
+
+<ui:define name="sectionContent">
+
+              <h:panelGrid columns="1">
+
+	            <hx:video id="video01" showControls="true"
+	                autoplay="false" preload="none" poster="#{request.contextPath}/resources/video/mother_goose_thumbnail_small.png" width="400" height="300" >
+	                <f:facet name="fallback">
+	                    <object id="player" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" name="player" width="400" height="300">
+	                        <param name="movie" value="#{request.contextPath}/resources/video/player.swf" />
+	                        <param name="allowfullscreen" value="true" />
+	                        <param name="allowscriptaccess" value="always" />
+	                        <param name="flashvars" value="file=#{request.contextPath}/resources/video/mother_goose_flv.flv" />
+	                        <embed
+	                            type="application/x-shockwave-flash"
+	                            id="player2"
+	                            name="player2"
+	                            src="#{request.contextPath}/resources/video/player.swf"
+	                            width="400"
+	                            height="300"
+	                            allowscriptaccess="always"
+	                            allowfullscreen="true"
+	                            flashvars="file=#{request.contextPath}/resources/video/mother_goose_flv.flv"
+	                        />
+	                    </object>
+	                </f:facet>
+
+	                <fx:mediaSource src="#{request.contextPath}/resources/video/mother_goose_h264.mp4" contentType="video/mp4" codec="avc1, mp4a"/>
+	            </hx:video>
+	            <sh:sh><![CDATA[
+<hx:video ...>
+    <f:facet name="fallback">
+      <object id="player" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" ...>
+      ...
+      </object>
+    </f:facet>
+    ....
+    <fx:mediaSource src="... mother_goose_ogg.mp4" contentType="video/mp4" codec="avc1, mp4a"/>
+</hx:video>
+	            ]]></sh:sh>
+	          </h:panelGrid>
+
+</ui:define>
+</ui:composition>

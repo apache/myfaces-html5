@@ -1,0 +1,113 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+    Input Types
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport webkitSupport="true" operaSupport="true" />
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="inputTypes" slideId="inputTypes" />
+</ui:define>
+
+<ui:define name="sectionContent">
+
+    <div>
+        These are convenience components with new features for Html5 input elements.
+    </div>
+
+              <h:panelGrid columns="4">
+	               
+	               <h:outputLabel for="it01" value="Simple Text" alt="With placeholder"/>
+	               <hx:inputText id="it01" value="#{inputTypesBean.param01}" placeholder="Enter a text" cols="20"/>
+	               <h:message for="it01" />
+	               <sh:sh><![CDATA[
+<hx:inputText placeholder="Enter a text" .../>
+	               ]]></sh:sh>
+	               
+	               <h:outputLabel for="it02" value="Search" alt="With placeholder"/>
+	               <hx:inputText id="it02" type="search" value="#{inputTypesBean.param02}" placeholder="Enter a keyword" cols="20"/>
+	               <h:message for="it02" />
+	               <sh:sh><![CDATA[
+<hx:inputText type="search" placeholder="Enter a keyword" .../>
+	               ]]></sh:sh>
+	               
+	               <h:outputLabel for="it03" value="URL"/>
+	               <hx:inputText id="it03" type="url" value="#{inputTypesBean.param03}" cols="20" placeholder="Enter your blog URL"/>
+	               <h:message for="it03" />
+	               <sh:sh><![CDATA[
+<hx:inputText type="url" placeholder="Enter your blog URL" .../>
+	               ]]></sh:sh>
+	               
+	               <h:outputLabel for="it04" value="Phone Number"/>
+	               <hx:inputText id="it04" type="tel" value="#{inputTypesBean.param04}" cols="20" placeholder="Type your mobile nr"/>
+	               <h:message for="it04" />
+	               <sh:sh><![CDATA[
+<hx:inputText type="tel" placeholder="Type your mobile nr" .../>
+	               ]]></sh:sh>
+	               
+	               <h:outputLabel for="it05" value="Textarea" alt="With maxlength"/>
+	               <hx:inputText id="it05" type="textarea" value="#{inputTypesBean.param05}" maxlength="20" cols="20" rows="2"/>
+	               <h:message for="it05" />
+	               <sh:sh><![CDATA[
+<hx:inputText type="textarea" maxlength="20" .../>
+	               ]]></sh:sh>
+	               
+	               <h:outputLabel for="ie01" value="Email"/>
+	               <hx:inputEmail id="ie01" value="#{inputTypesBean.email01}" placeholder="Type your email" />
+	               <h:message for="ie01" />
+	               <sh:sh><![CDATA[
+<hx:inputEmail placeholder="Type your email" />
+	               ]]></sh:sh>
+	               
+	               <h:outputLabel for="ins01" value="Range"/>
+	               <hx:inputNumberSlider id="ins01" value="#{inputTypesBean.number01}" step="5">
+	                   <f:convertNumber />
+	               </hx:inputNumberSlider>
+	               <h:message for="ins01" />
+	               <sh:sh><![CDATA[
+<hx:inputNumberSlider step="5" ... />
+	               ]]></sh:sh>
+	               
+	               <h:outputLabel for="ins02" value="Number"/>
+	               <hx:inputNumberSpinner id="ins02" value="#{inputTypesBean.number02}" segmentCount="20">
+	                   <f:convertNumber />
+	               </hx:inputNumberSpinner>
+	               <h:message for="ins02" />
+	               <sh:sh><![CDATA[
+<hx:inputNumberSpinner segmentCount="20" ... />
+	               ]]></sh:sh>
+	
+             </h:panelGrid>
+</ui:define>
+</ui:composition>

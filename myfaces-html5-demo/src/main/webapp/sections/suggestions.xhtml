@@ -1,0 +1,131 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<ui:composition template="/sections/sectionTemplate.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:hx="http://myfaces.apache.org/html5/html"
+      xmlns:fx="http://myfaces.apache.org/html5/core"
+      xmlns:sh="http://java.sun.com/jsf/composite/components/sh"
+      xmlns:bs="http://java.sun.com/jsf/composite/components/browserSupport"
+      xmlns:common="http://java.sun.com/jsf/composite/components/common">
+
+<ui:define name="title">
+    Suggestions
+</ui:define>
+
+<ui:define name="browserSupport">
+  <bs:browserSupport>
+      <f:facet name="opera">
+          Works best in Opera. However dynamic update of suggestions is not working _properly_ because of a bug of Opera!
+      </f:facet>
+  </bs:browserSupport>
+</ui:define>
+
+<ui:define name="viewChangeLinks">
+    <common:viewChange singlePageName="suggestions" slideId="suggestions" />
+</ui:define>
+
+<ui:define name="sectionContent">
+
+              <h:outputStylesheet id="suggestionsInputStyles">
+                  input.suggestionsInput{
+                    font-family : Verdana, Ariel, sans, monospace;
+                  }
+              </h:outputStylesheet>
+
+              <p class="sectionManual">
+                  In the third example, the suggestion provider is seperated, and partially rendered on input on the Html input.
+              </p>
+      
+              <h:form id="suggestionsForm">
+	            <h:panelGrid columns="4">
+	             
+	             <h:outputLabel for="it01" value="Static Suggestions(1)"/>
+	             <hx:inputText id="it01" value="#{suggestionsBean.movie01}" placeholder="Type a movie name" cols="25" styleClass="suggestionsInput">
+	                <f:selectItems value="#{suggestionsBean.staticSuggestionItems}" />
+	             </hx:inputText>
+	             <h:message for="it01" />
+	             <sh:sh><![CDATA[
+<hx:inputText ...>
+    <f:selectItems value="#_{suggestionsBean.staticSuggestionItems}" />
+</hx:inputText>
+	             ]]></sh:sh>
+	             
+	             <h:outputLabel for="it02" value="Static Suggestions(2)"/>
+	             <hx:inputText id="it02" value="#{suggestionsBean.movie02}" placeholder="Type a movie name" cols="25"
+	                suggestions="The Shawshank Redemption, The Godfather, The Godfather: Part II" styleClass="suggestionsInput"/>
+	             <h:message for="it02" />
+	             <sh:sh><![CDATA[
+<hx:inputText
+   suggestions="The Shawshank Redemption, The Godfather, ..."/>
+	             ]]></sh:sh>
+	             
+	             
+	             <h:outputLabel for="it03" value="Dynamic Suggestions"/>
+	             <h:panelGroup>
+	                 <hx:inputText id="it03" value="#{suggestionsBean.favoriteMovie}" placeholder="Type a movie name" cols="25" 
+	                     datalist="suggestionsForm:movieSuggestionsDataList" styleClass="suggestionsInput">
+	                     <f:ajax event="input" render="movieSuggestionsDataList" execute="@this"/>
+	                 </hx:inputText>
+	                 <hx:dataList id="movieSuggestionsDataList">
+	                     <f:selectItems value="#{suggestionsBean.dynamicSuggestionItems}" />
+	                 </hx:dataList>
+	             </h:panelGroup>
+	             <h:message for="it03" />
+	             <h:panelGroup>
+	                 <sh:sh><![CDATA[
+<hx:inputText value="#_{suggestionsBean.favoriteMovie}"
+   datalist="demoForm:movieSuggestionsDataList">
+    <f:ajax event="input" render="movieSuggestionsDataList"
+       execute="@this"/>
+</hx:inputText>
+<hx:dataList id="movieSuggestionsDataList">
+    <f:selectItems
+       value="#_{suggestionsBean.dynamicSuggestionItems}" />
+</hx:dataList>
+	                ]]></sh:sh>
+	                
+	                <sh:sh lang="java"><![CDATA[
+public List<SelectItem> getDynamicSuggestionItems(){
+    List<SelectItem> items = new ArrayList<SelectItem>();
+
+    for (String movie : movieNames){
+        if (movie.startsWith(this.favoriteMovie))
+            items.add(new SelectItem(movie, null));
+    }
+
+    return items;
+}
+...
+private static String[] movieNames = new String[]{
+        "The Shawshank Redemption", "The Godfather",
+        "The Godfather: Part II",
+        "The Good, the Bad and the Ugly", ...
+};
+	                ]]></sh:sh>
+	            </h:panelGroup>
+	                
+	           </h:panelGrid>                
+	        </h:form>
+
+</ui:define>
+</ui:composition>
