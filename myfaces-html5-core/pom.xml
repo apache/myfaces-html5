@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.myfaces.html5</groupId>
         <artifactId>myfaces-html5-project</artifactId>
-        <version>0.0.4-SNAPSHOT</version>
+        <version>1.0.0-alpha-SNAPSHOT</version>
     </parent>
 
     <groupId>org.apache.myfaces.html5</groupId>
@@ -333,29 +333,47 @@
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+
+            <reporting>
+                <plugins>
                     <!-- Facelets doc generation! -->
                     <plugin>
                         <groupId>net.sourceforge.maven-taglib</groupId>
                         <artifactId>maven-taglib-plugin</artifactId>
                         <version>2.4</version>
-                        <executions>
-                            <execution>
-                                <id>tlddoc-facelets</id>
-                                <phase>site</phase>
-                                <goals>
-                                    <goal>taglibdoc</goal>
-                                </goals>
-                                <inherited>false</inherited>
+                            <configuration>
+                                <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
+                                <tldDocDir>${basedir}/target/site/tlddoc-facelets</tldDocDir>
+                            </configuration>
+                    </plugin>
+
+                    <!-- trigger tagdoc-index report -->
+                    <plugin>
+                        <groupId>org.apache.myfaces.buildtools</groupId>
+                        <artifactId>myfaces-builder-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
                                 <configuration>
-                                    <title>${project.name} Tag library documentation for Facelets</title>
-                                    <srcDir>${basedir}/target/tlddoc-facelets</srcDir>
-                                    <tldDocDir>${basedir}/target/site/tlddoc-facelets</tldDocDir>
+                                    <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
+                                    <modelIds>
+                                        <modelId>myfaces-html5-core</modelId>
+                                    </modelIds>
+                                    <taglibs>
+                                        <fx>http://myfaces.apache.org/html5/core</fx>
+                                        <hx>http://myfaces.apache.org/html5/core</hx>
+                                    </taglibs>
                                 </configuration>
-                            </execution>
-                        </executions>
+                                <reports>
+                                    <report>tagdoc-index</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
                     </plugin>
                 </plugins>
-            </build>
+            </reporting>
+
         </profile>
     </profiles>
 
