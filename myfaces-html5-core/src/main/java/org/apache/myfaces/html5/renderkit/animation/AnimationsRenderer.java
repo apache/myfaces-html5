@@ -25,15 +25,14 @@ import org.apache.myfaces.html5.component.animation.AbstractAnimations;
 import org.apache.myfaces.html5.renderkit.util.CSS;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HTML;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 import org.apache.myfaces.view.facelets.PostBuildComponentTreeOnRestoreViewEvent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.*;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 
 @ListenersFor({
@@ -41,7 +40,7 @@ import java.io.IOException;
         @ListenerFor(systemEventClass = PostBuildComponentTreeOnRestoreViewEvent.class)
 })
 @JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Animations", type = "org.apache.myfaces.html5.Animations")
-public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemEventListener {
+public class AnimationsRenderer extends Renderer implements ComponentSystemEventListener {
 
     @Override
     public boolean getRendersChildren() {
@@ -58,7 +57,7 @@ public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemE
 
         ResponseWriter writer = facesContext.getResponseWriter();
 
-        writer.startElement(HTML.STYLE_ELEM, component);
+        writer.startElement(HTML5.STYLE_ELEM, component);
     }
 
     @Override
@@ -92,7 +91,7 @@ public class AnimationsRenderer extends HtmlRenderer implements ComponentSystemE
 
         ResponseWriter writer = facesContext.getResponseWriter();
 
-        writer.endElement(HTML.STYLE_ELEM);
+        writer.endElement(HTML5.STYLE_ELEM);
     }
 
     protected String getAnimationDefinition(FacesContext facesContext, AbstractAnimations component){

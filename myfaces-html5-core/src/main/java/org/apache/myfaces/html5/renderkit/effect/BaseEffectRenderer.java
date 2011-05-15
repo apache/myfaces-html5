@@ -20,15 +20,15 @@
 package org.apache.myfaces.html5.renderkit.effect;
 
 import org.apache.myfaces.html5.component.effect.AbstractBaseEffect;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 
-public abstract class BaseEffectRenderer extends HtmlRenderer {
+public abstract class BaseEffectRenderer extends Renderer {
 
     @Override
     public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {

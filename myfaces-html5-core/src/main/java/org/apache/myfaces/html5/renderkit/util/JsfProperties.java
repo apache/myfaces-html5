@@ -40,8 +40,12 @@ public interface JsfProperties
     String SRC_PROP = "src";
     String WIDTH_PROP = "width";
     String HEIGHT_PROP = "height";
+    String ALIGN_PROP = "align";
+    String ALT_PROP = "alt";
+    String SIZE_PROP = "size";
 
     String VALUE_PROP = "value";
+    String VAR_PROP = "var";
 
     // new Html5 common props
     String HIDDEN_PROP = "hidden";
@@ -111,9 +115,19 @@ public interface JsfProperties
     String MAXLENGTH_PROP = "maxlength";
     String READONLY_PROP = "readonly";
     String STEP_PROP = "step";
+    String ONCHANGE_PROP = "onchange";
+    String ONSELECT_PROP = "onselect";
 
     // input email props
     String MULTIPLE_PROP = "multiple";
+
+    //textarea props
+    String COLS_PROP = "cols";
+    String ROWS_PROP = "rows";
+    String WRAP_PROP = "wrap";
+
+    // Input_Secret Attributes
+    String REDISPLAY_PROP = "redisplay";
 
     // possible types for hx:inputText
     String INPUTTEXT_TYPE_PASSWORD = "password";
@@ -139,4 +153,14 @@ public interface JsfProperties
     String HIGH_PROP = "high";
 
     String ONANIMATIONEND_PROP = "onanimationEnd";
+
+
+    // UISelectItem(s) attributes
+    String ITEM_DISABLED_PROP          = "itemDisabled";
+    String ITEM_DESCRIPTION_PROP       = "itemDescription";
+    String ITEM_LABEL_PROP             = "itemLabel";
+    String ITEM_VALUE_PROP             = "itemValue";
+    String ITEM_LABEL_ESCAPED_PROP     = "itemLabelEscaped";
+    String NO_SELECTION_VALUE_PROP     = "noSelectionValue";
+
 }

@@ -22,10 +22,7 @@ package org.apache.myfaces.html5.renderkit.output;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.output.AbstractSlide;
-import org.apache.myfaces.html5.component.output.AbstractSlideView;
 import org.apache.myfaces.html5.renderkit.util.*;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -34,6 +31,7 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +45,7 @@ import java.util.Map;
         @ResourceDependency(name = "html5.css", library = "org.apache.myfaces.html5", target = "head")
 })
 @JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Slide", type = "org.apache.myfaces.html5.Slide")
-public class SlideRenderer extends HtmlRenderer
+public class SlideRenderer extends Renderer
 {
     @Override
     public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {

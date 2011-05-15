@@ -22,7 +22,7 @@ package org.apache.myfaces.html5.renderkit.animation;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.animation.AbstractAnimationScale;
 import org.apache.myfaces.html5.component.animation.AbstractBaseAnimation;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 import javax.faces.context.FacesContext;
 import java.text.NumberFormat;

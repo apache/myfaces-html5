@@ -23,15 +23,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.effect.AbstractEffects;
 import org.apache.myfaces.html5.renderkit.util.CSS;
-import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HTML;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 import org.apache.myfaces.view.facelets.PostBuildComponentTreeOnRestoreViewEvent;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.*;

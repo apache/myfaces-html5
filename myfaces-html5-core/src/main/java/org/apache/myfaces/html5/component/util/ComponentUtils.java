@@ -21,6 +21,7 @@ package org.apache.myfaces.html5.component.util;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 
 public class ComponentUtils {
 
@@ -50,6 +51,53 @@ public class ComponentUtils {
             }
         }
         return null;
+    }
+
+    //copied from org.apache.myfaces.commons.exporter.util.ComponentUtils
+    public static String getPathToComponent(UIComponent component) {
+        StringBuffer buf = new StringBuffer();
+
+        if (component == null)
+        {
+            buf.append("{Component-Path : ");
+            buf.append("[null]}");
+            return buf.toString();
+        }
+
+        getPathToComponent(component, buf);
+
+        buf.insert(0, "{Component-Path : ");
+        buf.append("}");
+
+        return buf.toString();
+    }
+
+    //copied from org.apache.myfaces.commons.exporter.util.ComponentUtils
+    private static void getPathToComponent(UIComponent component,
+            StringBuffer buf) {
+
+        if (component == null)
+            return;
+
+        StringBuffer intBuf = new StringBuffer();
+
+        intBuf.append("[Class: ");
+        intBuf.append(component.getClass().getName());
+        if (component instanceof UIViewRoot)
+        {
+            intBuf.append(",ViewId: ");
+            intBuf.append(((UIViewRoot) component).getViewId());
+        }
+        else
+        {
+            intBuf.append(",Id: ");
+            intBuf.append(component.getId());
+        }
+        intBuf.append("]");
+
+        buf.insert(0, intBuf.toString());
+
+        getPathToComponent(component.getParent(), buf);
     }
 
 }

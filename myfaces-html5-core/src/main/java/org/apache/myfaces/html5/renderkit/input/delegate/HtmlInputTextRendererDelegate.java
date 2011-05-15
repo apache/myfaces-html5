@@ -34,7 +34,7 @@ import org.apache.myfaces.html5.renderkit.input.Html5BaseInputTextRenderer;
 import org.apache.myfaces.html5.renderkit.input.util.InputPatternRendererUtil;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 /**
  * Delegate renderer that is used when the type of < hx:input > is one of "text", "search", "url" or "tel".
@@ -111,7 +111,7 @@ public class HtmlInputTextRendererDelegate extends Html5BaseInputTextRenderer
     }
 
     @Override
-    protected String getInputHtmlType(UIComponent component)
+    protected String getInputHtmlType(Html5BaseInputText component)
     {
         // obj type check for component is done in #encodeEnd, no need to check it again
         return ((HtmlInputText) component).getType();

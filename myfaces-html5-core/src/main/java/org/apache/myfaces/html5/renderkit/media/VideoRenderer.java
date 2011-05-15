@@ -29,7 +29,7 @@ import org.apache.myfaces.html5.component.media.Video;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
 import org.apache.myfaces.html5.renderkit.util.PassThroughClientBehaviorEvents;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 /**
  * Renderer for < hx:video > component.

@@ -38,11 +38,11 @@ import javax.faces.view.facelets.TagException;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFFaceletAttribute;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFFaceletTag;
 import org.apache.myfaces.html5.behavior.DropTargetBehavior;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.event.DropEvent;
 import org.apache.myfaces.html5.event.DropListener;
 import org.apache.myfaces.html5.renderkit.behavior.DropTargetBehaviorRenderer;
 import org.apache.myfaces.html5.renderkit.util.ClientBehaviorEvents;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 
 /* 
  * Facelets tag handler for DropTargetBehavior.
@@ -164,7 +164,7 @@ public class DropTargetBehaviorHandler extends javax.faces.view.facelets.Behavio
         if (!ComponentHandler.isNew(parent))
         {
             if (log.isLoggable(Level.FINE))
-                log.fine("Component" + RendererUtils.getPathToComponent(parent)
+                log.fine("Component" + ComponentUtils.getPathToComponent(parent)
                         + " is not new, thus return without any operation.");
             return;
         }
@@ -273,7 +273,7 @@ public class DropTargetBehaviorHandler extends javax.faces.view.facelets.Behavio
         {
             throw new TagException(getTag(),
                     "DropTargetBehavior must be attached to a ClientBehaviorHolder parent. Component "
-                            + RendererUtils.getPathToComponent(parent) + "is not a ClientBehaviorHolder");
+                            + ComponentUtils.getPathToComponent(parent) + "is not a ClientBehaviorHolder");
         }
 
         ClientBehaviorHolder holder = (ClientBehaviorHolder) parent;
@@ -297,7 +297,7 @@ public class DropTargetBehaviorHandler extends javax.faces.view.facelets.Behavio
             message.append("ClientBehaviorHolders that support the '");
             message.append(eventName);
             message.append("' event.  The parent ClientBehaviorHolder "
-                    + RendererUtils.getPathToComponent((UIComponent) holder) + " only ");
+                    + ComponentUtils.getPathToComponent((UIComponent) holder) + " only ");
             message.append("supports the following events: ");
 
             for (String supportedEventName : eventNames)

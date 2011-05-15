@@ -23,8 +23,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.output.AbstractSlideView;
 import org.apache.myfaces.html5.renderkit.util.*;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -33,6 +31,7 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
@@ -49,7 +48,7 @@ import static org.apache.myfaces.html5.renderkit.util.CssSelectorBuilder.selecto
         @ResourceDependency(name = "html5.css", library = "org.apache.myfaces.html5", target = "head")
 })
 @JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.SlideView", type = "org.apache.myfaces.html5.SlideView")
-public class SlideViewRenderer extends HtmlRenderer
+public class SlideViewRenderer extends Renderer
 {
     @Override
     public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {

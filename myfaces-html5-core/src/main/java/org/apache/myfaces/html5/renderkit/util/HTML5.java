@@ -19,15 +19,13 @@
 package org.apache.myfaces.html5.renderkit.util;
 
 /**
- * Html constants for using in renderers. Does not extend {@link org.apache.myfaces.shared_html5.renderkit.html.HTML} on
- * purpose, since there are ugly constants like
- * "COMMON_FIELD_PASSTROUGH_ATTRIBUTES_WITHOUT_DISABLED_AND_ONFOCUS_AND_ONCLICK" in there. <br/>
- * Note that, this interface does not contain all of the element names and attribute names specified in Html5 spec. It
+ * Html constants for using in renderers. <br/>
+ * Note that, this interface does not contain all of the element names and attribute names specified in Html spec. It
  * only contains used ones in MyFaces Html5 components, and may not contain the attributes which have the same name with
  * the Jsf component property.
  * 
  * @author Ali Ok
- * @see org.apache.myfaces.shared_html5.renderkit.html.HTML
+ * @see org.apache.myfaces.commons.util.renderkit.HTML
  */
 public interface HTML5
 {
@@ -39,10 +37,12 @@ public interface HTML5
     String DATALIST_ELEM = "datalist";
 
     // html elements
+    String INPUT_ELEM = "input";
     String TEXTAREA_ELEM = "textarea";
     String DIV_ELEM = "div";
     String STYLE_ELEM = "style";
     String SCRIPT_ELEM = "script";
+    String OPTION_ELEM = "option";
 
     // general attrs
     String ID_ATTR = "id";
@@ -51,7 +51,13 @@ public interface HTML5
     String SRC_ATTR = "src";
     String TYPE_ATTR = "type";
     String CLASS_ATTR = "class";
+    String STYLE_ATTR = "style";
     String VALUE_ATTR = "value";
+    String DISABLED_ATTR = "disabled";
+    String LABEL_ATTR = "label";
+    String SCRIPT_TYPE_ATTR = "type";
+    String SCRIPT_TYPE_TEXT_JAVASCRIPT = "text/javascript";
+    String NAME_ATTR = "name";
 
     // media attrs
     String CONTROLS_ATTR = "controls"; // not pass thru
@@ -86,6 +92,7 @@ public interface HTML5
     String MIN_ATTR = "min";
     String MAX_ATTR = "max";
     String STEP_ATTR = "step";
+    String AUTOCOMPLETE_ATTR = "autocomplete";
 
     // new Html5 attributes which is boolean but not Html5 boolean
     // @see Html5RendererUtils#renderHTMLAttribute(javax.faces.context.ResponseWriter, String, String, Object)

@@ -31,11 +31,10 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.input.HtmlInputText;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlInputTextRendererDelegate;
-import org.apache.myfaces.html5.renderkit.input.delegate.HtmlSecretRendererDelegate;
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlTextAreaRendererDelegate;
 import org.apache.myfaces.html5.renderkit.util.JsfProperties;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 
 /**
  * Renderer for < hx:inputText > component.
@@ -58,16 +57,14 @@ public class HtmlInputTextRenderer extends Renderer
     private static final Logger log = Logger.getLogger(HtmlInputTextRendererDelegate.class.getName());
 
     protected Renderer _textTypeRendererDelegate = null;
-    protected Renderer _passwordTypeRendererDelegate = null;
     protected Renderer _textareaTypeRendererDelegate = null;
 
     public HtmlInputTextRenderer()
     {
         super();
 
-        // let's create all three delegates since renderers are created once in application lifecycle
+        // let's create the delegates since renderers are created once in application lifecycle
         _textTypeRendererDelegate = new HtmlInputTextRendererDelegate();
-        _passwordTypeRendererDelegate = new HtmlSecretRendererDelegate();
         _textareaTypeRendererDelegate = new HtmlTextAreaRendererDelegate();
     }
 
@@ -108,17 +105,13 @@ public class HtmlInputTextRenderer extends Renderer
         {
             return _textTypeRendererDelegate;
         }
-        else if (type.equals(JsfProperties.INPUTTEXT_TYPE_PASSWORD))
-        {
-            return _passwordTypeRendererDelegate;
-        }
         else if (type.equals(JsfProperties.INPUTTEXT_TYPE_TEXTAREA))
         {
             return _textareaTypeRendererDelegate;
         }
         else
         {
-            throw new IllegalStateException("Input type of component " + RendererUtils.getPathToComponent(component) + " is not one of the expected types: \""
+            throw new IllegalStateException("Input type of component " + ComponentUtils.getPathToComponent(component) + " is not one of the expected types: \""
                     + JsfProperties.INPUTTEXT_TYPE_TEXT + "\", \"" + JsfProperties.INPUTTEXT_TYPE_SEARCH + "\", \""
                     + JsfProperties.INPUTTEXT_TYPE_URL + "\" ,\"" + JsfProperties.INPUTTEXT_TYPE_TEL + "\". Provided: \""
                     + type + "\".");
@@ -191,7 +184,7 @@ public class HtmlInputTextRenderer extends Renderer
         else
         {
             if (!(Arrays.asList(ALLOWED_INPUT_TYPES).contains(type)))
-                throw new FacesException("\"type\" attribute of component " + RendererUtils.getPathToComponent(uiComponent) + " can be one of " + Arrays.toString(ALLOWED_INPUT_TYPES)
+                throw new FacesException("\"type\" attribute of component " + ComponentUtils.getPathToComponent(uiComponent) + " can be one of " + Arrays.toString(ALLOWED_INPUT_TYPES)
                         + ". You provided: \"" + type + "\"");
         }
     }

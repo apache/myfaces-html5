@@ -26,6 +26,7 @@ import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
+import org.apache.myfaces.html5.component.input.Html5BaseInputText;
 import org.apache.myfaces.html5.component.input.HtmlInputNumberSpinner;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
@@ -60,7 +61,7 @@ public class HtmlInputNumberSpinnerRenderer extends HtmlInputNumberSliderRendere
     }
 
     @Override
-    protected String getInputHtmlType(UIComponent component)
+    protected String getInputHtmlType(Html5BaseInputText component)
     {
         return HTML5.INPUT_TYPE_NUMBER;
     }

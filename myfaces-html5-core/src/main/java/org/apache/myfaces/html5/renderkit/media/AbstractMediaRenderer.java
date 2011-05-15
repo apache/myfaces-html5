@@ -31,14 +31,14 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 
 import org.apache.myfaces.html5.component.media.AbstractMedia;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.model.MediaInfo;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.JSFAttr;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 /**
  * Abstract base for media renderers.
@@ -46,7 +46,7 @@ import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
  * @author Ali Ok
  * 
  */
-public abstract class AbstractMediaRenderer extends HtmlRenderer
+public abstract class AbstractMediaRenderer extends Renderer
 {
     private static final Logger log = Logger.getLogger(AbstractMediaRenderer.class.getName());
 
@@ -72,11 +72,11 @@ public abstract class AbstractMediaRenderer extends HtmlRenderer
         writer.writeAttribute(HTML5.ID_ATTR, component.getClientId(facesContext), null);
 
         // get the value and render the src attr
-        String src = org.apache.myfaces.shared_html5.renderkit.RendererUtils.getStringValue(facesContext, component);
+        String src = RendererUtils.getStringValue(facesContext, component);
         if (log.isLoggable(Level.FINE))
             log.fine("writing src '" + src + "'");
         if (src != null && !src.isEmpty())
-            writer.writeAttribute(HTML5.SRC_ATTR, src, JSFAttr.VALUE_ATTR);
+            writer.writeAttribute(HTML5.SRC_ATTR, src, "value");
 
         // no need to check the value of preload, it is bypassed anyway.
         // _checkPreload(component);
@@ -162,7 +162,7 @@ public abstract class AbstractMediaRenderer extends HtmlRenderer
                 // src is reqired to be present and not empty!
                 if (mediaInfo.getSrc() == null || mediaInfo.getSrc().isEmpty())
                     // WIKI: add a wiki page
-                    throw new FacesException("'src' field of MediaInfo has to be defined and nonempty for component " + RendererUtils.getPathToComponent(uiComponent) + ".");
+                    throw new FacesException("'src' field of MediaInfo has to be defined and nonempty for component " + ComponentUtils.getPathToComponent(uiComponent) + ".");
 
                 writer.writeAttribute(HTML5.SRC_ATTR, mediaInfo.getSrc(), null);
 

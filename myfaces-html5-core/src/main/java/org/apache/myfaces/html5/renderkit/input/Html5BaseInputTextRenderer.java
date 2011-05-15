@@ -18,25 +18,21 @@
  */
 package org.apache.myfaces.html5.renderkit.input;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.myfaces.html5.component.input.Html5BaseInputText;
+import org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper;
+import org.apache.myfaces.html5.renderkit.util.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-
-import org.apache.myfaces.html5.component.input.Html5BaseInputText;
-import org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper;
-import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
-import org.apache.myfaces.html5.renderkit.util.JsfProperties;
-import org.apache.myfaces.html5.renderkit.util.PassThroughClientBehaviorEvents;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlTextRendererBase;
-import org.apache.myfaces.shared_html5.renderkit.html.util.ResourceUtils;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * An extensible base of the Html5 input renderers.
@@ -44,7 +40,7 @@ import org.apache.myfaces.shared_html5.renderkit.html.util.ResourceUtils;
  * @author Ali Ok
  * 
  */
-public abstract class Html5BaseInputTextRenderer extends HtmlTextRendererBase
+public abstract class Html5BaseInputTextRenderer extends Renderer
 {
 
     private static final Logger log = Logger.getLogger(Html5BaseInputTextRenderer.class.getName());
@@ -57,13 +53,9 @@ public abstract class Html5BaseInputTextRenderer extends HtmlTextRendererBase
         Html5BaseInputText component = (Html5BaseInputText) uiComponent;
 
         // first, check whether we have behaviors, and render jsf.js if necessary
-        Map<String, List<ClientBehavior>> behaviors = null;
-        behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
+        Map<String, List<ClientBehavior>> behaviors = component.getClientBehaviors();
         if (!behaviors.isEmpty())
         {
-            if (log.isLoggable(Level.FINE))
-                log.fine("component " + RendererUtils.getPathToComponent(uiComponent) + " has behaviors, rendering jsf.js");
-
             ResourceUtils.renderDefaultJsfJsInlineIfNecessary(facesContext, facesContext.getResponseWriter());
         }
 
@@ -99,19 +91,47 @@ public abstract class Html5BaseInputTextRenderer extends HtmlTextRendererBase
                 log.fine("will render generated datalist");
             suggestionRendererHelper.renderDataList(facesContext, component);
         }
+
     }
 
-    @Override
+    protected void renderInput(FacesContext facesContext, UIComponent component)
+        throws IOException
+    {
+        //allow subclasses to render custom attributes by separating rendering begin and end
+        renderInputBegin(facesContext, component);
+        renderInputEnd(facesContext, component);
+    }
+
     protected void renderInputBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException
     {
         RendererUtils.checkParamValidity(facesContext, uiComponent, getComponentClass());
 
-        // let parent render standard attributes
-        super.renderInputBegin(facesContext, uiComponent);
+        ResponseWriter writer = facesContext.getResponseWriter();
 
-        if (log.isLoggable(Level.FINE))
-            log.fine("parent rendered standart stuff. rendering additional pass thru attrs");
-        
+        Html5BaseInputText component = (Html5BaseInputText) uiComponent;
+
+        String clientId = component.getClientId(facesContext);
+        String value = RendererUtils.getStringValue(facesContext, component);
+
+        writer.startElement(HTML5.INPUT_ELEM, component);
+        writer.writeAttribute(HTML5.ID_ATTR, clientId, null);
+        writer.writeAttribute(HTML5.NAME_ATTR, clientId, null);
+
+        //allow extending classes to modify html input element's type
+        String inputHtmlType = getInputHtmlType(component);
+        writer.writeAttribute(HTML5.TYPE_ATTR, inputHtmlType, null);
+
+        if (value != null)
+        {
+            writer.writeAttribute(HTML5.VALUE_ATTR, value, JsfProperties.VALUE_PROP);
+        }
+
+        Map<String, List<ClientBehavior>> behaviors = component.getClientBehaviors();
+
+        Html5RendererUtils.renderBehaviorizedOnchangeEventHandler(facesContext, writer, component, behaviors);
+        Html5RendererUtils.renderBehaviorizedEventHandlers(facesContext, writer, component, behaviors);
+        Html5RendererUtils.renderBehaviorizedFieldEventHandlersWithoutOnchange(facesContext, writer, component, behaviors);
+
         renderPassThruAttrsAndEvents(facesContext, uiComponent);
     }
 
@@ -120,18 +140,24 @@ public abstract class Html5BaseInputTextRenderer extends HtmlTextRendererBase
             throws IOException
     {
         Map<String, List<ClientBehavior>> clientBehaviors = ((ClientBehaviorHolder)uiComponent).getClientBehaviors();
-        
+
+        Html5RendererUtils.renderPassThroughAttributes(facesContext.getResponseWriter(), uiComponent, PassThroughAttributes.BASE_INPUT);
         Html5RendererUtils.renderPassThroughClientBehaviorEventHandlers(facesContext, uiComponent, PassThroughClientBehaviorEvents.BASE_INPUT, clientBehaviors);
-        
+
         Html5RendererUtils.renderPassThroughAttributes(facesContext.getResponseWriter(), uiComponent, getExtraPassThroughAttributes());
     }
 
-    @Override
     protected void renderInputEnd(FacesContext facesContext, UIComponent component) throws IOException
     {
-        // do nothing special. override for improving readability.
-        super.renderInputEnd(facesContext, component);
+        ResponseWriter writer = facesContext.getResponseWriter();
+
+        writer.endElement(HTML5.INPUT_ELEM);
     }
+
+    /**
+     * Returns the HTML type attribute of HTML input element, which is being rendered.
+     */
+    protected abstract String getInputHtmlType(Html5BaseInputText component);
 
     /**
      * Returns pass through attributes that are not present in {@link javax.faces.component.html.HtmlInputText} Child

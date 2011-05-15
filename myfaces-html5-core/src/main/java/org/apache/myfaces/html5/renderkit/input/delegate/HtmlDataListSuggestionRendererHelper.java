@@ -28,9 +28,10 @@ import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
 import org.apache.myfaces.html5.component.input.HtmlDataList;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.JsfProperties;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 /**
  * Implementation of {@link SuggestionRendererHelper} for usage in {@link org.apache.myfaces.html5.component.input.HtmlDataList}s.
@@ -54,7 +55,11 @@ public class HtmlDataListSuggestionRendererHelper extends HtmlTextInputSuggestio
     @Override
     public void renderDataList(FacesContext facesContext, UIComponent component) throws IOException
     {
-        super.renderDataList(facesContext, component);
+        renderDataListBegin(facesContext, component);
+
+        renderDataListOptions(facesContext, component, null);
+
+        renderDataListEnd(facesContext, component);
     }
 
     protected void renderDataListBegin(FacesContext facesContext, UIComponent component) throws IOException
@@ -89,7 +94,7 @@ public class HtmlDataListSuggestionRendererHelper extends HtmlTextInputSuggestio
         else
         {
             throw new IllegalArgumentException(
-                    "Component " + RendererUtils.getPathToComponent(uiComponent) + " is not instance of HtmlDataList. HtmlDataListSuggestionRendererHelper is unable to render options of suggestions attr.");
+                    "Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not instance of HtmlDataList. HtmlDataListSuggestionRendererHelper is unable to render options of suggestions attr.");
         }
     }
 

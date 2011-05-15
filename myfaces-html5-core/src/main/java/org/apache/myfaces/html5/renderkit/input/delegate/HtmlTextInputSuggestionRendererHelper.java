@@ -36,12 +36,11 @@ import javax.faces.model.SelectItem;
 
 import org.apache.myfaces.html5.component.input.Html5BaseInputText;
 import org.apache.myfaces.html5.component.input.HtmlInputText;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
-import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
 import org.apache.myfaces.html5.renderkit.util.JsfProperties;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HTML;
-import org.apache.myfaces.shared_html5.util.SelectItemsIterator;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
+import org.apache.myfaces.html5.renderkit.util.SelectItemsIterator;
 
 /**
  * Implementation of {@link SuggestionRendererHelper} for usage in {@link HtmlInputText}s.
@@ -77,13 +76,13 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
             {
                 // WIKI: put a wiki page about this error
                 throw new FacesException(
-                        "Either \"list\" attribute or \"suggestions\" attribute and children with type SelectItem mechanism can be used for suggestions. Component " + RendererUtils.getPathToComponent(uiComponent) + "has both!");
+                        "Either \"list\" attribute or \"suggestions\" attribute and children with type SelectItem mechanism can be used for suggestions. Component " + ComponentUtils.getPathToComponent(uiComponent) + "has both!");
             }
         }
         else
         {
             throw new IllegalArgumentException(
-                    "Component " + RendererUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to check suggestions.");
+                    "Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to check suggestions.");
         }
 
     }
@@ -119,23 +118,21 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
         else
         {
             throw new IllegalArgumentException(
-                    "Component " + RendererUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to determine whether datalist will be generated or not.");
+                    "Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to determine whether datalist will be generated or not.");
         }
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper#renderDataList(javax.faces.context
-     * .FacesContext, org.apache.myfaces.html5.component.input.Html5BaseInputText)
+     * @see org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper#renderDataList(javax.faces.context.FacesContext, org.apache.myfaces.html5.component.input.Html5BaseInputText)
      */
     public void renderDataList(FacesContext facesContext, UIComponent component) throws IOException
     {
         renderDataListBegin(facesContext, component);
 
         // create converter and pass it to methods here to prevent duplicate creation of the converter
-        Converter converter = Html5RendererUtils.findUIOutputConverterFailSafe(facesContext, component);
+        Converter converter = RendererUtils.findUIOutputConverterFailSafe(facesContext, component);
 
         renderDataListOptions(facesContext, component, converter);
 
@@ -180,7 +177,7 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
         else
         {
             throw new IllegalArgumentException(
-                    "Component " + RendererUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to render options of suggestions attr.");
+                    "Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to render options of suggestions attr.");
         }
     }
 
@@ -246,7 +243,7 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
 
             writer.write(TABULATOR);
 
-            writer.startElement(HTML.OPTION_ELEM, null);
+            writer.startElement(HTML5.OPTION_ELEM, null);
 
             /*
              * we're writing an attribute, not text here: using <option value="value" label="Label" /> notation, not
@@ -254,14 +251,14 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
              */
             String itemLabel = selectItem.getLabel();
             // writeAttribute method escapes the label anyway. so ignore SelectItem#isEscape()...
-            writer.writeAttribute(HTML.LABEL_ATTR, itemLabel, null);
+            writer.writeAttribute(HTML5.LABEL_ATTR, itemLabel, null);
 
-            String itemStrValue = RendererUtils.getConvertedStringValue(facesContext, component, converter, selectItem);
+            String itemStrValue = RendererUtils.getConvertedStringValue(facesContext, component, converter, selectItem.getValue());
             writer.writeAttribute(HTML5.VALUE_ATTR, itemStrValue, null);
 
-            writer.writeAttribute(HTML.DISABLED_ATTR, selectItem.isDisabled(), null);
+            writer.writeAttribute(HTML5.DISABLED_ATTR, selectItem.isDisabled(), null);
 
-            writer.endElement(HTML.OPTION_ELEM);
+            writer.endElement(HTML5.OPTION_ELEM);
 
         }
     }

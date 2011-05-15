@@ -29,7 +29,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.html5.component.input.HtmlInputDateTime;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 
 /**
  * Converter for use in hx:inputDateTime.
@@ -53,12 +53,12 @@ public class Html5DateTimeConverter implements Converter
             }
             catch (ParseException e)
             {
-                throw new ConverterException(new FacesMessage("Unable to parse input " + value + " for " + RendererUtils.getPathToComponent(uiComponent) + " with type " + type), e);
+                throw new ConverterException(new FacesMessage("Unable to parse input " + value + " for " + ComponentUtils.getPathToComponent(uiComponent) + " with type " + type), e);
             }
         }
         else
         {
-            throw new FacesException("Component " + RendererUtils.getPathToComponent(uiComponent) + " is not a HtmlInputDateTime");
+            throw new FacesException("Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not a HtmlInputDateTime");
         }
 
     }
@@ -69,7 +69,7 @@ public class Html5DateTimeConverter implements Converter
             return null;
 
         if (!(objValue instanceof Date))
-            throw new FacesException("Value is not a java.util.Date for component " + RendererUtils.getPathToComponent(uiComponent) + ".");
+            throw new FacesException("Value is not a java.util.Date for component " + ComponentUtils.getPathToComponent(uiComponent) + ".");
 
         if (uiComponent instanceof HtmlInputDateTime)
         {
@@ -82,7 +82,7 @@ public class Html5DateTimeConverter implements Converter
         }
         else
         {
-            throw new FacesException("Component " + RendererUtils.getPathToComponent(uiComponent) + " is not a HtmlInputDateTime");
+            throw new FacesException("Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not a HtmlInputDateTime");
         }
 
     }

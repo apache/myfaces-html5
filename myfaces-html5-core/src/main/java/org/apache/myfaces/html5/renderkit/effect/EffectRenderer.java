@@ -22,7 +22,7 @@ package org.apache.myfaces.html5.renderkit.effect;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.effect.AbstractBaseEffect;
 import org.apache.myfaces.html5.component.effect.AbstractEffect;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 import javax.faces.context.FacesContext;
 

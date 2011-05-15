@@ -42,11 +42,27 @@ interface PassThroughAttributeGroups {
         .attr(ACCESSKEY_PROP)
         .attr(TABINDEX_PROP)
         .unmodifiable();
-    
+
     Map<String, String> DND_PROPS = map(1)
         .attr(DRAGGABLE_PROP)
         .unmodifiable();
-    
+
+    Map<String, String> COMMON_INPUT_PROPS = map(13)
+        .attr(ALIGN_PROP)
+        .attr(ALT_PROP)
+        .attr(MAXLENGTH_PROP)
+        .attr(READONLY_PROP)
+        .attr(SIZE_PROP)
+        .attr(STYLE_PROP, STYLE_ATTR)
+        .attr(STYLECLASS_PROP, CLASS_ATTR)
+        .attr(DIR_PROP)
+        .attr(LANG_PROP)
+        .attr(TITLE_PROP)
+        .attr(ACCESSKEY_PROP)
+        .attr(TABINDEX_PROP)
+        .attr(DISABLED_ATTR)
+        .unmodifiable();
+
     Map<String, String> HTML5_INPUT_PROPS = map(2)
         .attr(DATALIST_PROP, LIST_ATTR)
         .attr(AUTOFOCUS_PROP)

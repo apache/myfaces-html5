@@ -18,24 +18,21 @@
  */
 package org.apache.myfaces.html5.renderkit.input.delegate;
 
+import org.apache.commons.collections.MapUtils;
+import org.apache.myfaces.html5.component.input.Html5BaseInputText;
+import org.apache.myfaces.html5.renderkit.util.*;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
-import org.apache.myfaces.html5.component.input.HtmlInputText;
-import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
-import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
-import org.apache.myfaces.html5.renderkit.util.PassThroughClientBehaviorEvents;
-import org.apache.myfaces.shared_html5.renderkit.html.HTML;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.util.JavascriptUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlTextareaRendererBase;
 
 /**
  * Delegate renderer that is used when the type of < hx:input > is one of "textarea".
@@ -43,31 +40,88 @@ import org.apache.myfaces.shared_html5.renderkit.html.HtmlTextareaRendererBase;
  * @author Ali Ok
  * 
  */
-public class HtmlTextAreaRendererDelegate extends HtmlTextareaRendererBase
+public class HtmlTextAreaRendererDelegate extends Renderer
 {
-    @Override
-    protected void renderTextAreaBegin(FacesContext facesContext,
-            UIComponent uiComponent) throws IOException
+
+     public void encodeEnd(FacesContext facesContext, UIComponent uiComponent)
+            throws IOException
     {
-        renderPassThruAttrsAndEvents(facesContext, uiComponent);
+        RendererUtils.checkParamValidity(facesContext, uiComponent, UIInput.class);
+
+        Html5BaseInputText component = (Html5BaseInputText) uiComponent;
+
+        Map<String, List<ClientBehavior>> behaviors = component.getClientBehaviors();
+        if (MapUtils.isNotEmpty(behaviors))
+        {
+            ResourceUtils.renderDefaultJsfJsInlineIfNecessary(facesContext, facesContext.getResponseWriter());
+        }
+
+        encodeTextArea(facesContext, component);
+
     }
 
-    // to make this extendible
-    protected void renderPassThruAttrsAndEvents(FacesContext facesContext, UIComponent uiComponent) throws IOException
+     protected void encodeTextArea(FacesContext facesContext, Html5BaseInputText component) throws IOException {
+       //allow subclasses to render custom attributes by separating rendering begin and end
+        renderTextAreaBegin(facesContext, component);
+        renderTextAreaValue(facesContext, component);
+        renderTextAreaEnd(facesContext, component);
+
+    }
+
+    //Subclasses can set the value of an attribute before, or can render a custom attribute after calling this method
+    protected void renderTextAreaBegin(FacesContext facesContext, Html5BaseInputText component) throws IOException
     {
-        Map<String, List<ClientBehavior>> clientBehaviors = ((ClientBehaviorHolder) uiComponent).getClientBehaviors();
+        ResponseWriter writer = facesContext.getResponseWriter();
+        writer.startElement(HTML5.TEXTAREA_ELEM, component);
 
-        Html5RendererUtils.renderPassThroughClientBehaviorEventHandlers(facesContext, uiComponent,
-                PassThroughClientBehaviorEvents.BASE_INPUT, clientBehaviors);
+        writer.writeAttribute(HTML5.ID_ATTR, component.getClientId(facesContext), null);
+        writer.writeAttribute(HTML5.NAME_ATTR, component.getClientId(facesContext), null);
 
-        Html5RendererUtils.renderPassThroughAttributes(facesContext.getResponseWriter(), uiComponent,
+        Map<String, List<ClientBehavior>> behaviors  = component.getClientBehaviors();
+        Html5RendererUtils.renderBehaviorizedOnchangeEventHandler(facesContext, writer, component, behaviors);
+        Html5RendererUtils.renderBehaviorizedEventHandlers(facesContext, writer, component, behaviors);
+        Html5RendererUtils.renderBehaviorizedFieldEventHandlersWithoutOnchange(facesContext, writer, component, behaviors);
+
+        Html5RendererUtils.renderPassThroughClientBehaviorEventHandlers(facesContext, component,
+                PassThroughClientBehaviorEvents.BASE_INPUT, behaviors);
+
+        Html5RendererUtils.renderPassThroughAttributes(facesContext.getResponseWriter(), component,
+                PassThroughAttributes.BASE_INPUT);
+
+        Html5RendererUtils.renderPassThroughAttributes(facesContext.getResponseWriter(), component,
                 PassThroughAttributes.INPUT_TEXTAREA);
     }
 
-    @Override
-    protected boolean isDisabled(FacesContext facesContext, UIComponent uiComponent)
+    //Subclasses can override the writing of the "text" value of the textarea
+    protected void renderTextAreaValue(FacesContext facesContext, UIComponent uiComponent) throws IOException
     {
-        return ((HtmlInputText) uiComponent).isDisabled();
+        ResponseWriter writer = facesContext.getResponseWriter();
+        String strValue = RendererUtils.getStringValue(facesContext, uiComponent);
+        writer.writeText(strValue, JsfProperties.VALUE_PROP);
+    }
+
+    protected void renderTextAreaEnd(FacesContext facesContext,
+            Html5BaseInputText component) throws IOException
+    {
+        facesContext.getResponseWriter().endElement(HTML5.TEXTAREA_ELEM);
+    }
+
+    public void decode(FacesContext facesContext, UIComponent component)
+    {
+        RendererUtils.checkParamValidity(facesContext, component, Html5BaseInputText.class);
+        Html5RendererUtils.decodeUIInput(facesContext, component);
+        if (!((Html5BaseInputText)component).isDisabled())
+        {
+            Html5RendererUtils.decodeClientBehaviors(facesContext, component);
+        }
+    }
+
+    public Object getConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue) throws ConverterException
+    {
+        RendererUtils.checkParamValidity(facesContext, uiComponent, UIOutput.class);
+        return RendererUtils.getConvertedUIOutputValue(facesContext,
+                                                       (UIOutput)uiComponent,
+                                                       submittedValue);
     }
 
 }

@@ -33,9 +33,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.myfaces.shared</groupId>
-            <artifactId>myfaces-shared-html5</artifactId>
-            <version>${myfaces-shared-html5-version}</version>
+            <groupId>org.apache.myfaces.commons</groupId>
+            <artifactId>myfaces-commons-utils20</artifactId>
+            <version>${myfaces-commons20-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.myfaces.commons</groupId>
+            <artifactId>myfaces-components20</artifactId>
+            <version>${myfaces-commons20-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.buildtools</groupId>
@@ -378,6 +383,7 @@
     </profiles>
 
     <properties>
+        <myfaces-commons20-version>1.0.1</myfaces-commons20-version>
         <myfaces-builder-plugin-version>1.0.8</myfaces-builder-plugin-version>
         <myfaces-builder-annotations-version>1.0.5</myfaces-builder-annotations-version>
     </properties>

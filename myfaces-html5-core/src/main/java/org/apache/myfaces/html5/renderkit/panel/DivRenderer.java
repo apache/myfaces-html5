@@ -29,16 +29,11 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.panel.AbstractDiv;
-import org.apache.myfaces.html5.renderkit.util.HTML5;
-import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
-import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
-import org.apache.myfaces.html5.renderkit.util.PassThroughClientBehaviorEvents;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
-import org.apache.myfaces.shared_impl.renderkit.html.HtmlRendererUtils;
+import org.apache.myfaces.html5.renderkit.util.*;
 
 /**
  * Div renderer.
@@ -47,7 +42,7 @@ import org.apache.myfaces.shared_impl.renderkit.html.HtmlRendererUtils;
  * 
  */
 @JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Div", type = "org.apache.myfaces.html5.Div")
-public class DivRenderer extends HtmlRenderer
+public class DivRenderer extends Renderer
 {
 
     private static final Logger log = Logger.getLogger(DivRenderer.class.getName());
@@ -112,7 +107,7 @@ public class DivRenderer extends HtmlRenderer
         // Check for npe
         super.decode(context, component);
 
-        HtmlRendererUtils.decodeClientBehaviors(context, component);
+        Html5RendererUtils.decodeClientBehaviors(context, component);
     }
 
 }

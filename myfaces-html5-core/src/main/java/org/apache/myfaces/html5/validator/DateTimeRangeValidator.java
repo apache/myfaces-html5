@@ -35,9 +35,9 @@ import javax.faces.validator.ValidatorException;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFValidator;
 import org.apache.myfaces.html5.component.input.HtmlInputDateTime;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.input.util.Html5DateTimeFormatUtils;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
 
 /**
  * Validate that the date entered is within a given range. Rendered min/max attributes of hx:inputDateTime is driven by
@@ -89,7 +89,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
                 catch (ParseException e)
                 {
                     throw new ValidatorException(new FacesMessage("Unable to resolve minimum for component "
-                            + RendererUtils.getPathToComponent(uiComponent) + "."), e);
+                            + ComponentUtils.getPathToComponent(uiComponent) + "."), e);
                 }
 
                 Date resolvedMaximum = null;
@@ -100,7 +100,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
                 catch (ParseException e)
                 {
                     throw new ValidatorException(new FacesMessage("Unable to resolve maximum for component "
-                            + RendererUtils.getPathToComponent(uiComponent) + "."), e);
+                            + ComponentUtils.getPathToComponent(uiComponent) + "."), e);
                 }
 
                 if (resolvedMinimum != null && resolvedMaximum != null)
@@ -109,7 +109,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
                     {
                         // not a ValidatorException since state is illegal
                         throw new FacesException("Minimum value is before than maximum for component "
-                                + RendererUtils.getPathToComponent(uiComponent) + ".");
+                                + ComponentUtils.getPathToComponent(uiComponent) + ".");
                     }
                     else
                     {
@@ -120,7 +120,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
                             else
                                 throw new ValidatorException(
                                         new FacesMessage("Submitted value is not in allowed range for component "
-                                                + RendererUtils.getPathToComponent(uiComponent) + ". Range is "
+                                                + ComponentUtils.getPathToComponent(uiComponent) + ". Range is "
                                                 + resolvedMinimum.toString() + " - " + resolvedMaximum.toString() + "."));
                         }
                     }
@@ -132,7 +132,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
                         throw new ValidatorException(new FacesMessage(this.lessThanMinimumMessage));
                     else
                         throw new ValidatorException(new FacesMessage("Value is before minimum for component "
-                                + RendererUtils.getPathToComponent(uiComponent) + ". Minimum value is "
+                                + ComponentUtils.getPathToComponent(uiComponent) + ". Minimum value is "
                                 + resolvedMinimum.toString() + "."));
                 }
 
@@ -142,7 +142,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
                         throw new ValidatorException(new FacesMessage(this.exceedMaximumMessage));
                     else
                         throw new ValidatorException(new FacesMessage("Value is after maximum for component "
-                                + RendererUtils.getPathToComponent(uiComponent) + ". Maximum value is "
+                                + ComponentUtils.getPathToComponent(uiComponent) + ". Maximum value is "
                                 + resolvedMaximum.toString() + "."));
                 }
             }

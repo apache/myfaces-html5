@@ -21,7 +21,6 @@ package org.apache.myfaces.html5.renderkit.util;
 import static org.apache.myfaces.html5.renderkit.util.AttributeMap.map;
 import static org.apache.myfaces.html5.renderkit.util.HTML5.*;
 import static org.apache.myfaces.html5.renderkit.util.JsfProperties.*;
-import org.apache.myfaces.html5.renderkit.util.PassThroughAttributeGroups;
 
 import java.util.Map;
 
@@ -49,6 +48,10 @@ public interface PassThroughAttributes
         .attr(HEIGHT_PROP)
         .unmodifiable();
 
+    Map<String, String> BASE_INPUT = map(13)
+        .attrs(PassThroughAttributeGroups.COMMON_INPUT_PROPS)
+        .unmodifiable();
+
     Map<String, String> INPUT_COLOR = map(4)
         .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
         .attrs(PassThroughAttributeGroups.HTML5_INPUT_PROPS)
@@ -72,7 +75,9 @@ public interface PassThroughAttributes
         .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
         .attr(AUTOFOCUS_PROP)
         .attr(REQUIRED_PROP)
-        .attr(MAXLENGTH_PROP)
+        .attr(COLS_PROP)
+        .attr(ROWS_PROP)
+        .attr(WRAP_PROP)
         .unmodifiable();
 
     Map<String, String> INPUT_EMAIL = map(7)
@@ -134,5 +139,5 @@ public interface PassThroughAttributes
         .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
         .attrs(PassThroughAttributeGroups.HTML_GLOBAL_PROPS)
         .unmodifiable();
-    
+
 }

@@ -3,12 +3,7 @@ package org.apache.myfaces.html5.renderkit.output;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.output.AbstractProgress;
 import org.apache.myfaces.html5.renderkit.panel.DivRenderer;
-import org.apache.myfaces.html5.renderkit.util.HTML5;
-import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
-import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
-import org.apache.myfaces.html5.renderkit.util.PassThroughClientBehaviorEvents;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
-import org.apache.myfaces.shared_html5.renderkit.html.HtmlRenderer;
+import org.apache.myfaces.html5.renderkit.util.*;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -16,6 +11,7 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +25,7 @@ import java.util.logging.Logger;
  *
  */
 @JSFRenderer(renderKitId = "HTML_BASIC", family = "org.apache.myfaces.Progress", type = "org.apache.myfaces.html5.Progress")
-public class ProgressRenderer extends HtmlRenderer
+public class ProgressRenderer extends Renderer
 {
     private static final Logger log = Logger.getLogger(DivRenderer.class.getName());
 

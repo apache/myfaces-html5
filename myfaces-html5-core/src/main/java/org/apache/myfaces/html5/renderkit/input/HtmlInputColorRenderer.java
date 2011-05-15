@@ -31,11 +31,12 @@ import javax.faces.convert.ConverterException;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
 import org.apache.myfaces.html5.component.input.Html5BaseInputText;
 import org.apache.myfaces.html5.component.input.HtmlInputColor;
+import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlTextInputSuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.PassThroughAttributes;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 /**
  * Renderer for < hx:inputColor > component.
@@ -64,7 +65,7 @@ public class HtmlInputColorRenderer extends Html5BaseInputTextRenderer
         if (submittedValue != null && !(submittedValue instanceof String))
         {
             throw new IllegalArgumentException("Submitted value of type String for component : "
-                    + RendererUtils.getPathToComponent(uiComponent) + "expected");
+                    + ComponentUtils.getPathToComponent(uiComponent) + "expected");
         }
 
         RendererUtils.checkParamValidity(facesContext, uiComponent, HtmlInputColor.class);
@@ -93,7 +94,7 @@ public class HtmlInputColorRenderer extends Html5BaseInputTextRenderer
     }
 
     @Override
-    protected String getInputHtmlType(UIComponent component)
+    protected String getInputHtmlType(Html5BaseInputText component)
     {
         return HTML5.INPUT_TYPE_COLOR;
     }
@@ -152,7 +153,7 @@ class ColorConverter implements Converter
                     // new Object[] { _MessageUtils.getLabel(facesContext,
                     // uiComponent) }));
                     // XXX: externalize and localize the message later!
-                    throw new ConverterException(new FacesMessage("Provided value for component " + RendererUtils.getPathToComponent(uiComponent) + " is not a valid simple color: "
+                    throw new ConverterException(new FacesMessage("Provided value for component " + ComponentUtils.getPathToComponent(uiComponent) + " is not a valid simple color: "
                             + value));
                 }
             }

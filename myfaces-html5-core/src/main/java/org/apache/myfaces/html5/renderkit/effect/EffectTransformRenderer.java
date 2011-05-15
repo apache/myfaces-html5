@@ -24,7 +24,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRendere
 import org.apache.myfaces.html5.component.effect.AbstractBaseEffect;
 import org.apache.myfaces.html5.component.effect.AbstractEffectTransform;
 import org.apache.myfaces.html5.renderkit.util.CSS;
-import org.apache.myfaces.shared_html5.renderkit.RendererUtils;
+import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 import javax.faces.context.FacesContext;
 import java.text.NumberFormat;
