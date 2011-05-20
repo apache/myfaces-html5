@@ -24,7 +24,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
 public interface WidgetVarProperty {
 
     /**
-     * Defines the Javascript variable name of the object created by this component.</br>
+     * Defines the Javascript variable name of the object created by this component.<br/>
      * Defaults to 'widget_' followed by the client id of the component where ':' characters in
      * client id of the component are replaced with '_'.
      */

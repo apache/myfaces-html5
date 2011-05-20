@@ -29,7 +29,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  * simple color definition</a>. A simple valid color is basically hex representation of the colors, likewise used in
  * CSS. e.g: #FFAABB, #12ab3C. 
  * <br/>
- * Extends the functionality of < h:inputText >.
+ * Extends the functionality of &lt; h:inputText &gt;.
  * 
  * @author Ali Ok
  * 

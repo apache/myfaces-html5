@@ -107,9 +107,6 @@
                         <goals>
                             <goal>build-metadata</goal>
                         </goals>
-                        <configuration>
-                            <outputFile>META-INF/myfaces-html5-metadata.xml</outputFile>
-                        </configuration>
                     </execution>
 
                     <!-- generate faces-config.xml -->
@@ -118,7 +115,6 @@
                         <configuration>
                             <templateFile>faces-config20.vm</templateFile>
                             <xmlFile>META-INF/faces-config.xml</xmlFile>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                         </configuration>
                         <goals>
                             <goal>make-config</goal>
@@ -134,7 +130,6 @@
                         <configuration>
                             <jsfVersion>20</jsfVersion>
                             <templateComponentName>componentClass20.vm</templateComponentName>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                         </configuration>
                     </execution>
 
@@ -147,7 +142,6 @@
                         <configuration>
                             <jsfVersion>12</jsfVersion>
                             <templateValidatorName>validatorClass12.vm</templateValidatorName>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                         </configuration>
                     </execution>
 
@@ -157,7 +151,6 @@
                         <configuration>
                             <jsfVersion>12</jsfVersion>
                             <templateTagName>tagClass12.vm</templateTagName>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                         </configuration>
                         <goals>
                             <goal>make-tags</goal>
@@ -172,7 +165,6 @@
                             <xmlFile>META-INF/html5-hx.tld</xmlFile>
                             <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
                             <templateFile>jsp-tld.vm</templateFile>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                             <params>
                                 <shortname>hx</shortname>
                                 <uri>http://myfaces.apache.org/html5/html</uri>
@@ -195,7 +187,6 @@
                             <xmlFile>META-INF/html5-hx.taglib.xml</xmlFile>
                             <xmlBaseFile>src/main/resources/META-INF/facelets-taglib-base.xml</xmlBaseFile>
                             <templateFile>facelets-taglib20.vm</templateFile>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                             <params>
                                 <shortname>hx</shortname>
                                 <uri>http://myfaces.apache.org/html5/html</uri>
@@ -217,7 +208,6 @@
                             <xmlFile>META-INF/html5-fx.tld</xmlFile>
                             <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
                             <templateFile>jsp-tld.vm</templateFile>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                             <params>
                                 <shortname>fx</shortname>
                                 <uri>http://myfaces.apache.org/html5/core</uri>
@@ -240,7 +230,6 @@
                             <xmlFile>META-INF/html5-fx.taglib.xml</xmlFile>
                             <xmlBaseFile>src/main/resources/META-INF/facelets-taglib-base.xml</xmlBaseFile>
                             <templateFile>facelets-taglib20.vm</templateFile>
-                            <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                             <params>
                                 <shortname>fx</shortname>
                                 <uri>http://myfaces.apache.org/html5/core</uri>
@@ -253,6 +242,54 @@
                             <goal>make-config</goal>
                         </goals>
                     </execution>
+                    
+                    <!-- generate <hx> JSP tld file -->
+                    <execution>
+                        <id>make-html5-hx-tld-forsite</id>
+                        <phase>site</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/tlddoc-facelets</outputDirectory>
+                            <xmlFile>META-INF/html5-hx.tld</xmlFile>
+                            <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
+                            <templateFile>jsp-tld.vm</templateFile>
+                            <params>
+                                <shortname>hx</shortname>
+                                <uri>http://myfaces.apache.org/html5/html</uri>
+                                <displayname>HTML5 Html Comp Lib.</displayname>
+                                <description>HTML5 Html component library for MyFaces.</description>
+                            </params>
+                            <modelIds>
+                                <modelId>myfaces-html5-core</modelId>
+                            </modelIds>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+                    <!-- generate <fx> JSP tld file -->
+                    <execution>
+                        <id>make-html5-fx-tld-forsite</id>
+                        <phase>site</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/tlddoc-facelets</outputDirectory>
+                            <xmlFile>META-INF/html5-fx.tld</xmlFile>
+                            <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
+                            <templateFile>jsp-tld.vm</templateFile>
+                            <params>
+                                <shortname>fx</shortname>
+                                <uri>http://myfaces.apache.org/html5/core</uri>
+                                <displayname>HTML5 Core Comp Lib.</displayname>
+                                <description>HTML5 core component library for MyFaces.</description>
+                            </params>
+                            <modelIds>
+                                <modelId>myfaces-html5-core</modelId>
+                            </modelIds>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+                    
                 </executions>
             </plugin>
         </plugins>
@@ -272,72 +309,39 @@
                         -Running the install and site with generate-site profile fails since these executions is run already on install phase!
                         -So, for facelets documentation, only need to run site goal!
                     -->
+                    
                     <plugin>
                         <groupId>org.apache.myfaces.buildtools</groupId>
                         <artifactId>myfaces-builder-plugin</artifactId>
                         <version>${myfaces-builder-plugin-version}</version>
                         <executions>
                             <!-- first, build metadata. facelets tag documentation will be generated from this. -->
+                            <!-- 
                             <execution>
                                 <id>build-html5-metadata-forsite</id>
                                 <phase>site</phase>
                                 <goals>
                                     <goal>build-metadata</goal>
                                 </goals>
-                                <configuration>
-                                    <outputFile>META-INF/myfaces-html5-metadata.xml</outputFile>
-                                </configuration>
-                            </execution>
-                            <!-- generate <hx> JSP tld file -->
+                            </execution> -->
                             <execution>
-                                <id>make-html5-hx-tld-forsite</id>
-                                <phase>site</phase>
+                                <id>site-tagdoc-content</id>
                                 <configuration>
-                                    <outputDirectory>${project.build.directory}/tlddoc-facelets</outputDirectory>
-                                    <xmlFile>META-INF/html5-hx.tld</xmlFile>
-                                    <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
-                                    <templateFile>jsp-tld.vm</templateFile>
-                                    <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
-                                    <params>
-                                        <shortname>hx</shortname>
-                                        <uri>http://myfaces.apache.org/html5/html</uri>
-                                        <displayname>HTML5 Html Comp Lib.</displayname>
-                                        <description>HTML5 Html component library for MyFaces.</description>
-                                    </params>
                                     <modelIds>
                                         <modelId>myfaces-html5-core</modelId>
                                     </modelIds>
+                                    <taglibs>
+                                        <fx>http://myfaces.apache.org/html5/core</fx>
+                                        <hx>http://myfaces.apache.org/html5/html</hx>
+                                    </taglibs>
                                 </configuration>
                                 <goals>
-                                    <goal>make-config</goal>
-                                </goals>
-                            </execution>
-                            <!-- generate <fx> JSP tld file -->
-                            <execution>
-                                <id>make-html5-fx-tld-forsite</id>
-                                <phase>site</phase>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/tlddoc-facelets</outputDirectory>
-                                    <xmlFile>META-INF/html5-fx.tld</xmlFile>
-                                    <xmlBaseFile>src/main/resources/META-INF/jsp-tld-base.tld</xmlBaseFile>
-                                    <templateFile>jsp-tld.vm</templateFile>
-                                    <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
-                                    <params>
-                                        <shortname>fx</shortname>
-                                        <uri>http://myfaces.apache.org/html5/core</uri>
-                                        <displayname>HTML5 Core Comp Lib.</displayname>
-                                        <description>HTML5 core component library for MyFaces.</description>
-                                    </params>
-                                    <modelIds>
-                                        <modelId>myfaces-html5-core</modelId>
-                                    </modelIds>
-                                </configuration>
-                                <goals>
-                                    <goal>make-config</goal>
+                                    <goal>tagdoc-content</goal>
                                 </goals>
                             </execution>
                         </executions>
                     </plugin>
+                    
                 </plugins>
             </build>
 
@@ -349,8 +353,13 @@
                         <artifactId>maven-taglib-plugin</artifactId>
                         <version>2.4</version>
                             <configuration>
-                                <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
+                            <!-- 
+                                <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir> -->
+                                <srcDir>${basedir}/target/tlddoc-facelets</srcDir>
+                                <!-- 
                                 <tldDocDir>${basedir}/target/site/tlddoc-facelets</tldDocDir>
+                                 -->
+                                <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
                             </configuration>
                     </plugin>
 
@@ -361,13 +370,12 @@
                         <reportSets>
                             <reportSet>
                                 <configuration>
-                                    <metadataFile>META-INF/myfaces-html5-metadata.xml</metadataFile>
                                     <modelIds>
                                         <modelId>myfaces-html5-core</modelId>
                                     </modelIds>
                                     <taglibs>
                                         <fx>http://myfaces.apache.org/html5/core</fx>
-                                        <hx>http://myfaces.apache.org/html5/core</hx>
+                                        <hx>http://myfaces.apache.org/html5/html</hx>
                                     </taglibs>
                                 </configuration>
                                 <reports>

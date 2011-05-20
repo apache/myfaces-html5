@@ -73,7 +73,7 @@ public class DragSourceBehaviorHandler extends javax.faces.view.facelets.Behavio
 
     /**
      * The types of the dropTargets that drags from this dragSource can be applied. Can be comma separated set or
-     * String[] or Collection<String>. <br/>
+     * String[] or Collection&lt;String&gt;. <br/>
      * If defined, drags from this dragSource will work into only the dropTargets that have one of the same type. The
      * drag will be accepted if 'types' of hx:dropTarget has one of the types defined here.
      */
@@ -81,7 +81,7 @@ public class DragSourceBehaviorHandler extends javax.faces.view.facelets.Behavio
     private final TagAttribute _dropTargetTypes;
 
     /**
-     * Data to send to server when a successful drag&drop happens from this source. <br/>
+     * Data to send to server when a successful drag and drop happens from this source. <br/>
      * The param can be received using the {@link DropEvent#getParam()} method at dropListener of the fx:dropTarget.
      */
     @JSFFaceletAttribute(name = "param", className = "javax.el.ValueExpression", deferredValueType = "java.lang.String")

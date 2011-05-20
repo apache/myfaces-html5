@@ -56,59 +56,59 @@ public abstract class AbstractHtmlInputDateTime extends org.apache.myfaces.html5
      * Specified value will be multiplied with the step scale factor which is different for each type.
      * <br/>
      * Information about the step for each type is:
-     * 
-     *   <table border="1">
-     *      <tr>
-     *          <th>type</th>
-     *          <th>Description for step scale factor</th>
-     *          <th>Default step value(what 'any' means)</th>
-     *          <th>Applicable minimum value of step</th>
-     *          <th>Applicable maximum value of step</th>
-     *      <tr>
-     *      <tr>
-     *          <td>datetime</td>
-     *          <td>Step should be expressed in seconds.</td>
-     *          <td>1 minute</td>
-     *          <td>0.01 (10 miliseconds)</td>
-     *          <td>N/A</td> //XXX: test it again
-     *      </tr>
-     *      <tr>
-     *          <td>date</td>
-     *          <td>Step should be expressed in days.</td>
-     *          <td>1 day</td>
-     *          <td>1 (1 day)</td>
-     *          <td>N/A</td> //XXX: test it again
-     *      </tr>
-     *      <tr>
-     *          <td>time</td>
-     *          <td>Step should be expressed in seconds. If the step is less than 1 second, browser should show the miliseconds input too.</td>
-     *          <td>1 minute</td>
-     *          <td>0.01 (10 miliseconds)</td>
-     *          <td>N/A</td> //XXX: test it again
-     *      </tr>
-     *      <tr>
-     *          <td>month</td>
-     *          <td>Step should be expressed in months.</td>
-     *          <td>1 month</td>
-     *          <td>1 (1 month)</td>
-     *          <td>N/A</td> //XXX: test it again
-     *      </tr>
-     *      <tr>
-     *          <td>week</td>
-     *          <td>Step should be expressed in weeks.</td>
-     *          <td>1 week</td>
-     *          <td>1 (1 week)</td>
-     *          <td>N/A</td> //XXX: test it again
-     *      </tr>
-     *      <tr>
-     *          <td>datetime-local</td>
-     *          <td>Step should be expressed in seconds.</td>
-     *          <td>1 minute</td>
-     *          <td>0.01 (10 miliseconds)</td>
-     *          <td>N/A</td> //XXX: test it again
-     *      </tr>
-     *   </table>
-     * 
+     * <code>
+     *   &lt;table border="1"&gt;
+     *      &lt;tr&gt;
+     *          &lt;th&gt;type&lt;/th&gt;
+     *          &lt;th&gt;Description for step scale factor&lt;/th&gt;
+     *          &lt;th&gt;Default step value(what 'any' means)&lt;/th&gt;
+     *          &lt;th&gt;Applicable minimum value of step&lt;/th&gt;
+     *          &lt;th&gt;Applicable maximum value of step&lt;/th&gt;
+     *      &lt;tr&gt;
+     *      &lt;tr&gt;
+     *          &lt;td&gt;datetime&lt;/td&gt;
+     *          &lt;td&gt;Step should be expressed in seconds.&lt;/td&gt;
+     *          &lt;td&gt;1 minute&lt;/td&gt;
+     *          &lt;td&gt;0.01 (10 miliseconds)&lt;/td&gt;
+     *          &lt;td&gt;N/A&lt;/td&gt; //XXX: test it again
+     *      &lt;/tr&gt;
+     *      &lt;tr&gt;
+     *          &lt;td&gt;date&lt;/td&gt;
+     *          &lt;td&gt;Step should be expressed in days.&lt;/td&gt;
+     *          &lt;td&gt;1 day&lt;/td&gt;
+     *          &lt;td&gt;1 (1 day)&lt;/td&gt;
+     *          &lt;td&gt;N/A&lt;/td&gt; //XXX: test it again
+     *      &lt;/tr&gt;
+     *      &lt;tr&gt;
+     *          &lt;td&gt;time&lt;/td&gt;
+     *          &lt;td&gt;Step should be expressed in seconds. If the step is less than 1 second, browser should show the miliseconds input too.&lt;/td&gt;
+     *          &lt;td&gt;1 minute&lt;/td&gt;
+     *          &lt;td&gt;0.01 (10 miliseconds)&lt;/td&gt;
+     *          &lt;td&gt;N/A&lt;/td&gt; //XXX: test it again
+     *      &lt;/tr&gt;
+     *      &lt;tr&gt;
+     *          &lt;td&gt;month&lt;/td&gt;
+     *          &lt;td&gt;Step should be expressed in months.&lt;/td&gt;
+     *          &lt;td&gt;1 month&lt;/td&gt;
+     *          &lt;td&gt;1 (1 month)&lt;/td&gt;
+     *          &lt;td&gt;N/A&lt;/td&gt; //XXX: test it again
+     *      &lt;/tr&gt;
+     *      &lt;tr&gt;
+     *          &lt;td&gt;week&lt;/td&gt;
+     *          &lt;td&gt;Step should be expressed in weeks.&lt;/td&gt;
+     *          &lt;td&gt;1 week&lt;/td&gt;
+     *          &lt;td&gt;1 (1 week)&lt;/td&gt;
+     *          &lt;td&gt;N/A&lt;/td&gt; //XXX: test it again
+     *      &lt;/tr&gt;
+     *      &lt;tr&gt;
+     *          &lt;td&gt;datetime-local&lt;/td&gt;
+     *          &lt;td&gt;Step should be expressed in seconds.&lt;/td&gt;
+     *          &lt;td&gt;1 minute&lt;/td&gt;
+     *          &lt;td&gt;0.01 (10 miliseconds)&lt;/td&gt;
+     *          &lt;td&gt;N/A&lt;/td&gt; //XXX: test it again
+     *      &lt;/tr&gt;
+     *   &lt;/table&gt;
+     * </code>
      */
     @JSFProperty(deferredValueType="java.lang.Double", defaultValue="Double.MIN_VALUE")
     public abstract double getStep();

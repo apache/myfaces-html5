@@ -40,7 +40,7 @@ public interface Html5InputProperties
     public abstract Object getSuggestions();
 
     /**
-     * Id of <hx:datalist> or HTML <datalist> for suggestions mechanism. By this way, suggestion options(datalist) can
+     * Id of &lt;hx:datalist&gt; or HTML &lt;datalist&gt; for suggestions mechanism. By this way, suggestion options(datalist) can
      * be shared across several input elements. If this attribute is set, other suggestion mechanisms(with
      * f:selectItem(s) children or 'suggestions' attribute) should not be used
      * 

@@ -46,7 +46,7 @@ public interface TransitionProperties {
      * <li>ease-in</li>
      * <li>ease-out</li>
      * <li>ease-in-out</li>
-     * <li>cubic-bezier(<number>, <number>, <number>, <number>)</li>
+     * <li>cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)</li>
      * </ul>
      */
     @JSFProperty(deferredValueType = "java.lang.String")

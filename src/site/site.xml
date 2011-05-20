@@ -52,23 +52,27 @@
         </links>
 
         <menu name="Html5 Support for Apache MyFaces" inherit="top">
-            <item name="Overview"       href="/index.html"/>
-            <item name="Building"       href="/building.html"/>
-            <item name="Features"       href="/features.html"/>
+            <item name="Overview"       href="http://myfaces.apache.org/html5/index.html"/>
+            <item name="Building"       href="http://myfaces.apache.org/html5/building.html"/>
+            <item name="Features"       href="http://myfaces.apache.org/html5/features.html"/>
             <item name="Showcase"       href="http://bit.ly/myfaces-html5-demo"/>
         </menu>
 
+        <menu ref="modules" inherit="top"/>
+
         <menu name="Documentation" inherit="top">
-            <item name="Getting Started"        href="/gettingstarted.html"/>
-            <item name="Facelets Tag Docs"      href="/myfaces-html5-core/tlddoc-facelets/index.html"/>
+            <item name="Getting Started"        href="http://myfaces.apache.org/html5/gettingstarted.html"/>
+            <item name="Facelets Tag Docs"      href="http://myfaces.apache.org/html5/myfaces-html5-core/tlddoc-facelets/index.html"/>
         </menu>
 
         <menu name="Project Documentation" inherit="top">
-            <item name="Mailing Lists"          href="/mail-lists.html"/>
-            <item name="Project License"        href="/license.html"/>
-            <item name="Project Summary"        href="/project-summary.html"/>
-            <item name="Source Repository"      href="/source-repository.html"/>
+            <item name="Mailing Lists"          href="http://myfaces.apache.org/html5/mail-lists.html"/>
+            <item name="Project License"        href="http://myfaces.apache.org/html5/license.html"/>
+            <item name="Project Summary"        href="http://myfaces.apache.org/html5/project-summary.html"/>
+            <item name="Source Repository"      href="http://myfaces.apache.org/html5/source-repository.html"/>
         </menu>
+
+        <menu ref="reports" inherit="top"/>
 
         <menu name="Foundation" inherit="top">
             <item name="ASF"            href="http://www.apache.org/" />
