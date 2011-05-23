@@ -24,5 +24,3 @@ Summary
   This project delivers a new set of JSF components to integrate browsers with Java Server Faces server-side rendering technology.
   
   An online running example application is deployed at <<{{{http://bit.ly/myfaces-html5-demo}this}}>> location.
-  
-  The project web site can be found <<{{{http://people.apache.org/~aliok/myfaces-html5/target/site/index.html}here}}>>.

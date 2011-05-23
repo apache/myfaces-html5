@@ -62,7 +62,8 @@
 
         <menu name="Documentation" inherit="top">
             <item name="Getting Started"        href="http://myfaces.apache.org/html5/gettingstarted.html"/>
-            <item name="Facelets Tag Docs"      href="http://myfaces.apache.org/html5/myfaces-html5-core/tlddoc-facelets/index.html"/>
+            <item name="Tag Documentation"      href="http://myfaces.apache.org/html5/myfaces-html5-core/tagdoc.html"/>
+            <item name="Taglibdoc Documentation"      href="http://myfaces.apache.org/html5/myfaces-html5-core/tlddoc/index.html"/>
         </menu>
 
         <menu name="Project Documentation" inherit="top">
