@@ -27,15 +27,12 @@ Checking out the source
  $ svn checkout http://svn.apache.org/repos/asf/myfaces/gsoc/html5-comp-lib/trunk html5-comp-lib-project
 +----------------------------------------------+
 
- The project consists of 3 submodules
+ The project consists of 2 submodules
  
  * html5-comp-lib-core : The component library
  
  * html5-comp-lib-examples : The example component showcase application
  
- * myfaces-shared-html5 : The shared code amongst MyFaces Core, MyFaces Tomahawk and this project.
-
-
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
