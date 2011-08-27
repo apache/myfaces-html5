@@ -32,6 +32,7 @@ import java.util.Map;
 public interface PassThroughAttributes
 {
     Map<String, String> AUDIO = map(13)
+        .attrs(PassThroughAttributeGroups.HTML_GLOBAL_PROPS)
         .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
         //media props
         .attr(PRELOAD_PROP)
@@ -102,14 +103,12 @@ public interface PassThroughAttributes
         .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
         .attrs(PassThroughAttributeGroups.HTML5_INPUT_PROPS)
         .attr(REQUIRED_PROP)
-        .attr(READONLY_PROP)
         .unmodifiable();
 
     Map<String, String> INPUT_DATE_TIME = map(6)
         .attrs(PassThroughAttributeGroups.HTML5_GLOBAL_PROPS)
         .attrs(PassThroughAttributeGroups.HTML5_INPUT_PROPS)
         .attr(REQUIRED_PROP)
-        .attr(READONLY_PROP)
         .unmodifiable();
 
     Map<String, String> PROGRESS = map(11)
