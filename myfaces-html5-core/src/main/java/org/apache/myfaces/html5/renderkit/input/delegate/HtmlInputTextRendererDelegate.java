@@ -94,7 +94,7 @@ public class HtmlInputTextRendererDelegate extends Html5BaseInputTextRenderer
         String type = component.getType();
         if (log.isLoggable(Level.FINE))
             log.fine("initial type is: " + type);
-        if (type == null || type.isEmpty())
+        if (type == null || type.length() == 0)
         { // if not set, set default value.
             if (log.isLoggable(Level.FINE))
                 log.fine("setting default type " + HTML5.INPUT_TYPE_TEXT);

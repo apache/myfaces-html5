@@ -264,7 +264,7 @@ public class Html5RendererUtils
         {
 
             String strValues = (String) value;
-            if (strValues.isEmpty())
+            if (strValues.length() == 0)
                 return defaultValue;
 
             // if value is comma separated words, split it
@@ -276,7 +276,7 @@ public class Html5RendererUtils
             {
                 strValueElement = strValueElement.trim();
 
-                if (!strValueElement.isEmpty())
+                if (strValueElement.length() > 0)
                     valuesCollection.add(strValueElement);
             }
         }

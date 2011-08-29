@@ -124,7 +124,7 @@ class ColorConverter implements Converter
     public Object getAsObject(FacesContext context, UIComponent uiComponent, String value) throws ConverterException
     {
 
-        if (value == null || value.toString().isEmpty())
+        if (value == null || value.toString().length() == 0)
         {
             return null;
         }
@@ -140,7 +140,7 @@ class ColorConverter implements Converter
             else
             {
                 String invalidColorMessage = component.getInvalidColorMessage();
-                if (invalidColorMessage != null && !invalidColorMessage.isEmpty())
+                if (invalidColorMessage != null && invalidColorMessage.length() > 0)
                 {
                     throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, invalidColorMessage,
                             invalidColorMessage));

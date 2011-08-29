@@ -42,7 +42,7 @@ public class Html5EmailConverter implements Converter
         if (value == null)
             return null;
 
-        if (value.isEmpty())
+        if (value.length() == 0)
             return null;
 
         String[] emails = value.split(",");

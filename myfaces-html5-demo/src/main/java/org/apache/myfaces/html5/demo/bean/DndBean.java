@@ -112,7 +112,7 @@ public class DndBean implements Serializable
     public void processJavaProjectDrop(DropEvent event) throws AbortProcessingException
     {
         String param = event.getParam();
-        if (param == null || param.isEmpty())
+        if (param == null || param.length() == 0)
             return;
 
         ApacheProject droppedProject = null;
@@ -140,7 +140,7 @@ public class DndBean implements Serializable
     public void processCProjectDrop(DropEvent event) throws AbortProcessingException
     {
         String param = event.getParam();
-        if (param == null || param.isEmpty())
+        if (param == null || param.length() == 0)
             return;
 
         ApacheProject droppedProject = null;
@@ -168,7 +168,7 @@ public class DndBean implements Serializable
     public void processProjectDrop(DropEvent event) throws AbortProcessingException
     {
         String param = event.getParam();
-        if (param == null || param.isEmpty())
+        if (param == null || param.length() == 0)
             return;
 
         ApacheProject droppedProject = null;

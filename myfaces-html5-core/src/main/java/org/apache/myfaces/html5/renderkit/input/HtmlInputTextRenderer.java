@@ -168,7 +168,7 @@ public class HtmlInputTextRenderer extends Renderer
         if (log.isLoggable(Level.FINE))
             log.fine("type is :" + type);
 
-        if (type == null || type.isEmpty())
+        if (type == null || type.length() == 0)
         {
             // set type to textarea, if no type is set and rows are set
             if (component.getRows() > HtmlInputText.ROWS_DEFAULT_VALUE)

@@ -44,7 +44,7 @@ public class Html5DateTimeFormatUtils
      */
     public static Date parseDateTime(String value, String type) throws ParseException
     {
-        if (value == null || value.isEmpty())
+        if (value == null || value.length() == 0)
             return null;
         
         if (HTML5.INPUT_TYPE_DATETIME.equals(type))
@@ -150,7 +150,7 @@ public class Html5DateTimeFormatUtils
     // http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#valid-global-date-and-time-string
     private static Date _parseGlobalDateTime(String value) throws ParseException
     {
-        if (value == null || value.isEmpty())
+        if (value == null || value.length() == 0)
             return null;
 
         boolean utcDateTime = value.charAt(value.length() - 1) == 'Z';
@@ -212,7 +212,7 @@ public class Html5DateTimeFormatUtils
     // http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#valid-local-date-and-time-string
     private static Date _parseLocalDateTime(String value) throws ParseException
     {
-        if (value == null || value.isEmpty())
+        if (value == null || value.length() == 0)
             return null;
 
         boolean hasMillis = value.indexOf('.') != -1;

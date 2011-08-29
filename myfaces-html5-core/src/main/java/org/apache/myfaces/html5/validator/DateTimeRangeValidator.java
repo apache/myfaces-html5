@@ -115,7 +115,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
                     {
                         if (dateValue.before(resolvedMinimum) || dateValue.after(resolvedMaximum))
                         {
-                            if (this.notInRangeMessage != null && !this.notInRangeMessage.isEmpty())
+                            if (this.notInRangeMessage != null && this.notInRangeMessage.length() > 0)
                                 throw new ValidatorException(new FacesMessage(this.notInRangeMessage));
                             else
                                 throw new ValidatorException(
@@ -128,7 +128,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
 
                 if (resolvedMinimum != null && dateValue.before(resolvedMinimum))
                 {
-                    if (this.lessThanMinimumMessage != null && !this.lessThanMinimumMessage.isEmpty())
+                    if (this.lessThanMinimumMessage != null && this.lessThanMinimumMessage.length() > 0)
                         throw new ValidatorException(new FacesMessage(this.lessThanMinimumMessage));
                     else
                         throw new ValidatorException(new FacesMessage("Value is before minimum for component "
@@ -138,7 +138,7 @@ public class DateTimeRangeValidator implements Validator, PartialStateHolder
 
                 if (resolvedMaximum != null && dateValue.after(resolvedMaximum))
                 {
-                    if (this.exceedMaximumMessage != null && !this.exceedMaximumMessage.isEmpty())
+                    if (this.exceedMaximumMessage != null && this.exceedMaximumMessage.length() > 0)
                         throw new ValidatorException(new FacesMessage(this.exceedMaximumMessage));
                     else
                         throw new ValidatorException(new FacesMessage("Value is after maximum for component "

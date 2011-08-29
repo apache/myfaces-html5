@@ -72,7 +72,7 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
              * attribute) should not be used
              */
             String idOfDatalist = component.getDataList();
-            if (idOfDatalist != null && !idOfDatalist.isEmpty() && shouldGenerateDatalist(component))
+            if (idOfDatalist != null && idOfDatalist.length() > 0 && shouldGenerateDatalist(component))
             {
                 // WIKI: put a wiki page about this error
                 throw new FacesException(

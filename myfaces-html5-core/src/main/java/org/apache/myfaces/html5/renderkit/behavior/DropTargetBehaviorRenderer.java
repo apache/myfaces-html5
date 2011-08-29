@@ -106,13 +106,13 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
 
         // get value of param set in fx:dragSource
         String param = requestParameterMap.get(MYFACES_HTML5_DND_PARAM_MIME_TYPE);
-        if (param == null || param.isEmpty())
+        if (param == null || param.length() == 0)
             param = null;
 
         // get other data values with accepted mime types
         Map<String, String> dropDataMap = null;
         String strReceivedDataMimeTypes = requestParameterMap.get(MYFACES_DND_FOUND_MIME_TYPES_KEY);
-        if (strReceivedDataMimeTypes != null && !strReceivedDataMimeTypes.isEmpty())
+        if (strReceivedDataMimeTypes != null && strReceivedDataMimeTypes.length() > 0)
         {
             dropDataMap = new HashMap<String, String>();
 
@@ -126,7 +126,7 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
                     continue;
 
                 String data = requestParameterMap.get(mimeType);
-                if (data != null && !data.isEmpty())
+                if (data != null && data.length() > 0)
                 {
                     dropDataMap.put(mimeType, data);
                 }
@@ -236,7 +236,7 @@ public class DropTargetBehaviorRenderer extends ClientBehaviorRenderer
 
     private void _checkAction(String action)
     {
-        if (action == null || action.isEmpty())
+        if (action == null || action.length() == 0)
             return;
 
         if (ALLOWED_ACTIONS.contains(action))

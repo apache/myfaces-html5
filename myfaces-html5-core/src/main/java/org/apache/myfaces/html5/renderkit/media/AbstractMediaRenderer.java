@@ -75,7 +75,7 @@ public abstract class AbstractMediaRenderer extends Renderer
         String src = RendererUtils.getStringValue(facesContext, component);
         if (log.isLoggable(Level.FINE))
             log.fine("writing src '" + src + "'");
-        if (src != null && !src.isEmpty())
+        if (src != null && src.length() > 0)
             writer.writeAttribute(HTML5.SRC_ATTR, src, "value");
 
         // no need to check the value of preload, it is bypassed anyway.
@@ -160,7 +160,7 @@ public abstract class AbstractMediaRenderer extends Renderer
                 writer.startElement(HTML5.SOURCE_ELEM, null);
 
                 // src is reqired to be present and not empty!
-                if (mediaInfo.getSrc() == null || mediaInfo.getSrc().isEmpty())
+                if (mediaInfo.getSrc() == null || mediaInfo.getSrc().length() == 0)
                     // WIKI: add a wiki page
                     throw new FacesException("'src' field of MediaInfo has to be defined and nonempty for component " + ComponentUtils.getPathToComponent(uiComponent) + ".");
 
@@ -198,8 +198,8 @@ public abstract class AbstractMediaRenderer extends Renderer
         String contentType = mediaInfo.getContentType();
         String codec = mediaInfo.getCodec();
 
-        boolean contentTypeDefined = contentType != null && !contentType.isEmpty();
-        boolean codecDefined = codec != null && !codec.isEmpty();
+        boolean contentTypeDefined = contentType != null && contentType.length() > 0;
+        boolean codecDefined = codec != null && codec.length() > 0;
 
         // if codec is set, then contentType should be set too!
         if (codecDefined && !contentTypeDefined)
