@@ -24,14 +24,14 @@ Checking out the source
  To check out the sources, you need to run the following command
 
 +----------------------------------------------+ 
- $ svn checkout http://svn.apache.org/repos/asf/myfaces/gsoc/html5-comp-lib/trunk html5-comp-lib-project
+ $ svn checkout http://svn.apache.org/repos/asf/myfaces/html5/trunk myfaces-html5-project
 +----------------------------------------------+
 
  The project consists of 2 submodules
  
- * html5-comp-lib-core : The component library
+ * myfaces-html5-core : The component library
  
- * html5-comp-lib-examples : The example component showcase application
+ * myfaces-html5-demo : The component showcase application
  
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,7 +44,7 @@ Building The Project
   mvn install
 +----------------------------------------------+
 
-  Since the dependencies are downloaded by Maven, building the whole project (core, shared and showcase) will take around 3 minutes 
+  Since the dependencies are downloaded by Maven, building the whole project (core and showcase) will take around 3 minutes
   for the first time, (if the dependencies are not installed previously on your machine) depending on your internet connection. 
 
 
@@ -53,14 +53,14 @@ Building The Project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Running Showcase Application
 
-  You need to go to html5-comp-lib-examples folder and run a jetty:run to run the showcase application:
+  You need to go to myfaces-html5-demo folder and run a jetty:run to run the showcase application:
 
 +----------------------------------------------+
-  cd html5-comp-lib-examples
+  cd myfaces-html5-demo
   mvn jetty:run
 +----------------------------------------------+
   
-  The showcase application will be running at <http://localhost:8080/html5-comp-lib-examples/index.jsf>
+  The showcase application will be running at <http://localhost:8080/myfaces-html5-demo/index.jsf>
   
   Again, since the dependencies are downloaded by Maven, running the showcase application will take about 2 minutes for the first time.
 
