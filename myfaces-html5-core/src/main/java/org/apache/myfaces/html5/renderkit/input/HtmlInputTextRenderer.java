@@ -30,8 +30,8 @@ import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
+import org.apache.myfaces.commons.util.DebugUtils;
 import org.apache.myfaces.html5.component.input.HtmlInputText;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlInputTextRendererDelegate;
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlTextAreaRendererDelegate;
 import org.apache.myfaces.html5.renderkit.util.JsfProperties;
@@ -111,7 +111,7 @@ public class HtmlInputTextRenderer extends Renderer
         }
         else
         {
-            throw new IllegalStateException("Input type of component " + ComponentUtils.getPathToComponent(component) + " is not one of the expected types: \""
+            throw new IllegalStateException("Input type of component " + DebugUtils.getPathToComponent(component) + " is not one of the expected types: \""
                     + JsfProperties.INPUTTEXT_TYPE_TEXT + "\", \"" + JsfProperties.INPUTTEXT_TYPE_SEARCH + "\", \""
                     + JsfProperties.INPUTTEXT_TYPE_URL + "\" ,\"" + JsfProperties.INPUTTEXT_TYPE_TEL + "\". Provided: \""
                     + type + "\".");
@@ -184,7 +184,7 @@ public class HtmlInputTextRenderer extends Renderer
         else
         {
             if (!(Arrays.asList(ALLOWED_INPUT_TYPES).contains(type)))
-                throw new FacesException("\"type\" attribute of component " + ComponentUtils.getPathToComponent(uiComponent) + " can be one of " + Arrays.toString(ALLOWED_INPUT_TYPES)
+                throw new FacesException("\"type\" attribute of component " + DebugUtils.getPathToComponent(uiComponent) + " can be one of " + Arrays.toString(ALLOWED_INPUT_TYPES)
                         + ". You provided: \"" + type + "\"");
         }
     }

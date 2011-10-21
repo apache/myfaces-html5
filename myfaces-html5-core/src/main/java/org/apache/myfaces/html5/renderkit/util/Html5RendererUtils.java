@@ -18,9 +18,15 @@
  */
 package org.apache.myfaces.html5.renderkit.util;
 
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -31,9 +37,10 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.Logger;
+
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.commons.util.DebugUtils;
 
 /**
  * @author Ali Ok
@@ -725,7 +732,7 @@ public class Html5RendererUtils
         } else {
             log.warning(NON_SUBMITTED_VALUE_WARNING +
                     " Component : " +
-                    ComponentUtils.getPathToComponent(component));
+                    DebugUtils.getPathToComponent(component));
         }
     }
 

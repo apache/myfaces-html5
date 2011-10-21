@@ -34,13 +34,13 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
+import org.apache.myfaces.commons.util.DebugUtils;
+import org.apache.myfaces.commons.util.SelectItemsIterator;
 import org.apache.myfaces.html5.component.input.Html5BaseInputText;
 import org.apache.myfaces.html5.component.input.HtmlInputText;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.JsfProperties;
 import org.apache.myfaces.html5.renderkit.util.RendererUtils;
-import org.apache.myfaces.html5.renderkit.util.SelectItemsIterator;
 
 /**
  * Implementation of {@link SuggestionRendererHelper} for usage in {@link HtmlInputText}s.
@@ -76,13 +76,13 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
             {
                 // WIKI: put a wiki page about this error
                 throw new FacesException(
-                        "Either \"list\" attribute or \"suggestions\" attribute and children with type SelectItem mechanism can be used for suggestions. Component " + ComponentUtils.getPathToComponent(uiComponent) + "has both!");
+                        "Either \"list\" attribute or \"suggestions\" attribute and children with type SelectItem mechanism can be used for suggestions. Component " + DebugUtils.getPathToComponent(uiComponent) + "has both!");
             }
         }
         else
         {
             throw new IllegalArgumentException(
-                    "Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to check suggestions.");
+                    "Component " + DebugUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to check suggestions.");
         }
 
     }
@@ -118,7 +118,7 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
         else
         {
             throw new IllegalArgumentException(
-                    "Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to determine whether datalist will be generated or not.");
+                    "Component " + DebugUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to determine whether datalist will be generated or not.");
         }
     }
 
@@ -177,7 +177,7 @@ public class HtmlTextInputSuggestionRendererHelper implements SuggestionRenderer
         else
         {
             throw new IllegalArgumentException(
-                    "Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to render options of suggestions attr.");
+                    "Component " + DebugUtils.getPathToComponent(uiComponent) + " is not instance of Html5BaseInputText. HtmlTextInputSuggestionRendererHelper is unable to render options of suggestions attr.");
         }
     }
 

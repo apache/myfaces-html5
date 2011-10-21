@@ -52,11 +52,6 @@
             <version>${myfaces-commons20-version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces.commons</groupId>
-            <artifactId>myfaces-components20</artifactId>
-            <version>${myfaces-commons20-version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.myfaces.buildtools</groupId>
             <artifactId>myfaces-builder-annotations</artifactId>
             <version>${myfaces-builder-annotations-version}</version>
@@ -421,7 +416,7 @@
     </profiles>
 
     <properties>
-        <myfaces-commons20-version>1.0.1</myfaces-commons20-version>
+        <myfaces-commons20-version>1.0.2</myfaces-commons20-version>
         <myfaces-builder-plugin-version>1.0.8</myfaces-builder-plugin-version>
         <myfaces-builder-annotations-version>1.0.5</myfaces-builder-annotations-version>
     </properties>

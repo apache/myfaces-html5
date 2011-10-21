@@ -30,9 +30,9 @@ import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.Validator;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
+import org.apache.myfaces.commons.util.DebugUtils;
 import org.apache.myfaces.html5.component.input.Html5BaseInputText;
 import org.apache.myfaces.html5.component.input.HtmlInputNumberSlider;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlTextInputSuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
@@ -89,7 +89,7 @@ public class HtmlInputNumberSliderRenderer extends Html5BaseInputTextRenderer
 
         if (max <= min)
         {
-            throw new FacesException("Maximum must be larger than minimum for component " + ComponentUtils.getPathToComponent(uiComponent) + ". "
+            throw new FacesException("Maximum must be larger than minimum for component " + DebugUtils.getPathToComponent(uiComponent) + ". "
                     + "These values are calculated from the first attached DoubleRangeValidator or LongRangeValidator");
         }
 
@@ -116,14 +116,14 @@ public class HtmlInputNumberSliderRenderer extends Html5BaseInputTextRenderer
         if (step != Double.MIN_VALUE && segmentCount != Integer.MIN_VALUE)
         { // if both are set
             throw new FacesException(
-                    "Only one of 'step' or 'segmentCount' properties must be defined for component " + ComponentUtils.getPathToComponent(component) + ". Undefined one will be calculated.");
+                    "Only one of 'step' or 'segmentCount' properties must be defined for component " + DebugUtils.getPathToComponent(component) + ". Undefined one will be calculated.");
         }
 
         if (step != Double.MIN_VALUE)
         { // if only step is set
             if (step <= 0)
             { // if it is set but it is negative
-                throw new FacesException("'step' property of component " + ComponentUtils.getPathToComponent(component) + " must be positive");
+                throw new FacesException("'step' property of component " + DebugUtils.getPathToComponent(component) + " must be positive");
             }
             calculatedStep = step;
         }
@@ -131,7 +131,7 @@ public class HtmlInputNumberSliderRenderer extends Html5BaseInputTextRenderer
         { // if only segmentCount is set
             if (segmentCount <= 0)
             { // if it is set but it is negative
-                throw new FacesException("'segmentCount' property of component " + ComponentUtils.getPathToComponent(
+                throw new FacesException("'segmentCount' property of component " + DebugUtils.getPathToComponent(
                         component) + " must be positive");
             }
             calculatedStep = (max - min) / segmentCount;

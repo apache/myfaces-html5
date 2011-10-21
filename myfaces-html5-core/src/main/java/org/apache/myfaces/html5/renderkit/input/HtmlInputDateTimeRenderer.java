@@ -36,9 +36,9 @@ import javax.faces.convert.ConverterException;
 import javax.faces.validator.Validator;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
+import org.apache.myfaces.commons.util.DebugUtils;
 import org.apache.myfaces.html5.component.input.Html5BaseInputText;
 import org.apache.myfaces.html5.component.input.HtmlInputDateTime;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlTextInputSuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.input.util.Html5DateTimeConverter;
@@ -84,7 +84,7 @@ public class HtmlInputDateTimeRenderer extends Html5BaseInputTextRenderer
         if (submittedValue != null && !(submittedValue instanceof String))
         {
             throw new IllegalArgumentException("Submitted value of type String for component : "
-                    + ComponentUtils.getPathToComponent(uiComponent) + " expected");
+                    + DebugUtils.getPathToComponent(uiComponent) + " expected");
         }
 
         RendererUtils.checkParamValidity(facesContext, uiComponent, HtmlInputDateTime.class);
@@ -130,7 +130,7 @@ public class HtmlInputDateTimeRenderer extends Html5BaseInputTextRenderer
         else if (step < 0)
         {
             throw new FacesException("'step' cannot be negative for component "
-                    + ComponentUtils.getPathToComponent(uiComponent) + ". Provided " + step);
+                    + DebugUtils.getPathToComponent(uiComponent) + ". Provided " + step);
         }
         else
         {
@@ -164,7 +164,7 @@ public class HtmlInputDateTimeRenderer extends Html5BaseInputTextRenderer
                 }
                 catch (ParseException e)
                 {
-                    throw new FacesException("Unable to resolve minimum value of component " + ComponentUtils.getPathToComponent(component) + ".", e);
+                    throw new FacesException("Unable to resolve minimum value of component " + DebugUtils.getPathToComponent(component) + ".", e);
                 }
                 if (minimum != null)
                     return Html5DateTimeFormatUtils.formatDateTime(minimum, component.getType());
@@ -193,7 +193,7 @@ public class HtmlInputDateTimeRenderer extends Html5BaseInputTextRenderer
                 catch (ParseException e)
                 {
                     throw new FacesException("Unable to resolve maximum value of component "
-                            + ComponentUtils.getPathToComponent(component) + ".", e);
+                            + DebugUtils.getPathToComponent(component) + ".", e);
                 }
                 if (maximum != null)
                     return Html5DateTimeFormatUtils.formatDateTime(maximum, component.getType());
@@ -244,7 +244,7 @@ public class HtmlInputDateTimeRenderer extends Html5BaseInputTextRenderer
         {
             if (!(Arrays.asList(ALLOWED_INPUT_TYPES).contains(type)))
                 throw new FacesException("\"type\" attribute of component "
-                        + ComponentUtils.getPathToComponent(uiComponent) + " can be one of "
+                        + DebugUtils.getPathToComponent(uiComponent) + " can be one of "
                         + Arrays.toString(ALLOWED_INPUT_TYPES) + " . Provided: \"" + type + "\"");
         }
     }

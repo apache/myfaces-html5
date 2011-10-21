@@ -27,9 +27,9 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFRenderer;
+import org.apache.myfaces.commons.util.DebugUtils;
 import org.apache.myfaces.html5.component.HtmlInputEmail;
 import org.apache.myfaces.html5.component.input.Html5BaseInputText;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.input.delegate.HtmlTextInputSuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.input.delegate.SuggestionRendererHelper;
 import org.apache.myfaces.html5.renderkit.input.util.Html5EmailConverter;
@@ -58,7 +58,7 @@ public class HtmlInputEmailRenderer extends Html5BaseInputTextRenderer
         if (submittedValue != null && !(submittedValue instanceof String))
         {
             throw new IllegalArgumentException("Submitted value of type String for component : "
-                    + ComponentUtils.getPathToComponent(uiComponent) + " expected");
+                    + DebugUtils.getPathToComponent(uiComponent) + " expected");
         }
 
         RendererUtils.checkParamValidity(facesContext, uiComponent, HtmlInputEmail.class);

@@ -27,11 +27,10 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
+import org.apache.myfaces.commons.util.DebugUtils;
 import org.apache.myfaces.html5.component.input.HtmlDataList;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.JsfProperties;
-import org.apache.myfaces.html5.renderkit.util.RendererUtils;
 
 /**
  * Implementation of {@link SuggestionRendererHelper} for usage in {@link org.apache.myfaces.html5.component.input.HtmlDataList}s.
@@ -94,7 +93,7 @@ public class HtmlDataListSuggestionRendererHelper extends HtmlTextInputSuggestio
         else
         {
             throw new IllegalArgumentException(
-                    "Component " + ComponentUtils.getPathToComponent(uiComponent) + " is not instance of HtmlDataList. HtmlDataListSuggestionRendererHelper is unable to render options of suggestions attr.");
+                    "Component " + DebugUtils.getPathToComponent(uiComponent) + " is not instance of HtmlDataList. HtmlDataListSuggestionRendererHelper is unable to render options of suggestions attr.");
         }
     }
 

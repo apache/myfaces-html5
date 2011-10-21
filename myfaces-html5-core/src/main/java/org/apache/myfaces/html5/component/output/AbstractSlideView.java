@@ -23,7 +23,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFProperty;
 import org.apache.myfaces.html5.component.properties.*;
 import org.apache.myfaces.html5.component.properties.effect.TransitionProperties;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
+import org.apache.myfaces.commons.util.ComponentUtils;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;

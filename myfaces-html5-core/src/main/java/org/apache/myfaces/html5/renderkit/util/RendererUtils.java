@@ -19,7 +19,8 @@
 
 package org.apache.myfaces.html5.renderkit.util;
 
-import org.apache.myfaces.html5.component.util.ComponentUtils;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -31,8 +32,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.PropertyNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.myfaces.commons.util.DebugUtils;
 
 /**
  * @author Ali Ok
@@ -51,7 +52,7 @@ public class RendererUtils {
         // why isAssignableFrom with additional getClass method call if isInstance does the same?
         if (compClass != null && !(compClass.isInstance(uiComponent)))
         {
-            throw new IllegalArgumentException("uiComponent : " + ComponentUtils.getPathToComponent(uiComponent)+
+            throw new IllegalArgumentException("uiComponent : " + DebugUtils.getPathToComponent(uiComponent)+
                     " is not instance of "+compClass.getName()+" as it should be");
         }
     }
@@ -199,7 +200,7 @@ public class RendererUtils {
         {
             if (!(component instanceof ValueHolder))
             {
-                throw new IllegalArgumentException("Component : " + ComponentUtils.getPathToComponent(component)+"is not a ValueHolder");
+                throw new IllegalArgumentException("Component : " + DebugUtils.getPathToComponent(component)+"is not a ValueHolder");
             }
 
             if (component instanceof EditableValueHolder)
@@ -263,7 +264,7 @@ public class RendererUtils {
         }
         catch(PropertyNotFoundException ex)
         {
-            log.log(Level.SEVERE, "Property not found - called by component : "+ComponentUtils.getPathToComponent(component),ex);
+            log.log(Level.SEVERE, "Property not found - called by component : "+DebugUtils.getPathToComponent(component),ex);
 
             throw ex;
         }
@@ -278,7 +279,7 @@ public class RendererUtils {
         catch(Exception ex)
         {
             throw new FacesException("Could not retrieve value of component with path : "+
-                    ComponentUtils.getPathToComponent(component),ex);
+                    DebugUtils.getPathToComponent(component),ex);
         }
         return value;
     }

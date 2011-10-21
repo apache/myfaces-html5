@@ -33,8 +33,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.commons.util.DebugUtils;
 import org.apache.myfaces.html5.component.media.AbstractMedia;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
 import org.apache.myfaces.html5.model.MediaInfo;
 import org.apache.myfaces.html5.renderkit.util.HTML5;
 import org.apache.myfaces.html5.renderkit.util.Html5RendererUtils;
@@ -162,7 +162,7 @@ public abstract class AbstractMediaRenderer extends Renderer
                 // src is reqired to be present and not empty!
                 if (mediaInfo.getSrc() == null || mediaInfo.getSrc().length() == 0)
                     // WIKI: add a wiki page
-                    throw new FacesException("'src' field of MediaInfo has to be defined and nonempty for component " + ComponentUtils.getPathToComponent(uiComponent) + ".");
+                    throw new FacesException("'src' field of MediaInfo has to be defined and nonempty for component " + DebugUtils.getPathToComponent(uiComponent) + ".");
 
                 writer.writeAttribute(HTML5.SRC_ATTR, mediaInfo.getSrc(), null);
 

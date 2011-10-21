@@ -25,7 +25,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.apache.commons.validator.EmailValidator;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
+import org.apache.myfaces.commons.util.DebugUtils;
 
 /**
  * Converter for use in hx:inputEmail.
@@ -54,7 +54,7 @@ public class Html5EmailConverter implements Converter
                 if (!EmailValidator.getInstance().isValid(email))
                 {
                     throw new ConverterException(new FacesMessage("Provided value for component "
-                            + ComponentUtils.getPathToComponent(component) + " is not a valid email: " + email));
+                            + DebugUtils.getPathToComponent(component) + " is not a valid email: " + email));
                 }
             }
 
@@ -93,7 +93,7 @@ public class Html5EmailConverter implements Converter
         else
         {
             throw new ConverterException(new FacesMessage("Provided value for component "
-                    + ComponentUtils.getPathToComponent(component) + " is not String or String[]: " + value.toString()));
+                    + DebugUtils.getPathToComponent(component) + " is not String or String[]: " + value.toString()));
         }
     }
 }

@@ -30,7 +30,7 @@ import javax.faces.view.facelets.TagHandler;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFFaceletAttribute;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFFaceletTag;
-import org.apache.myfaces.html5.component.util.ComponentUtils;
+import org.apache.myfaces.commons.util.DebugUtils;
 import org.apache.myfaces.html5.holder.MediaSourceHolder;
 import org.apache.myfaces.html5.model.MediaInfo;
 
@@ -100,7 +100,7 @@ public class MediaSourceHandler extends TagHandler
         if (!(parent instanceof MediaSourceHolder))
         {
             if (log.isLoggable(Level.WARNING))
-                log.warning("parent component " + ComponentUtils.getPathToComponent(parent) + " is not a MediaSourceHolder. handler will not apply anything.");
+                log.warning("parent component " + DebugUtils.getPathToComponent(parent) + " is not a MediaSourceHolder. handler will not apply anything.");
             return;
         }
         else
